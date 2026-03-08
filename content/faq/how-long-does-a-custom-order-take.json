@@ -1,0 +1,9 @@
+{
+    "question_en": "How long does a custom order take?",
+    "question_ar": "كم يستغرق الطلب المخصص؟",
+    "answer_en": "Custom orders typically take 2-4 weeks depending on complexity and current order volume. We will give you an exact timeline when you confirm your order via WhatsApp.",
+    "answer_ar": "تستغرق الطلبات المخصصة عادةً من 2 إلى 4 أسابيع حسب التعقيد وحجم الطلبات الحالية. سنعطيك جدولاً زمنياً دقيقاً عند تأكيد طلبك عبر واتساب.",
+    "category": "Customization",
+    "enabled": true,
+    "order": 2
+}

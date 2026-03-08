@@ -1,0 +1,24 @@
+{
+    "title_en": "Elegant Navy Mother & Daughter Set",
+    "title_ar": "طقم كحلي أنيق للأم والابنة",
+    "price": 650,
+    "sale_price": 550,
+    "category": "mother-daughter",
+    "images": [
+        "/images/uploads/sample-navy-1.jpg"
+    ],
+    "in_stock": true,
+    "is_new": true,
+    "is_best_seller": false,
+    "is_custom": true,
+    "description_en": "Matching navy blue elegant dresses for mother and daughter. Made from premium silk blend with subtle lace detailing. Please provide custom measurements for the mother dress.",
+    "description_ar": "فساتين متناسقة باللون الأزرق الداكن الأنيق للأم والابنة. مصنوعة من مزيج الحرير الفاخر مع تفاصيل دانتيل دقيقة. يرجى تقديم قياسات مخصصة لفستان الأم.",
+    "colors": [
+        "Navy Blue",
+        "Emerald Green"
+    ],
+    "seo": {
+        "meta_title_en": "Navy Mother Daughter Set | Noor Boutique",
+        "meta_description_en": "Matching navy blue elegant dresses for mother and daughter."
+    }
+}

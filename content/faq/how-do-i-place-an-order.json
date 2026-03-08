@@ -1,0 +1,9 @@
+{
+    "question_en": "How do I place an order?",
+    "question_ar": "كيف أقدم طلباً؟",
+    "answer_en": "Simply browse our products, add items to your cart, then proceed to checkout. Fill in your details and click the \"Order via WhatsApp\" button. This will open a WhatsApp message with your complete order details ready to send to us.",
+    "answer_ar": "ببساطة تصفحي منتجاتنا، أضيفي العناصر إلى سلة التسوق، ثم انتقلي إلى الدفع. أدخلي بياناتك واضغطي على زر \"الطلب عبر واتساب\". سيفتح هذا رسالة واتساب مع تفاصيل طلبك الكاملة جاهزة للإرسال.",
+    "category": "Orders",
+    "enabled": true,
+    "order": 1
+}

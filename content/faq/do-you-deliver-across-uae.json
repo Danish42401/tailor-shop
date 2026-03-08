@@ -1,0 +1,9 @@
+{
+    "question_en": "Do you deliver across the UAE?",
+    "question_ar": "هل تودعون في جميع أنحاء الإمارات؟",
+    "answer_en": "Yes! We deliver to all Emirates including Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain. Delivery charges and timelines vary by emirate.",
+    "answer_ar": "نعم! نوصل إلى جميع الإمارات بما فيها دبي وأبوظبي والشارقة وعجمان ورأس الخيمة والفجيرة وأم القيوين. رسوم وجداول التوصيل تختلف حسب الإمارة.",
+    "category": "Delivery",
+    "enabled": true,
+    "order": 3
+}

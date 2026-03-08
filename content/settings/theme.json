@@ -1,0 +1,12 @@
+{
+    "theme_color": "#4A1D96",
+    "primary_color": "#4A1D96",
+    "accent_color": "#D4AF37",
+    "background_light": "#FFFFFF",
+    "surface_light": "#FAF7FF",
+    "text_light": "#1A1A2E",
+    "background_dark": "#0F0A1E",
+    "surface_dark": "#1A1033",
+    "text_dark": "#F3E8FF",
+    "custom_css": ""
+}

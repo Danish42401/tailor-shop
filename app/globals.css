@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Custom Properties (CMS theme colors) ────────────────────────────── */
+:root {
+  --color-primary: #4A1D96;
+  --color-primary-hover: #3B0764;
+  --color-accent: #D4AF37;
+  --color-background: #FFFFFF;
+  --color-surface: #FAF7FF;
+  --color-text: #1A1A2E;
+  --color-background-dark: #0F0A1E;
+  --color-surface-dark: #1A1033;
+  --color-text-dark: #F3E8FF;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-arabic: 'Noto Naskh Arabic', system-ui, sans-serif;
+}
+
+/* ── Base Styles ─────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background dark:bg-background-dark text-foreground dark:text-foreground-dark;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Arabic RTL font */
+  [dir="rtl"] body,
+  [lang="ar"] body {
+    font-family: var(--font-arabic);
+  }
+
+  /* Safe area for mobile bottom nav */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Remove tap highlight on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Focus ring */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+    border-radius: 4px;
+  }
+}
+
+/* ── Component Utilities ─────────────────────────────────────────────────── */
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-primary-hover active:scale-95 transition-all duration-150 shadow-luxury;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-primary text-primary dark:text-purple-300 hover:bg-primary hover:text-white transition-all duration-150;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-gold text-purple-950 font-bold hover:opacity-90 active:scale-95 transition-all duration-150 shadow-gold;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white dark:bg-surface-dark shadow-sm border border-purple-50 dark:border-purple-900/30;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-purple-200 dark:border-purple-800 bg-white dark:bg-surface-dark text-foreground dark:text-foreground-dark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors;
+  }
+
+  .section-title {
+    @apply text-2xl sm:text-3xl font-bold text-foreground dark:text-foreground-dark;
+  }
+
+  .section-title-gold {
+    @apply bg-gradient-gold bg-clip-text text-transparent font-bold text-2xl sm:text-3xl;
+  }
+
+  /* RTL-aware flex direction */
+  .flex-row-rtl {
+    @apply flex flex-row rtl:flex-row-reverse;
+  }
+
+  /* Gold underline decoration */
+  .gold-underline {
+    @apply border-b-4 border-accent pb-1;
+  }
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B8962E;
+}
+
+/* ── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background-color: #4A1D96;
+  color: white;
+}

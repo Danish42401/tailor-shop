@@ -1,0 +1,42 @@
+{
+    "age_chart": [
+        {
+            "age": "1Y",
+            "chest": "52cm",
+            "length": "45cm",
+            "sleeves": "28cm"
+        },
+        {
+            "age": "2Y",
+            "chest": "54cm",
+            "length": "50cm",
+            "sleeves": "30cm"
+        },
+        {
+            "age": "3Y",
+            "chest": "56cm",
+            "length": "55cm",
+            "sleeves": "32cm"
+        },
+        {
+            "age": "4Y",
+            "chest": "58cm",
+            "length": "60cm",
+            "sleeves": "34cm"
+        },
+        {
+            "age": "5Y",
+            "chest": "60cm",
+            "length": "65cm",
+            "sleeves": "36cm"
+        },
+        {
+            "age": "6Y",
+            "chest": "62cm",
+            "length": "70cm",
+            "sleeves": "38cm"
+        }
+    ],
+    "note_en": "All measurements are approximate. Please allow 1-2cm difference due to manual tailoring.",
+    "note_ar": "جميع المقاسات تقريبية. يرجى السماح باختلاف 1-2 سم بسبب الخياطة اليدوية."
+}

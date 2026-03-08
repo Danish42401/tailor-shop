@@ -1,0 +1,35 @@
+{
+    "hero": {
+        "enabled": true,
+        "heading_en": "Elegance for Your Little Princess",
+        "heading_ar": "أناقة لأميرتك الصغيرة",
+        "subheading_en": "Discover our handcrafted collection of children's frocks and matching mother-daughter dresses.",
+        "subheading_ar": "اكتشفي مجموعتنا المصنوعة يدوياً من فساتين الأطفال وفساتين الأم والابنة المتناسقة.",
+        "cta_en": "Shop Collection",
+        "cta_ar": "تسوقي المجموعة",
+        "cta_link": "/products",
+        "image": ""
+    },
+    "how_to_order": {
+        "enabled": true,
+        "title_en": "How to Order Custom Frocks",
+        "title_ar": "كيفية طلب فساتين مخصصة"
+    },
+    "categories_grid": {
+        "enabled": true,
+        "title_en": "Shop by Category",
+        "title_ar": "تسوق حسب القسم"
+    },
+    "new_arrivals": {
+        "enabled": true,
+        "title_en": "New Arrivals",
+        "title_ar": "وصل حديثاً",
+        "limit": 4
+    },
+    "best_sellers": {
+        "enabled": true,
+        "title_en": "Best Sellers",
+        "title_ar": "الأكثر مبيعاً",
+        "limit": 4
+    }
+}

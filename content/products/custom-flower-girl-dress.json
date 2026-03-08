@@ -1,0 +1,25 @@
+{
+    "title_en": "Bespoke Bridal Flower Girl Dress",
+    "title_ar": "فستان فتاة الزهور المخصص",
+    "price": 400,
+    "sale_price": null,
+    "category": "custom",
+    "images": [
+        "/images/uploads/sample-white-1.jpg"
+    ],
+    "in_stock": true,
+    "is_new": false,
+    "is_best_seller": false,
+    "is_custom": true,
+    "description_en": "Fully customizable flower girl dress. Choose your preferred fabric, sleeve style, and provide exact measurements. Perfect for matching the bridal party theme.",
+    "description_ar": "فستان فتاة الزهور قابل للتخصيص بالكامل. اختاري القماش المفضل لديك ونمط الأكمام وقدمي قياسات دقيقة. مثالي لمطابقة طابع حفل الزفاف.",
+    "colors": [
+        "White",
+        "Ivory",
+        "Champagne"
+    ],
+    "seo": {
+        "meta_title_en": "Custom Flower Girl Dress | Noor Boutique",
+        "meta_description_en": "Fully customizable flower girl dress made to your exact measurements."
+    }
+}

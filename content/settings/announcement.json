@@ -1,0 +1,10 @@
+{
+    "enabled": true,
+    "text_en": "Free Delivery across UAE on all orders above 300 AED!",
+    "text_ar": "توصيل مجاني في جميع أنحاء الإمارات للطلبات التي تزيد عن 300 درهم!",
+    "linkText_en": "Shop Now",
+    "linkText_ar": "تسوق الآن",
+    "linkUrl": "/en/products",
+    "backgroundColor": "#D4AF37",
+    "textColor": "#0F0A1E"
+}

@@ -1,0 +1,299 @@
+backend:
+  name: github
+  repo: Danish42401/tailor-shop
+  branch: main
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+
+  # ── SITE SETTINGS ────────────────────────────────────────
+  - name: settings
+    label: "⚙️ Site Settings"
+    files:
+      - name: general
+        label: "🏪 General"
+        file: content/settings/general.json
+        fields:
+          - { label: "Shop Name (EN)", name: shop_name_en, widget: string }
+          - { label: "Shop Name (AR)", name: shop_name_ar, widget: string }
+          - { label: "Tagline (EN)", name: tagline_en, widget: string }
+          - { label: "Tagline (AR)", name: tagline_ar, widget: string }
+          - { label: "Logo", name: logo, widget: image, required: false }
+          - { label: "Favicon", name: favicon, widget: image, required: false }
+          - { label: "Currency", name: currency, widget: string, default: "AED" }
+          - { label: "Default Language", name: default_locale, widget: select, options: ["en", "ar"], default: "en" }
+
+      - name: contact
+        label: "📞 Contact & Social"
+        file: content/settings/contact.json
+        fields:
+          - { label: "WhatsApp (971XXXXXXXXX)", name: whatsapp_number, widget: string }
+          - { label: "Email", name: email, widget: string }
+          - { label: "Phone (display)", name: phone, widget: string }
+          - { label: "Address (EN)", name: address_en, widget: string }
+          - { label: "Address (AR)", name: address_ar, widget: string }
+          - { label: "City", name: city, widget: string }
+          - label: "Social Media"
+            name: social
+            widget: object
+            fields:
+              - { label: "Instagram", name: instagram, widget: string, required: false }
+              - { label: "Facebook", name: facebook, widget: string, required: false }
+              - { label: "TikTok", name: tiktok, widget: string, required: false }
+              - { label: "Pinterest", name: pinterest, widget: string, required: false }
+
+      - name: theme
+        label: "🎨 Colors & Theme"
+        file: content/settings/theme.json
+        fields:
+          - label: "Light Mode"
+            name: light
+            widget: object
+            fields:
+              - { label: "Primary", name: primary, widget: color, default: "#4A1D96" }
+              - { label: "Primary Hover", name: primary_hover, widget: color, default: "#3B0764" }
+              - { label: "Accent/Gold", name: accent, widget: color, default: "#D4AF37" }
+              - { label: "Background", name: background, widget: color, default: "#FFFFFF" }
+              - { label: "Surface", name: surface, widget: color, default: "#FAF7FF" }
+              - { label: "Text", name: text, widget: color, default: "#1A1A2E" }
+          - label: "Dark Mode"
+            name: dark
+            widget: object
+            fields:
+              - { label: "Background", name: background, widget: color, default: "#0F0A1E" }
+              - { label: "Surface", name: surface, widget: color, default: "#1A1033" }
+              - { label: "Text", name: text, widget: color, default: "#F3E8FF" }
+
+      - name: announcement
+        label: "📢 Announcement Bar"
+        file: content/settings/announcement.json
+        fields:
+          - { label: "Show Bar", name: enabled, widget: boolean, default: false }
+          - { label: "Message (EN)", name: message_en, widget: string, required: false }
+          - { label: "Message (AR)", name: message_ar, widget: string, required: false }
+          - { label: "Background", name: bg_color, widget: color, default: "#4A1D96" }
+          - { label: "Text Color", name: text_color, widget: color, default: "#D4AF37" }
+          - { label: "Link URL", name: link, widget: string, required: false }
+          - { label: "Dismissable?", name: dismissable, widget: boolean, default: true }
+
+      - name: homepage
+        label: "🏠 Homepage Sections"
+        file: content/settings/homepage.json
+        fields:
+          - label: "Hero Banner"
+            name: hero
+            widget: object
+            fields:
+              - { label: "Enabled", name: enabled, widget: boolean, default: true }
+              - { label: "Heading (EN)", name: heading_en, widget: string }
+              - { label: "Heading (AR)", name: heading_ar, widget: string }
+              - { label: "Subheading (EN)", name: subheading_en, widget: string }
+              - { label: "Subheading (AR)", name: subheading_ar, widget: string }
+              - { label: "Button Text (EN)", name: cta_en, widget: string, default: "Shop Now" }
+              - { label: "Button Text (AR)", name: cta_ar, widget: string, default: "تسوق الآن" }
+              - { label: "Button Link", name: cta_link, widget: string, default: "/products" }
+              - { label: "Background Image", name: image, widget: image, required: false }
+          - label: "New Arrivals"
+            name: new_arrivals
+            widget: object
+            fields:
+              - { label: "Enabled", name: enabled, widget: boolean, default: true }
+              - { label: "Title (EN)", name: title_en, widget: string, default: "New Arrivals" }
+              - { label: "Title (AR)", name: title_ar, widget: string, default: "وصل حديثاً" }
+              - { label: "Max Products", name: limit, widget: number, default: 8 }
+          - label: "Best Sellers"
+            name: best_sellers
+            widget: object
+            fields:
+              - { label: "Enabled", name: enabled, widget: boolean, default: true }
+              - { label: "Title (EN)", name: title_en, widget: string, default: "Best Sellers" }
+              - { label: "Title (AR)", name: title_ar, widget: string, default: "الأكثر مبيعاً" }
+              - { label: "Max Products", name: limit, widget: number, default: 8 }
+          - label: "Sale Section"
+            name: sale
+            widget: object
+            fields:
+              - { label: "Enabled", name: enabled, widget: boolean, default: true }
+              - { label: "Title (EN)", name: title_en, widget: string, default: "Special Offers" }
+              - { label: "Title (AR)", name: title_ar, widget: string, default: "عروض خاصة" }
+          - label: "Categories Grid"
+            name: categories_grid
+            widget: object
+            fields:
+              - { label: "Enabled", name: enabled, widget: boolean, default: true }
+              - { label: "Title (EN)", name: title_en, widget: string, default: "Shop by Category" }
+              - { label: "Title (AR)", name: title_ar, widget: string, default: "تسوق حسب الفئة" }
+          - label: "How to Order"
+            name: how_to_order
+            widget: object
+            fields:
+              - { label: "Enabled", name: enabled, widget: boolean, default: true }
+              - { label: "Title (EN)", name: title_en, widget: string, default: "How to Order" }
+              - { label: "Title (AR)", name: title_ar, widget: string, default: "كيفية الطلب" }
+          - label: "Testimonials"
+            name: testimonials
+            widget: object
+            fields:
+              - { label: "Enabled", name: enabled, widget: boolean, default: true }
+              - { label: "Title (EN)", name: title_en, widget: string, default: "What Customers Say" }
+              - { label: "Title (AR)", name: title_ar, widget: string, default: "ماذا يقول عملاؤنا" }
+          - label: "FAQ on Homepage"
+            name: faq_preview
+            widget: object
+            fields:
+              - { label: "Enabled", name: enabled, widget: boolean, default: false }
+              - { label: "Max FAQs", name: limit, widget: number, default: 5 }
+
+      - name: shop
+        label: "🛍️ Shop Settings"
+        file: content/settings/shop.json
+        fields:
+          - label: "Delivery Methods"
+            name: delivery_methods
+            widget: list
+            fields:
+              - { label: "Value", name: value, widget: string }
+              - { label: "Label (EN)", name: label_en, widget: string }
+              - { label: "Label (AR)", name: label_ar, widget: string }
+              - { label: "Enabled", name: enabled, widget: boolean, default: true }
+          - label: "Age Sizes"
+            name: age_sizes
+            widget: list
+            field: { label: "Size", name: size, widget: string }
+          - label: "Standard Sizes"
+            name: standard_sizes
+            widget: list
+            field: { label: "Size", name: size, widget: string }
+          - label: "Fabrics"
+            name: fabrics
+            widget: list
+            fields:
+              - { label: "Label (EN)", name: label_en, widget: string }
+              - { label: "Label (AR)", name: label_ar, widget: string }
+              - { label: "Value", name: value, widget: string }
+          - label: "Sleeve Styles"
+            name: sleeve_styles
+            widget: list
+            fields:
+              - { label: "Label (EN)", name: label_en, widget: string }
+              - { label: "Label (AR)", name: label_ar, widget: string }
+              - { label: "Value", name: value, widget: string }
+          - label: "Embroidery Options"
+            name: embroidery_options
+            widget: list
+            fields:
+              - { label: "Label (EN)", name: label_en, widget: string }
+              - { label: "Label (AR)", name: label_ar, widget: string }
+              - { label: "Value", name: value, widget: string }
+
+      - name: size_guide
+        label: "📐 Size Guide"
+        file: content/settings/size-guide.json
+        fields:
+          - label: "Kids Size Chart (Age-Based)"
+            name: age_chart
+            widget: list
+            fields:
+              - { label: "Age", name: age, widget: string }
+              - { label: "Chest (cm)", name: chest, widget: string }
+              - { label: "Length (cm)", name: length, widget: string }
+              - { label: "Sleeves (cm)", name: sleeves, widget: string }
+          - label: "Standard Size Chart"
+            name: standard_chart
+            widget: list
+            fields:
+              - { label: "Size", name: size, widget: string }
+              - { label: "Chest (cm)", name: chest, widget: string }
+              - { label: "Waist (cm)", name: waist, widget: string }
+              - { label: "Length (cm)", name: length, widget: string }
+          - { label: "Note (EN)", name: note_en, widget: text, required: false }
+          - { label: "Note (AR)", name: note_ar, widget: text, required: false }
+
+      - name: legal
+        label: "⚖️ Legal Pages"
+        file: content/settings/legal.json
+        fields:
+          - { label: "Privacy Policy (EN)", name: privacy_en, widget: markdown }
+          - { label: "Privacy Policy (AR)", name: privacy_ar, widget: markdown }
+          - { label: "Terms & Conditions (EN)", name: terms_en, widget: markdown }
+          - { label: "Terms & Conditions (AR)", name: terms_ar, widget: markdown }
+          - { label: "Last Updated", name: last_updated, widget: datetime }
+
+  # ── PRODUCTS ─────────────────────────────────────────────
+  - name: products
+    label: "👗 Products"
+    folder: content/products
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title (EN)", name: title_en, widget: string }
+      - { label: "Title (AR)", name: title_ar, widget: string }
+      - { label: "Price (AED)", name: price, widget: number }
+      - { label: "Sale Price", name: sale_price, widget: number, required: false }
+      - label: "Category"
+        name: category
+        widget: select
+        options:
+          - { label: "Kids Frocks", value: "kids-frocks" }
+          - { label: "Mother-Daughter", value: "mother-daughter" }
+          - { label: "Custom Order", value: "custom" }
+          - { label: "Ready-Made", value: "ready-made" }
+          - { label: "Special Occasion", value: "special-occasion" }
+      - { label: "Images", name: images, widget: list, field: { label: "Image", name: image, widget: image } }
+      - { label: "Is Customizable?", name: is_custom, widget: boolean, default: false }
+      - { label: "New Arrival?", name: is_new, widget: boolean, default: false }
+      - { label: "Best Seller?", name: is_best_seller, widget: boolean, default: false }
+      - { label: "In Stock?", name: in_stock, widget: boolean, default: true }
+      - { label: "Available Colors (comma separated)", name: colors, widget: string, required: false }
+      - { label: "Description (EN)", name: description_en, widget: markdown }
+      - { label: "Description (AR)", name: description_ar, widget: markdown }
+
+  # ── TESTIMONIALS ──────────────────────────────────────────
+  - name: testimonials
+    label: "⭐ Testimonials"
+    folder: content/testimonials
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Customer Name", name: name, widget: string }
+      - { label: "Photo", name: photo, widget: image, required: false }
+      - { label: "Rating (1-5)", name: rating, widget: number, value_type: int, min: 1, max: 5, default: 5 }
+      - { label: "Review (EN)", name: review_en, widget: text }
+      - { label: "Review (AR)", name: review_ar, widget: text }
+      - { label: "Location", name: location, widget: string, required: false }
+      - { label: "Show?", name: enabled, widget: boolean, default: true }
+
+  # ── FAQ ───────────────────────────────────────────────────
+  - name: faq
+    label: "❓ FAQ"
+    folder: content/faq
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Question (EN)", name: question_en, widget: string }
+      - { label: "Question (AR)", name: question_ar, widget: string }
+      - { label: "Answer (EN)", name: answer_en, widget: markdown }
+      - { label: "Answer (AR)", name: answer_ar, widget: markdown }
+      - label: "Category"
+        name: category
+        widget: select
+        options: ["Orders", "Customization", "Delivery", "Payment", "Returns", "General"]
+      - { label: "Show?", name: enabled, widget: boolean, default: true }
+      - { label: "Order", name: order, widget: number, default: 10 }
+
+  # ── BLOG ──────────────────────────────────────────────────
+  - name: blog
+    label: "📝 Blog"
+    folder: content/blog
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title (EN)", name: title_en, widget: string }
+      - { label: "Title (AR)", name: title_ar, widget: string }
+      - { label: "Cover Image", name: cover_image, widget: image, required: false }
+      - { label: "Date", name: date, widget: datetime }
+      - { label: "Published?", name: published, widget: boolean, default: true }
+      - { label: "Body (EN)", name: body_en, widget: markdown }
+      - { label: "Body (AR)", name: body_ar, widget: markdown }

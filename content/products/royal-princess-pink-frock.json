@@ -1,0 +1,25 @@
+{
+    "title_en": "Royal Princess Pink Frock",
+    "title_ar": "فستان الأميرة الملكي الوردي",
+    "price": 250,
+    "sale_price": null,
+    "category": "kids-frocks",
+    "images": [
+        "/images/uploads/sample-pink-1.jpg",
+        "/images/uploads/sample-pink-2.jpg"
+    ],
+    "in_stock": true,
+    "is_new": true,
+    "is_best_seller": true,
+    "is_custom": false,
+    "description_en": "A beautiful handmade pink tulle frock perfect for birthdays and special occasions. Features delicate floral embroidery on the bodice and a voluminous multi-layered skirt. Lined with soft cotton for maximum comfort.",
+    "description_ar": "فستان وردي جميل مصنوع يدويًا من التول مثالي لأعياد الميلاد والمناسبات الخاصة. يتميز بتطريز زهور رقيق على الصدر وتنورة ضخمة متعددة الطبقات. مبطن بقطن ناعم لأقصى قدر من الراحة.",
+    "colors": [
+        "Pink",
+        "White"
+    ],
+    "seo": {
+        "meta_title_en": "Royal Princess Pink Frock | Noor Boutique",
+        "meta_description_en": "Beautiful handmade pink tulle frock for kids."
+    }
+}

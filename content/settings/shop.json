@@ -1,0 +1,107 @@
+{
+    "age_sizes": [
+        {
+            "size": "1Y"
+        },
+        {
+            "size": "2Y"
+        },
+        {
+            "size": "3Y"
+        },
+        {
+            "size": "4Y"
+        },
+        {
+            "size": "5Y"
+        },
+        {
+            "size": "6Y"
+        },
+        {
+            "size": "7Y"
+        },
+        {
+            "size": "8Y"
+        }
+    ],
+    "standard_sizes": [
+        {
+            "size": "XS"
+        },
+        {
+            "size": "S"
+        },
+        {
+            "size": "M"
+        },
+        {
+            "size": "L"
+        },
+        {
+            "size": "XL"
+        }
+    ],
+    "fabrics": [
+        {
+            "value": "cotton",
+            "label_en": "Cotton",
+            "label_ar": "قطن"
+        },
+        {
+            "value": "silk",
+            "label_en": "Silk",
+            "label_ar": "حرير"
+        },
+        {
+            "value": "tulle",
+            "label_en": "Tulle",
+            "label_ar": "تول"
+        },
+        {
+            "value": "linen",
+            "label_en": "Linen",
+            "label_ar": "كتان"
+        }
+    ],
+    "sleeve_styles": [
+        {
+            "value": "sleeveless",
+            "label_en": "Sleeveless",
+            "label_ar": "بدون أكمام"
+        },
+        {
+            "value": "short",
+            "label_en": "Short Sleeve",
+            "label_ar": "نصف كم"
+        },
+        {
+            "value": "long",
+            "label_en": "Long Sleeve",
+            "label_ar": "كم طويل"
+        }
+    ],
+    "delivery_methods": [
+        {
+            "value": "standard",
+            "label_en": "Standard Delivery (2-3 days) - 20 AED",
+            "label_ar": "توصيل عادي (٢-٣ أيام) - ٢٠ درهم",
+            "cost": 20,
+            "enabled": true
+        },
+        {
+            "value": "express",
+            "label_en": "Express Delivery (Next day) - 40 AED",
+            "label_ar": "توصيل سريع (اليوم التالي) - ٤٠ درهم",
+            "cost": 40,
+            "enabled": true
+        },
+        {
+            "value": "pickup",
+            "label_en": "Store Pickup - Free",
+            "label_ar": "استلام من المتجر - مجاناً",
+            "cost": 0,
+            "enabled": true
+        }
+    ]
+}
