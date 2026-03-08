@@ -47,12 +47,13 @@ export function CheckoutClient({ locale }: CheckoutClientProps) {
             });
         } catch { /* email is best-effort */ }
 
-        // Clear cart then redirect BEFORE opening WhatsApp (allows order-confirmation to render)
+        // Open WhatsApp synchronously to bypass popup blockers
+        window.open(waUrl, '_blank');
+
+        // Clear cart then redirect to confirmation page
         clearCart();
         router.push(`/${locale}/order-confirmation`);
 
-        // Open WhatsApp after short delay
-        setTimeout(() => window.open(waUrl, '_blank'), 300);
         setIsSubmitting(false);
     };
 
