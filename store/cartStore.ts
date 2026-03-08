@@ -52,11 +52,25 @@ interface CartStore {
     getTotalPrice: () => number;
 }
 
-// ── Helper ───────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────────
+
+/**
+ * Recursively sorts object keys to ensure stable JSON stringification.
+ */
+function sortObject(obj: any): any {
+    if (obj === null || typeof obj !== 'object') return obj;
+    if (Array.isArray(obj)) return obj.map(sortObject);
+    return Object.keys(obj).sort().reduce((acc: any, key) => {
+        acc[key] = sortObject(obj[key]);
+        return acc;
+    }, {});
+}
 
 function generateCartId(productId: string, customization?: CartItemCustomization): string {
     if (!customization) return productId;
-    return `${productId}__${JSON.stringify(customization)}`;
+    // We sort the customization object to ensure identical selections always hash to the same ID
+    const stableCustomization = sortObject(customization);
+    return `${productId}__${JSON.stringify(stableCustomization)}`;
 }
 
 // ── Store ─────────────────────────────────────────────────────────────────

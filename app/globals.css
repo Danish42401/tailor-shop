@@ -26,9 +26,16 @@
   }
 
   body {
-    @apply bg-background dark:bg-background-dark text-foreground dark:text-foreground-dark;
+    @apply bg-background text-foreground;
+    background-color: var(--color-background);
+    color: var(--color-text);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+
+  .dark body {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-dark);
   }
 
   /* Arabic RTL font */
