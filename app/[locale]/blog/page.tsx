@@ -51,6 +51,8 @@ export default async function BlogPage({ params }: PageProps) {
                                         <CloudinaryImage
                                             src={post.cover_image}
                                             alt={title}
+                                            width={600}
+                                            height={450}
                                             fill
                                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
