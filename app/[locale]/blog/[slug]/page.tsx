@@ -80,6 +80,8 @@ export default async function BlogPostPage({ params }: PageProps) {
                     <CloudinaryImage
                         src={post.cover_image}
                         alt={title}
+                        width={1280}
+                        height={480}
                         fill
                         className="object-cover"
                         priority
