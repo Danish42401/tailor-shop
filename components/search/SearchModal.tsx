@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUIStore } from '@/store/uiStore';
 import { searchProducts } from '@/lib/search';
 
 import { ProductCard } from '@/components/product/ProductCard';
-import { useState } from 'react';
 import { type Product } from '@/lib/productUtils';
 
 interface SearchModalProps {
@@ -18,24 +17,39 @@ interface SearchModalProps {
 export function SearchModal({ locale, products }: SearchModalProps) {
     const t = useTranslations();
     const { isSearchOpen, searchQuery, setSearchQuery, closeSearch } = useUIStore();
-    const [results, setResults] = useState<Product[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
+    const focusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+    // Debounced query — only updates 300ms after the user stops typing
+    const [debouncedQuery, setDebouncedQuery] = useState(searchQuery);
+
+    const handleSearchChange = (value: string) => {
+        setSearchQuery(value);
+        if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+        debounceTimerRef.current = setTimeout(() => setDebouncedQuery(value), 300);
+    };
+
+    // Memoised results — only recompute when debounced query, locale, or products change
+    const results = useMemo(() => {
+        if (debouncedQuery.length < 2) return [];
+        return searchProducts(debouncedQuery, products, locale).slice(0, 6);
+    }, [debouncedQuery, products, locale]);
+
+    // Focus input when modal opens — store timer ref for cleanup
     useEffect(() => {
         if (isSearchOpen && inputRef.current) {
-            setTimeout(() => inputRef.current?.focus(), 100);
+            focusTimerRef.current = setTimeout(() => inputRef.current?.focus(), 100);
         }
+        return () => {
+            if (focusTimerRef.current) {
+                clearTimeout(focusTimerRef.current);
+                focusTimerRef.current = null;
+            }
+        };
     }, [isSearchOpen]);
 
-    useEffect(() => {
-        if (searchQuery.length >= 2) {
-            const found = searchProducts(searchQuery, products, locale);
-            setResults(found.slice(0, 6));
-        } else {
-            setResults([]);
-        }
-    }, [searchQuery, locale, products]);
-
+    // Keyboard: close on Escape
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
             if (e.key === 'Escape') closeSearch();
@@ -43,6 +57,13 @@ export function SearchModal({ locale, products }: SearchModalProps) {
         window.addEventListener('keydown', handler);
         return () => window.removeEventListener('keydown', handler);
     }, [closeSearch]);
+
+    // Cleanup debounce timer on unmount
+    useEffect(() => {
+        return () => {
+            if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+        };
+    }, []);
 
     return (
         <AnimatePresence>
@@ -69,7 +90,7 @@ export function SearchModal({ locale, products }: SearchModalProps) {
                                 ref={inputRef}
                                 type="search"
                                 value={searchQuery}
-                                onChange={e => setSearchQuery(e.target.value)}
+                                onChange={e => handleSearchChange(e.target.value)}
                                 placeholder={t('search.placeholder')}
                                 className="flex-1 bg-transparent text-foreground dark:text-foreground-dark placeholder-gray-400 focus:outline-none text-lg"
                             />

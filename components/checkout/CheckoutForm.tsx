@@ -8,7 +8,14 @@ import { shopSettings } from '@/lib/settings';
 
 const checkoutSchema = z.object({
     fullName: z.string().min(2),
-    phone: z.string().regex(/^\+971[0-9]{8,9}$/, 'UAE phone required (+971...)'),
+    phone: z
+        .string()
+        .min(8, 'Phone number too short')
+        .max(20, 'Phone number too long')
+        .regex(
+            /^(\+?[1-9]\d{1,3}[\s\-]?)?[\d\s\-]{6,14}\d$/,
+            'Please enter a valid phone number (e.g. +971501234567 or +923001234567)'
+        ),
     email: z.string().email().optional().or(z.literal('')),
     city: z.string().min(2),
     address: z.string().min(5),
@@ -52,20 +59,25 @@ export function CheckoutForm({ locale, onSubmit }: CheckoutFormProps) {
 
             {/* Phone */}
             <div>
-                <label className="block text-sm font-medium text-foreground dark:text-foreground-dark mb-1.5">
-                    {t('phone')} <span className="text-red-500">*</span>
+                <label htmlFor="checkout-phone" className="block text-sm font-medium text-foreground dark:text-foreground-dark mb-1.5">
+                    {t('phone')} <span className="text-red-500" aria-hidden>*</span>
                 </label>
                 <input
                     {...register('phone')}
+                    id="checkout-phone"
                     type="tel"
                     placeholder={t('phone_placeholder')}
                     dir="ltr"
+                    aria-describedby="checkout-phone-hint"
                     className="w-full px-4 py-3 rounded-xl border border-purple-200 dark:border-purple-800
                      bg-white dark:bg-surface-dark text-foreground dark:text-foreground-dark
                      placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50
                      focus:border-primary transition-colors"
                 />
-                {errors.phone && <p className="text-red-500 text-xs mt-1">{t('validation.phone_required')}</p>}
+                <p id="checkout-phone-hint" className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                    e.g. +971501234567 or +923001234567
+                </p>
+                {errors.phone && <p className="text-red-500 text-xs mt-1" role="alert">{t('validation.phone_required')}</p>}
             </div>
 
             {/* Email (optional) */}

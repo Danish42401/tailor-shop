@@ -35,23 +35,31 @@ export function getCloudinaryUrl(
 ): string {
     if (!publicIdOrUrl) return '/images/placeholder-product.svg';
 
-    // If it's already a full Cloudinary URL, extract the public ID
-    if (publicIdOrUrl.startsWith('http')) {
-        const match = publicIdOrUrl.match(/\/upload\/(?:v\d+\/)?(.+)$/);
-        if (!match) return publicIdOrUrl;
-        publicIdOrUrl = match[1];
+    try {
+        // If it's already a full Cloudinary URL, extract the public ID
+        if (publicIdOrUrl.startsWith('http')) {
+            const match = publicIdOrUrl.match(/\/upload\/(?:v\d+\/)?(.+)$/);
+            if (!match || !match[1]) return '/images/placeholder-product.svg';
+            publicIdOrUrl = match[1];
+        }
+
+        // Ensure extracted ID is valid
+        if (!publicIdOrUrl.trim()) return '/images/placeholder-product.svg';
+
+        const defaults: CloudinaryTransformOptions = {
+            format: 'auto',
+            quality: 'auto',
+            ...options,
+        };
+
+        const transform = buildTransformString(defaults);
+        const transformSegment = transform ? `/${transform}` : '';
+
+        return `${BASE_URL}/image/upload${transformSegment}/${publicIdOrUrl}`;
+    } catch (err) {
+        console.error('[cloudinary] Failed to build URL for:', publicIdOrUrl, err);
+        return '/images/placeholder-product.svg';
     }
-
-    const defaults: CloudinaryTransformOptions = {
-        format: 'auto',
-        quality: 'auto',
-        ...options,
-    };
-
-    const transform = buildTransformString(defaults);
-    const transformSegment = transform ? `/${transform}` : '';
-
-    return `${BASE_URL}/image/upload${transformSegment}/${publicIdOrUrl}`;
 }
 
 /** Generate an OG image (1200x630) from a Cloudinary URL or public ID */

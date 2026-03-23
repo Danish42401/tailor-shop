@@ -38,14 +38,21 @@ export function CheckoutClient({ locale }: CheckoutClientProps) {
             contactSettings.whatsapp_number
         );
 
-        // Send to owner via API (non-blocking)
+        // Send to owner via API (non-blocking, best-effort)
         try {
-            await fetch('/api/order', {
+            const res = await fetch('/api/order', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ items, formData, total, deliveryLabel }),
             });
-        } catch { /* email is best-effort */ }
+            if (!res.ok) {
+                const errBody = await res.json().catch(() => ({}));
+                console.error('[checkout] Order email failed:', res.status, errBody);
+            }
+        } catch (err) {
+            // Email is best-effort — the WhatsApp order still goes through
+            console.error('[checkout] Order email request failed:', err);
+        }
 
         // Open WhatsApp synchronously to bypass popup blockers
         window.open(waUrl, '_blank');

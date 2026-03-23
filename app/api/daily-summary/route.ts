@@ -2,13 +2,24 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { resend, FROM_EMAIL, OWNER_EMAIL } from '@/lib/email/resend';
 import { DailySummaryEmail } from '@/lib/email/templates/dailySummaryEmail';
 import { generalSettings } from '@/lib/settings';
+import { checkRateLimit, getClientIp, rateLimitResponse } from '@/lib/rateLimit';
 
 // This route is called by Vercel cron at 23:00 UTC every day
-// Add `CRON_SECRET` to env and validate it here in production
+// Limit to 1 request per hour to prevent abuse
+const RATE_LIMIT = 1;
+const RATE_WINDOW_MS = 60 * 60_000; // 1 hour
+
 export async function GET(request: NextRequest) {
     const authHeader = request.headers.get('authorization');
     if (process.env.CRON_SECRET && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limiting — cron runner IPs are trusted, but still protect the endpoint
+    const ip = getClientIp(request);
+    const rateCheck = checkRateLimit(`daily-summary:${ip}`, RATE_LIMIT, RATE_WINDOW_MS);
+    if (!rateCheck.allowed) {
+        return rateLimitResponse(rateCheck.retryAfterMs);
     }
 
     const date = new Date().toLocaleDateString('en-AE', {
@@ -31,3 +42,4 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ success: true, date });
 }
+

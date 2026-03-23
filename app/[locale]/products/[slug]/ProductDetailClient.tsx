@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { type Product, getEffectivePrice, getDiscountPercent, getProductColors } from '@/lib/productUtils';
 import { CloudinaryImage } from '@/components/ui/CloudinaryImage';
@@ -14,6 +13,7 @@ import { buildNotifyMeUrl } from '@/lib/whatsapp';
 import { type CartItemCustomization } from '@/store/cartStore';
 import type { Locale } from '@/i18n';
 import Link from 'next/link';
+import { SafeHtml } from '@/components/ui/SafeHtml';
 
 interface ProductDetailClientProps {
     product: Product;
@@ -328,9 +328,9 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
                 {/* Description */}
                 <div className="mt-6">
                     <h2 className="font-semibold text-foreground dark:text-foreground-dark mb-3">{t('product.description')}</h2>
-                    <div
-                        className="prose prose-sm dark:prose-invert prose-purple max-w-none text-gray-600 dark:text-gray-300"
-                        dangerouslySetInnerHTML={{ __html: description }}
+                    <SafeHtml
+                        html={description}
+                        className="text-gray-600 dark:text-gray-300"
                     />
                 </div>
             </div>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCartStore } from '@/store/cartStore';
@@ -17,6 +18,31 @@ export function CartDrawer({ locale }: CartDrawerProps) {
     const currency = generalSettings.currency;
     const total = getTotalPrice();
     const dir = locale === 'ar' ? 'rtl' : 'ltr';
+    const closeBtnRef = useRef<HTMLButtonElement>(null);
+    const triggerRef = useRef<Element | null>(null);
+
+    // Focus management: store trigger, focus close button on open, restore focus on close
+    useEffect(() => {
+        if (isOpen) {
+            triggerRef.current = document.activeElement;
+            // Small delay so the drawer has animated in
+            const t = setTimeout(() => closeBtnRef.current?.focus(), 150);
+            return () => clearTimeout(t);
+        } else {
+            // Return focus to the element that opened the drawer
+            if (triggerRef.current && 'focus' in triggerRef.current) {
+                (triggerRef.current as HTMLElement).focus();
+            }
+        }
+    }, [isOpen]);
+
+    // Keyboard: close on Escape
+    useEffect(() => {
+        if (!isOpen) return;
+        const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') closeCart(); };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [isOpen, closeCart]);
 
     return (
         <AnimatePresence>
@@ -49,6 +75,7 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                                 {t('cart.title')}
                             </h2>
                             <button
+                                ref={closeBtnRef}
                                 onClick={closeCart}
                                 aria-label={t('common.close')}
                                 className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-purple-50 dark:hover:bg-purple-900/50 transition-colors"
