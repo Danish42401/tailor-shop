@@ -12,6 +12,7 @@ import { shopSettings, generalSettings, contactSettings, sizeGuideSettings } fro
 import { buildNotifyMeUrl } from '@/lib/whatsapp';
 import { type CartItemCustomization } from '@/store/cartStore';
 import type { Locale } from '@/i18n';
+import { animationPresets } from '@/lib/animations';
 import Link from 'next/link';
 import { SafeHtml } from '@/components/ui/SafeHtml';
 
@@ -302,11 +303,11 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
                     >
                         <AnimatePresence mode="wait">
                             {addedToCart ? (
-                                <motion.span key="added" initial={{ scale: 0.8 }} animate={{ scale: 1 }} exit={{ scale: 0.8 }}>
+                                <motion.span key="added" initial={animationPresets.scaleIn.initial} animate={animationPresets.scaleIn.animate} exit={animationPresets.scaleIn.exit}>
                                     ✓ {t('cart.item_added')}
                                 </motion.span>
                             ) : (
-                                <motion.span key="add" initial={{ scale: 0.8 }} animate={{ scale: 1 }}>
+                                <motion.span key="add" initial={animationPresets.scaleIn.initial} animate={animationPresets.scaleIn.animate}>
                                     {t('common.add_to_cart')}
                                 </motion.span>
                             )}
@@ -338,13 +339,9 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
             {/* Size Guide Modal */}
             <AnimatePresence>
                 {showSizeGuide && (
-                    <motion.div
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
-                        onClick={e => { if (e.target === e.currentTarget) setShowSizeGuide(false); }}
-                    >
+                    <motion.div initial={animationPresets.fadeIn.initial} animate={animationPresets.fadeIn.animate} exit={animationPresets.fadeIn.exit}>
                         <motion.div
-                            initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
+                            initial={animationPresets.scaleIn.initial} animate={animationPresets.scaleIn.animate} exit={animationPresets.scaleIn.exit}
                             className="bg-white dark:bg-surface-dark rounded-2xl p-6 shadow-luxury-lg max-w-lg w-full max-h-[80vh] overflow-y-auto"
                         >
                             <div className="flex items-center justify-between mb-4">

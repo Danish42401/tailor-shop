@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "activeInstanceId": "instance-1c0e1fd2",
+  "instances": [
+    {
+      "id": "instance-1c0e1fd2",
+      "name": "n8ntest.customtest.online · DANISH danishhussainshahidofficial@gmai",
+      "host": "https://n8ntest.customtest.online",
+      "syncFolder": "workflows",
+      "projectId": "personal",
+      "projectName": "Personal",
+      "instanceIdentifier": "n8ntest_customtest_online_danish_d",
+      "verification": {
+        "status": "verified",
+        "normalizedHost": "https://n8ntest.customtest.online",
+        "userId": "a878327d-cb8d-40b1-8b30-c10afa641d0b",
+        "userName": "DANISH danishhussainshahidofficial@gmai",
+        "userEmail": "danishhussainshahidofficial@gmail.com",
+        "lastCheckedAt": "2026-04-08T10:40:10.385Z"
+      }
+    }
+  ],
+  "host": "https://n8ntest.customtest.online",
+  "syncFolder": "workflows",
+  "projectId": "personal",
+  "projectName": "Personal",
+  "instanceIdentifier": "n8ntest_customtest_online_danish_d"
+}

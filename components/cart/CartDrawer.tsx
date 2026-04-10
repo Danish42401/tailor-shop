@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useCartStore } from '@/store/cartStore';
 import { CloudinaryImage } from '@/components/ui/CloudinaryImage';
 import { generalSettings } from '@/lib/settings';
+import { animationPresets } from '@/lib/animations';
 import Link from 'next/link';
 
 interface CartDrawerProps {
@@ -51,9 +52,9 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                     {/* Backdrop */}
                     <motion.div
                         key="backdrop"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        initial={animationPresets.fadeIn.initial}
+                        animate={animationPresets.fadeIn.animate}
+                        exit={animationPresets.fadeIn.exit}
                         onClick={closeCart}
                         className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
                     />
@@ -61,9 +62,9 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                     {/* Drawer */}
                     <motion.aside
                         key="drawer"
-                        initial={{ x: locale === 'ar' ? '-100%' : '100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: locale === 'ar' ? '-100%' : '100%' }}
+                        initial={animationPresets.slideInRight(locale === 'ar' ? '-100%' : '100%').initial}
+                        animate={animationPresets.slideInRight(locale === 'ar' ? '-100%' : '100%').animate}
+                        exit={animationPresets.slideInRight(locale === 'ar' ? '-100%' : '100%').exit}
                         transition={{ type: 'spring', damping: 30, stiffness: 300 }}
                         dir={dir}
                         className={`fixed top-0 ${locale === 'ar' ? 'left-0' : 'right-0'} z-50 h-full w-full max-w-sm
@@ -81,7 +82,8 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                                 className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-purple-50 dark:hover:bg-purple-900/50 transition-colors"
                             >
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
                                 </svg>
                             </button>
                         </div>
@@ -92,7 +94,8 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                                 <div className="flex flex-col items-center justify-center h-full text-center gap-4">
                                     <div className="w-16 h-16 rounded-full bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center">
                                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-purple-300">
-                                            <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
+                                            <circle cx="9" cy="21" r="1" />
+                                            <circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6" />
                                         </svg>
                                     </div>
                                     <p className="text-gray-500 dark:text-gray-400 text-sm">{t('cart.empty')}</p>
@@ -105,9 +108,9 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                                         return (
                                             <motion.div
                                                 key={item.id}
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, x: 40 }}
+                                                initial={animationPresets.slideUp.initial}
+                                                animate={animationPresets.slideUp.animate}
+                                                exit={animationPresets.slideUp.exit}
                                                 className="flex gap-3 p-3 rounded-xl bg-surface dark:bg-background-dark"
                                             >
                                                 <div className="relative w-16 h-20 rounded-lg overflow-hidden shrink-0">
@@ -131,14 +134,19 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                                                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
                                                             className="w-7 h-7 rounded-full border border-purple-200 dark:border-purple-700 flex items-center justify-center hover:bg-purple-50 dark:hover:bg-purple-900 transition-colors"
                                                         >
-                                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <line x1="5" y1="12" x2="19" y2="12" />
+                                                            </svg>
                                                         </button>
                                                         <span className="text-sm font-medium w-6 text-center">{item.quantity}</span>
                                                         <button
                                                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                                             className="w-7 h-7 rounded-full border border-purple-200 dark:border-purple-700 flex items-center justify-center hover:bg-purple-50 dark:hover:bg-purple-900 transition-colors"
                                                         >
-                                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <line x1="12" y1="5" x2="12" y2="19" />
+                                                                <line x1="5" y1="12" x2="19" y2="12" />
+                                                            </svg>
                                                         </button>
 
                                                         <button
@@ -146,7 +154,10 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                                                             className="ml-auto text-red-400 hover:text-red-500 transition-colors"
                                                             aria-label={t('cart.remove')}
                                                         >
-                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2" /></svg>
+                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                                                <polyline points="3 6 5 6 21 6" />
+                                                                <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+                                                            </svg>
                                                         </button>
                                                     </div>
                                                 </div>
