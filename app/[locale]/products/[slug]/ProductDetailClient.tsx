@@ -137,7 +137,7 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
                             {currency} {effectivePrice.toFixed(2)}
                         </span>
                         {product.sale_price && (
-                            <span className="text-lg text-gray-400 line-through">
+                            <span className="text-lg text-gray-400 dark:text-gray-600 line-through">
                                 {currency} {product.price.toFixed(2)}
                             </span>
                         )}

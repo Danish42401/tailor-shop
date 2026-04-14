@@ -112,7 +112,7 @@ export function ProductCard({ product, locale }: ProductCardProps) {
                         {currency} {effectivePrice.toFixed(2)}
                     </span>
                     {product.sale_price && !isOOS && (
-                        <span className="text-sm text-gray-400 line-through">
+                        <span className="text-sm text-gray-400 dark:text-gray-600 line-through">
                             {currency} {product.price.toFixed(2)}
                         </span>
                     )}

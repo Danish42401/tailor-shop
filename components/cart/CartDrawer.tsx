@@ -122,10 +122,10 @@ export function CartDrawer({ locale }: CartDrawerProps) {
                                                         {currency} {(item.price * item.quantity).toFixed(2)}
                                                     </p>
                                                     {item.customization?.ageSize && (
-                                                        <p className="text-xs text-gray-400 mt-0.5">Size: {item.customization.ageSize}</p>
+                                                        <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">Size: {item.customization.ageSize}</p>
                                                     )}
                                                     {item.customization?.standardSize && (
-                                                        <p className="text-xs text-gray-400 mt-0.5">Size: {item.customization.standardSize}</p>
+                                                        <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">Size: {item.customization.standardSize}</p>
                                                     )}
 
                                                     {/* Qty controls */}

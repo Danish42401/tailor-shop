@@ -94,7 +94,7 @@ export function CheckoutClient({ locale }: CheckoutClientProps) {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-semibold text-foreground dark:text-foreground-dark truncate">{name}</p>
-                                    <p className="text-xs text-gray-400 mt-0.5">{t('checkout.items_count', { count: item.quantity })}</p>
+                                    <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">{t('checkout.items_count', { count: item.quantity })}</p>
                                     {item.customization?.ageSize && <p className="text-xs text-purple-500 mt-0.5">Size: {item.customization.ageSize}</p>}
                                     {item.customization?.color && <p className="text-xs text-purple-500 mt-0.5">Color: {item.customization.color}</p>}
                                 </div>
