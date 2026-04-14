@@ -14,7 +14,7 @@
   --color-text: #1A1A2E;
   --color-background-dark: #0F0A1E;
   --color-surface-dark: #1A1033;
-  --color-text-dark: #F3E8FF;
+  --color-text-dark: #EDE9FE;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-arabic: 'Noto Naskh Arabic', system-ui, sans-serif;
 }
@@ -72,7 +72,7 @@
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-primary text-primary dark:text-purple-300 hover:bg-primary hover:text-white transition-all duration-150;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-primary text-primary dark:text-accent hover:bg-primary hover:text-white transition-all duration-150;
   }
 
   .btn-gold {

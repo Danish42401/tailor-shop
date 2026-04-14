@@ -44,7 +44,7 @@ export default async function HomePage({ params }: PageProps) {
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
                             <span className="bg-gradient-gold bg-clip-text text-transparent">{hp.hero.heading_en}</span>
                             {locale === 'ar' && (
-                                <span className="block text-3xl sm:text-4xl mt-2 text-purple-100">{hp.hero.heading_ar}</span>
+                                <span className="block text-3xl sm:text-4xl mt-2 text-purple-200">{hp.hero.heading_ar}</span>
                             )}
                         </h1>
                         <p className="text-lg sm:text-xl text-purple-200 mb-10 max-w-2xl mx-auto leading-relaxed">
@@ -130,7 +130,7 @@ export default async function HomePage({ params }: PageProps) {
                             <h2 className="section-title gold-underline">
                                 {locale === 'ar' ? hp.new_arrivals.title_ar : hp.new_arrivals.title_en}
                             </h2>
-                            <Link href={`/${locale}/products`} className="text-primary dark:text-gold-400 text-sm font-medium hover:underline">
+                            <Link href={`/${locale}/products`} className="text-primary dark:text-accent text-sm font-medium hover:underline">
                                 {t('common.see_all')}
                             </Link>
                         </div>
@@ -147,7 +147,7 @@ export default async function HomePage({ params }: PageProps) {
                             <h2 className="section-title gold-underline">
                                 {locale === 'ar' ? hp.best_sellers.title_ar : hp.best_sellers.title_en}
                             </h2>
-                            <Link href={`/${locale}/products`} className="text-primary dark:text-gold-400 text-sm font-medium hover:underline">
+                            <Link href={`/${locale}/products`} className="text-primary dark:text-accent text-sm font-medium hover:underline">
                                 {t('common.see_all')}
                             </Link>
                         </div>

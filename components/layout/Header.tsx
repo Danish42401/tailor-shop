@@ -25,7 +25,7 @@ export function Header({ locale }: HeaderProps) {
                 {/* Logo / Shop Name */}
                 <Link
                     href={`/${locale}`}
-                    className="font-bold text-xl text-primary dark:text-purple-300 shrink-0 tracking-tight"
+                    className="font-bold text-xl text-primary dark:text-accent shrink-0 tracking-tight"
                 >
                     {generalSettings.logo ? (
                         <span>{shopName}</span>
@@ -36,11 +36,11 @@ export function Header({ locale }: HeaderProps) {
 
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-                    <Link href={`/${locale}`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-gold-400 transition-colors">{t('nav.home')}</Link>
-                    <Link href={`/${locale}/products`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-gold-400 transition-colors">{t('nav.shop')}</Link>
-                    <Link href={`/${locale}/blog`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-gold-400 transition-colors">{t('nav.blog')}</Link>
-                    <Link href={`/${locale}/about`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-gold-400 transition-colors">{t('nav.about')}</Link>
-                    <Link href={`/${locale}/contact`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-gold-400 transition-colors">{t('nav.contact')}</Link>
+                    <Link href={`/${locale}`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-accent transition-colors">{t('nav.home')}</Link>
+                    <Link href={`/${locale}/products`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-accent transition-colors">{t('nav.shop')}</Link>
+                    <Link href={`/${locale}/blog`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-accent transition-colors">{t('nav.blog')}</Link>
+                    <Link href={`/${locale}/about`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-accent transition-colors">{t('nav.about')}</Link>
+                    <Link href={`/${locale}/contact`} className="text-foreground dark:text-foreground-dark hover:text-primary dark:hover:text-accent transition-colors">{t('nav.contact')}</Link>
                 </nav>
 
                 {/* Actions */}

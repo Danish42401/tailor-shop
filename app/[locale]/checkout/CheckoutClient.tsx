@@ -95,10 +95,10 @@ export function CheckoutClient({ locale }: CheckoutClientProps) {
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-semibold text-foreground dark:text-foreground-dark truncate">{name}</p>
                                     <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">{t('checkout.items_count', { count: item.quantity })}</p>
-                                    {item.customization?.ageSize && <p className="text-xs text-purple-500 mt-0.5">Size: {item.customization.ageSize}</p>}
-                                    {item.customization?.color && <p className="text-xs text-purple-500 mt-0.5">Color: {item.customization.color}</p>}
+                                    {item.customization?.ageSize && <p className="text-xs text-purple-500 dark:text-purple-400 mt-0.5">Size: {item.customization.ageSize}</p>}
+                                    {item.customization?.color && <p className="text-xs text-purple-500 dark:text-purple-400 mt-0.5">Color: {item.customization.color}</p>}
                                 </div>
-                                <span className="text-sm font-bold text-primary dark:text-gold-400 flex-shrink-0">
+                                <span className="text-sm font-bold text-primary dark:text-accent flex-shrink-0">
                                     {currency} {(item.price * item.quantity).toFixed(2)}
                                 </span>
                             </div>
@@ -108,7 +108,7 @@ export function CheckoutClient({ locale }: CheckoutClientProps) {
                     <div className="border-t border-purple-100 dark:border-purple-900/30 pt-4">
                         <div className="flex justify-between items-center">
                             <span className="text-sm text-gray-500 dark:text-gray-400">{t('cart.subtotal')}</span>
-                            <span className="font-extrabold text-lg text-primary dark:text-gold-400">
+                            <span className="font-extrabold text-lg text-primary dark:text-accent">
                                 {currency} {total.toFixed(2)}
                             </span>
                         </div>

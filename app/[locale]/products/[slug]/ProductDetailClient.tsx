@@ -133,7 +133,7 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
                     <h1 className="text-2xl sm:text-3xl font-bold text-foreground dark:text-foreground-dark mb-3">{title}</h1>
                     {/* Price */}
                     <div className="flex items-center gap-3">
-                        <span className="text-3xl font-extrabold text-primary dark:text-gold-400">
+                        <span className="text-3xl font-extrabold text-primary dark:text-accent">
                             {currency} {effectivePrice.toFixed(2)}
                         </span>
                         {product.sale_price && (
@@ -169,7 +169,7 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
                                     key={color}
                                     onClick={() => setSelectedColor(color)}
                                     className={`px-4 py-2 rounded-lg text-sm border-2 transition-colors
-                    ${selectedColor === color ? 'border-primary bg-purple-50 dark:bg-purple-900/30 text-primary dark:text-purple-300' : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'}`}
+                    ${selectedColor === color ? 'border-primary bg-purple-50 dark:bg-purple-900/30 text-primary dark:text-purple-200' : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400'}`}
                                 >
                                     {color}
                                 </button>
@@ -185,7 +185,7 @@ export function ProductDetailClient({ product, locale }: ProductDetailClientProp
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <p className="text-sm font-medium text-foreground dark:text-foreground-dark">{t('product.select_size')}</p>
-                                <button onClick={() => setShowSizeGuide(true)} className="text-xs text-primary dark:text-gold-400 underline">
+                                <button onClick={() => setShowSizeGuide(true)} className="text-xs text-primary dark:text-accent underline">
                                     {t('product.size_guide')}
                                 </button>
                             </div>

@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {/* Breadcrumb / Back */}
             <Link
                 href={`/${locale}/blog`}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary/70 hover:text-primary dark:text-gold-400/80 dark:hover:text-gold-400 mb-8 transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary/70 hover:text-primary dark:text-accent/80 dark:hover:text-accent mb-8 transition-colors"
             >
                 <span className={`transform ${locale === 'ar' ? 'rotate-180' : ''}`}>←</span>
                 {t('blog.back_to_blog')}
@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
             {/* Header */}
             <header className="mb-12 text-center">
-                <p className="text-sm font-medium text-purple-600 dark:text-purple-400 uppercase tracking-widest mb-4">
+                <p className="text-sm font-medium text-primary/80 dark:text-purple-300 uppercase tracking-widest mb-4">
                     {t('blog.published')} • {formattedDate}
                 </p>
                 <h1 className="text-3xl md:text-5xl font-extrabold text-foreground dark:text-foreground-dark leading-tight mb-8">

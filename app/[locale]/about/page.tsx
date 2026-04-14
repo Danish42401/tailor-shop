@@ -24,7 +24,7 @@ export default async function AboutPage({ params }: PageProps) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl">
                 {/* Story */}
                 <div className="space-y-6">
-                    <h2 className="text-2xl font-bold text-primary dark:text-gold-400">{t('about.our_story')}</h2>
+                    <h2 className="text-2xl font-bold text-primary dark:text-accent">{t('about.our_story')}</h2>
                     <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                         {locale === 'ar' ? (
                             <>

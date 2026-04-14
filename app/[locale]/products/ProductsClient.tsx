@@ -66,7 +66,7 @@ export function ProductsClient({ locale, initialProducts }: ProductsClientProps)
                             className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors
                 ${selectedCategory === cat.value
                                     ? 'bg-primary text-white'
-                                    : 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-100'}`}
+                                    : 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-200 hover:bg-purple-100'}`}
                         >
                             {locale === 'ar' ? cat.label_ar : cat.label_en}
                         </button>

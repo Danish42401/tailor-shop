@@ -101,14 +101,14 @@ export function ProductCard({ product, locale }: ProductCardProps) {
             {/* Content */}
             <div className="flex flex-col p-3 gap-2 flex-1">
                 <Link href={isOOS ? '#' : `/${locale}/products/${product.slug}`} tabIndex={isOOS ? -1 : 0}>
-                    <h3 className="text-sm font-semibold text-foreground dark:text-foreground-dark leading-tight line-clamp-2 hover:text-primary dark:hover:text-gold-400 transition-colors">
+                    <h3 className="text-sm font-semibold text-foreground dark:text-foreground-dark leading-tight line-clamp-2 hover:text-primary dark:hover:text-accent transition-colors">
                         {title}
                     </h3>
                 </Link>
 
                 {/* Price */}
                 <div className="flex items-center gap-2">
-                    <span className={`font-bold text-primary dark:text-gold-400 ${isOOS ? 'line-through text-gray-400 dark:text-gray-600' : ''}`}>
+                    <span className={`font-bold text-primary dark:text-accent ${isOOS ? 'line-through text-gray-400 dark:text-gray-500' : ''}`}>
                         {currency} {effectivePrice.toFixed(2)}
                     </span>
                     {product.sale_price && !isOOS && (
@@ -137,7 +137,7 @@ export function ProductCard({ product, locale }: ProductCardProps) {
                             href={`/${locale}/products/${product.slug}`}
                             className="w-full flex items-center justify-center gap-2 py-2.5 px-4
                          rounded-xl bg-purple-50 dark:bg-purple-900/30
-                         text-primary dark:text-purple-300 text-sm font-medium
+                         text-primary dark:text-purple-200 text-sm font-medium
                          hover:bg-purple-100 dark:hover:bg-purple-900 transition-colors"
                         >
                             {t('common.view_details')}

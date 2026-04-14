@@ -24,7 +24,7 @@ export function WhatsAppFAB() {
             aria-label={t('float_label')}
             className="fixed bottom-20 rtl:left-4 ltr:right-4 z-50
                  flex items-center gap-2
-                 bg-[#25D366] text-white dark:text-white dark:text-white dark:text-white dark:text-white dark:text-white dark:text-white dark:text-white
+                 bg-[#25D366] text-white
                  rounded-full shadow-luxury-lg
                  px-4 py-3 font-semibold text-sm
                  hover:bg-[#128C7E] transition-colors"

@@ -6,7 +6,7 @@ export default function NotFoundPage() {
     return (
         <div className="container mx-auto px-4 py-20 text-center">
             <div className="max-w-md mx-auto">
-                <div className="text-8xl font-black text-purple-100 dark:text-purple-900 mb-2 select-none">404</div>
+                <div className="text-8xl font-black text-purple-200 dark:text-purple-800 mb-2 select-none">404</div>
                 <h1 className="text-2xl font-bold text-foreground dark:text-foreground-dark mb-3">Page Not Found</h1>
                 <p className="text-gray-500 dark:text-gray-400 mb-8">The page you're looking for doesn't exist.</p>
 

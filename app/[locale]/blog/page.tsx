@@ -22,7 +22,7 @@ export default async function BlogPage({ params }: PageProps) {
 
     return (
         <div className="container mx-auto px-4 py-12">
-            <h1 className="text-4xl lg:text-5xl font-extrabold text-primary dark:text-gold-400 mb-12 text-center fade-in">
+            <h1 className="text-4xl lg:text-5xl font-extrabold text-primary dark:text-accent mb-12 text-center fade-in">
                 {t('blog.title')}
             </h1>
 
@@ -57,7 +57,7 @@ export default async function BlogPage({ params }: PageProps) {
                                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                     ) : (
-                                        <div className="absolute inset-0 flex items-center justify-center text-purple-200 dark:text-purple-800">
+                                        <div className="absolute inset-0 flex items-center justify-center text-purple-300 dark:text-purple-700">
                                             <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM5 19V5h14l.002 14H5z" /><path d="m10 14-1-1-3 4h12l-5-7z" /></svg>
                                         </div>
                                     )}
@@ -66,10 +66,10 @@ export default async function BlogPage({ params }: PageProps) {
                                     <p className="text-xs font-semibold text-primary/70 dark:text-gold-400/80 mb-2 uppercase tracking-wider">
                                         {formattedDate}
                                     </p>
-                                    <h2 className="text-xl font-bold text-foreground dark:text-foreground-dark group-hover:text-primary dark:group-hover:text-gold-400 mb-3 line-clamp-2 transition-colors">
+                                    <h2 className="text-xl font-bold text-foreground dark:text-foreground-dark group-hover:text-primary dark:group-hover:text-accent mb-3 line-clamp-2 transition-colors">
                                         {title}
                                     </h2>
-                                    <div className="flex items-center text-sm font-semibold text-primary dark:text-gold-400 gap-1 mt-4">
+                                    <div className="flex items-center text-sm font-semibold text-primary dark:text-accent gap-1 mt-4">
                                         {t('blog.read_more')}
                                         <span className={`transform transition-transform group-hover:translate-x-1 ${locale === 'ar' ? 'rotate-180 group-hover:-translate-x-1' : ''}`}>→</span>
                                     </div>

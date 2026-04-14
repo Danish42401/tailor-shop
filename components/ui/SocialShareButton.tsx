@@ -58,7 +58,7 @@ export function SocialShareButton({
 
             <button
                 onClick={copyLink}
-                className="flex items-center gap-2 px-4 py-2 rounded-full border border-purple-200 dark:border-purple-800 text-purple-700 dark:text-purple-300 text-sm font-medium hover:bg-purple-50 dark:hover:bg-purple-900 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-full border border-purple-200 dark:border-purple-800 text-primary dark:text-purple-200 text-sm font-medium hover:bg-purple-50 dark:hover:bg-purple-900 transition-colors"
                 aria-label="Copy link"
             >
                 {copied ? (

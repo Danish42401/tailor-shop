@@ -27,7 +27,7 @@ module.exports = {
                 },
                 foreground: {
                     DEFAULT: 'var(--color-text, #1A1A2E)',
-                    dark: 'var(--color-text-dark, #F3E8FF)',
+                    dark: 'var(--color-text-dark, #EDE9FE)',
                 },
                 // Fixed palette for design consistency
                 purple: {

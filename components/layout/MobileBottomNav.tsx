@@ -66,10 +66,10 @@ export function MobileBottomNav({ locale }: MobileBottomNavProps) {
                     const active = item.href ? isActive(item.href) : false;
                     const content = (
                         <div className="flex flex-col items-center gap-0.5 relative">
-                            <span className={clsx(active ? 'text-primary dark:text-gold-400' : 'text-gray-400 dark:text-purple-500')}>
+                            <span className={clsx(active ? 'text-primary dark:text-accent' : 'text-gray-500 dark:text-gray-400')}>
                                 {item.icon}
                             </span>
-                            <span className={clsx('text-[10px] font-medium', active ? 'text-primary dark:text-gold-400' : 'text-gray-400 dark:text-purple-500')}>
+                            <span className={clsx('text-[10px] font-medium', active ? 'text-primary dark:text-accent' : 'text-gray-500 dark:text-gray-400')}>
                                 {item.label}
                             </span>
                             {(item.badge ?? 0) > 0 && (

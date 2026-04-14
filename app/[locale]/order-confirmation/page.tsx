@@ -21,7 +21,7 @@ export default async function OrderConfirmationPage({ params }: PageProps) {
                 <h1 className="text-3xl font-extrabold text-foreground dark:text-foreground-dark mb-4">
                     {t('order_confirmation.title')}
                 </h1>
-                <p className="text-primary dark:text-gold-400 font-semibold text-lg mb-3">
+                <p className="text-primary dark:text-accent font-semibold text-lg mb-3">
                     {t('order_confirmation.subtitle')}
                 </p>
                 <p className="text-gray-500 dark:text-gray-400 leading-relaxed mb-10">
