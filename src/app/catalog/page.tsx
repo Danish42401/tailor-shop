@@ -67,10 +67,18 @@ export default function Catalog() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((p) => (
             <div key={p.id} className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 p-5 group">
-              <div className="aspect-square bg-slate-50 dark:bg-slate-800 rounded-[1.5rem] flex items-center justify-center text-7xl mb-6 relative overflow-hidden">
-                {p.icon}
+              <div className="aspect-square bg-slate-50 dark:bg-slate-800 rounded-[1.5rem] flex items-center justify-center text-7xl mb-6 relative overflow-hidden group">
+                {p.icon && p.icon.startsWith("http") ? (
+                  <img 
+                    src={p.icon} 
+                    alt={p.name} 
+                    className="w-full h-full object-cover rounded-[1.5rem] group-hover:scale-110 transition-transform duration-500"
+                  />
+                ) : (
+                  <span>{p.icon || "👗"}</span>
+                )}
                 {p.stockStatus === "low-stock" && (
-                  <div className="absolute bottom-4 left-4 bg-red-100 text-red-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                  <div className="absolute bottom-4 left-4 bg-red-100/90 backdrop-blur-sm text-red-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase">
                     Only few left
                   </div>
                 )}
@@ -130,8 +138,12 @@ export default function Catalog() {
           ) : (
             cart.map((item) => (
               <div key={item.id} className="flex gap-4 group">
-                <div className="w-20 h-24 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl">
-                  {item.icon}
+                <div className="w-20 h-24 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl overflow-hidden">
+                  {item.icon && item.icon.startsWith("http") ? (
+                    <img src={item.icon} alt={item.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <span>{item.icon || "👗"}</span>
+                  )}
                 </div>
                 <div className="flex-grow">
                   <h4 className="font-bold text-sm mb-1">{item.name}</h4>
