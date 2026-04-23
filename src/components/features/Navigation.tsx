@@ -44,10 +44,25 @@ export const BottomNav = ({ cartCount }: { cartCount: number }) => {
   );
 };
 
+export const MobileHeader = () => {
+  return (
+    <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-50 md:hidden px-6 py-4">
+      <div className="flex justify-between items-center">
+        <Link href="/" className="text-xl font-black tracking-tighter text-slate-900 dark:text-white flex items-center gap-2">
+          <span className="text-amber-600">KIDS</span>CHOICE
+        </Link>
+        <Link href="/catalog" className="p-2 text-slate-900 dark:text-white">
+          <ShoppingBag size={20} />
+        </Link>
+      </div>
+    </header>
+  );
+};
+
 export const DesktopHeader = ({ cartCount }: { cartCount: number }) => {
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-bottom border-slate-200 dark:border-slate-800 z-50 hidden md:block px-12 py-4">
-      <div className="max-width-7xl mx-auto flex justify-between items-center">
+    <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-50 hidden md:block px-12 py-4">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white flex items-center gap-2">
           <span className="text-amber-600">KIDS</span>CHOICE
         </Link>
