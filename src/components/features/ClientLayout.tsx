@@ -2,6 +2,7 @@
 
 import { useCart } from "@/hooks/useCart";
 import { BottomNav, DesktopHeader, MobileHeader } from "@/components/features/Navigation";
+import { CartDrawer } from "@/components/features/CartDrawer";
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const { totalItems } = useCart();
@@ -14,6 +15,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <BottomNav cartCount={totalItems} />
+      <CartDrawer />
     </>
   );
 }

@@ -1,10 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Product, CartItem } from "@/types";
+
+// Create a global-like state using a simple listener pattern for the open state
+let cartOpenState = false;
+const listeners = new Set<(open: boolean) => void>();
+
+const toggleCartGlobal = (open: boolean) => {
+  cartOpenState = open;
+  listeners.forEach((listener) => listener(open));
+};
 
 export const useCart = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpenInternal] = useState(cartOpenState);
+
+  useEffect(() => {
+    const listener = (open: boolean) => setIsCartOpenInternal(open);
+    listeners.add(listener);
+    return () => {
+      listeners.delete(listener);
+    };
+  }, []);
+
+  const setIsCartOpen = useCallback((open: boolean) => {
+    toggleCartGlobal(open);
+  }, []);
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -64,5 +86,7 @@ export const useCart = () => {
     clearCart,
     totalItems,
     totalPrice,
+    isCartOpen,
+    setIsCartOpen,
   };
 };

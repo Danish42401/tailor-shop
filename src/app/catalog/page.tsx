@@ -1,20 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { siteSettings } from "@/data/products";
 import { useCart } from "@/hooks/useCart";
-import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { getProductsFromSheet } from "@/lib/data-service";
-import { Star, ShoppingBag, Plus, Minus, X, Trash2, Send, Loader2 } from "lucide-react";
+import { Star, ShoppingBag, Plus, Loader2 } from "lucide-react";
 import { Category, Product } from "@/types";
 
 export default function Catalog() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<Category>("all");
-  const [isCartOpen, setIsCartOpen] = useState(false);
   
-  const { cart, addToCart, updateQuantity, removeFromCart, totalPrice, totalItems } = useCart();
+  const { addToCart, setIsCartOpen, totalItems } = useCart();
 
   useEffect(() => {
     async function loadData() {
@@ -28,11 +25,6 @@ export default function Catalog() {
   const filteredProducts = products.filter(
     (p) => activeCategory === "all" || p.category === activeCategory
   );
-
-  const handleWhatsAppOrder = () => {
-    const link = generateWhatsAppLink(siteSettings.whatsappNumber, cart, totalPrice);
-    window.open(link, "_blank");
-  };
 
   if (loading) {
     return (
@@ -93,7 +85,7 @@ export default function Catalog() {
                 <h3 className="text-xl font-bold mb-2 tracking-tight group-hover:text-amber-600 transition-colors">{p.name}</h3>
                 <p className="text-slate-400 text-xs mb-6 line-clamp-2 leading-relaxed">{p.description}</p>
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-black font-playfair tracking-tight">AED {p.price}</span>
+                  <span className="text-2xl font-black font-playfair tracking-tight text-slate-900 dark:text-white">AED {p.price}</span>
                   <button 
                     onClick={() => { addToCart(p); setIsCartOpen(true); }}
                     className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 p-4 rounded-2xl hover:scale-110 active:scale-95 transition-all"
@@ -112,75 +104,8 @@ export default function Catalog() {
         </div>
       )}
 
-      {/* Cart Drawer Overlay */}
-      {isCartOpen && (
-        <div className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[100]" onClick={() => setIsCartOpen(false)} />
-      )}
-
-      {/* Cart Drawer */}
-      <div className={`fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl z-[101] transition-transform duration-500 transform ${isCartOpen ? "translate-x-0" : "translate-x-full"} flex flex-col`}>
-        <div className="p-8 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
-          <div className="flex items-center gap-3">
-            <ShoppingBag className="text-amber-600" />
-            <h2 className="text-2xl font-black tracking-tighter">Your Selection</h2>
-          </div>
-          <button onClick={() => setIsCartOpen(false)} className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full">
-            <X size={24} />
-          </button>
-        </div>
-
-        <div className="flex-grow overflow-y-auto p-8 space-y-6">
-          {cart.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-slate-400 gap-4 opacity-50">
-              <ShoppingBag size={64} strokeWidth={1} />
-              <p className="font-bold">Selection is empty</p>
-            </div>
-          ) : (
-            cart.map((item) => (
-              <div key={item.id} className="flex gap-4 group">
-                <div className="w-20 h-24 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl overflow-hidden">
-                  {item.icon && item.icon.startsWith("http") ? (
-                    <img src={item.icon} alt={item.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <span>{item.icon || "👗"}</span>
-                  )}
-                </div>
-                <div className="flex-grow">
-                  <h4 className="font-bold text-sm mb-1">{item.name}</h4>
-                  <p className="text-amber-600 font-black text-sm mb-3">AED {item.price}</p>
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center bg-slate-50 dark:bg-slate-800 rounded-lg px-2">
-                      <button onClick={() => updateQuantity(item.id, -1)} className="p-1 hover:text-amber-600"><Minus size={14} /></button>
-                      <span className="w-8 text-center text-xs font-bold">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, 1)} className="p-1 hover:text-amber-600"><Plus size={14} /></button>
-                    </div>
-                  </div>
-                </div>
-                <button onClick={() => removeFromCart(item.id)} className="text-slate-300 hover:text-red-500 transition-colors">
-                  <Trash2 size={18} />
-                </button>
-              </div>
-            ))
-          )}
-        </div>
-
-        <div className="p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
-          <div className="flex justify-between items-center mb-8">
-            <span className="font-bold text-slate-400 uppercase tracking-widest text-[10px]">Estimated Total</span>
-            <span className="text-3xl font-black font-playfair">AED {totalPrice.toFixed(2)}</span>
-          </div>
-          <button 
-            disabled={cart.length === 0}
-            onClick={handleWhatsAppOrder}
-            className="w-full bg-green-500 hover:bg-green-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-50 disabled:grayscale"
-          >
-            Discuss on WhatsApp <Send size={18} />
-          </button>
-        </div>
-      </div>
-
       {/* Floating Cart Button for Mobile */}
-      {!isCartOpen && totalItems > 0 && (
+      {totalItems > 0 && (
         <button 
           onClick={() => setIsCartOpen(true)}
           className="fixed bottom-24 right-6 bg-amber-600 text-white p-5 rounded-full shadow-2xl z-40 md:hidden animate-bounce"
