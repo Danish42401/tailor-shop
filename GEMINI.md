@@ -39,5 +39,13 @@
 - Wrapped app with `CartProvider`.
 - Refactored `useCart` hook to use the shared context.
 **Action:** Created `src/context/CartContext.tsx`, updated `src/hooks/useCart.ts` and `src/components/features/ClientLayout.tsx`.
+**Status:** Fixed and Synced.
+
+### [2026-04-25 02:30 PM] - Silent Add to Cart
+**User Prompt:** Prevent cart from opening automatically when adding items.
+**Plan:**
+- Removed `setIsCartOpen(true)` from `CartContext` and `Catalog` page.
+- Item count still updates, and floating button appears on mobile when items > 0.
+**Action:** Updated `src/context/CartContext.tsx` and `src/app/catalog/page.tsx`.
 **Git:** Committed and pushed to `main`.
 **Status:** Fixed and Synced.
