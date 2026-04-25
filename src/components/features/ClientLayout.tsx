@@ -3,8 +3,17 @@
 import { useCart } from "@/hooks/useCart";
 import { BottomNav, DesktopHeader, MobileHeader } from "@/components/features/Navigation";
 import { CartDrawer } from "@/components/features/CartDrawer";
+import { CartProvider } from "@/context/CartContext";
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <CartProvider>
+      <LayoutContent>{children}</LayoutContent>
+    </CartProvider>
+  );
+}
+
+function LayoutContent({ children }: { children: React.ReactNode }) {
   const { totalItems } = useCart();
 
   return (
