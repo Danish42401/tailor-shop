@@ -87,7 +87,7 @@ export default function Catalog() {
                 <div className="flex justify-between items-center">
                   <span className="text-2xl font-black font-playfair tracking-tight text-slate-900 dark:text-white">AED {p.price}</span>
                   <button 
-                    onClick={() => { addToCart(p); setIsCartOpen(true); }}
+                    onClick={() => { addToCart(p); }}
                     className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 p-4 rounded-2xl hover:scale-110 active:scale-95 transition-all"
                   >
                     <Plus size={20} />

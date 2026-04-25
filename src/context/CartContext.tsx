@@ -48,7 +48,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
-    setIsCartOpen(true); // Auto open cart when adding
   }, []);
 
   const removeFromCart = useCallback((id: string) => {
