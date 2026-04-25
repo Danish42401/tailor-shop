@@ -36,37 +36,54 @@ export async function getProductsFromSheet(): Promise<Product[]> {
     // Adding a timestamp to bypass any intermediate caching
     const urlWithCacheBuster = `${GOOGLE_SHEET_CSV_URL}&t=${Date.now()}`;
     
+    console.log("Fetching products from:", urlWithCacheBuster);
+    
     const response = await fetch(urlWithCacheBuster, {
-      next: { revalidate: 60 } // Revalidate every 60 seconds instead of 300
+      cache: 'no-store', // Disable browser cache
+      next: { revalidate: 0 } // Disable Next.js cache
     });
     
-    if (!response.ok) throw new Error("Failed to fetch sheet data");
+    if (!response.ok) throw new Error(`Failed to fetch sheet data: ${response.status}`);
     
     const csvData = await response.text();
+    console.log("CSV Data received, length:", csvData.length);
+    
     const lines = csvData.split(/\r?\n/).filter(line => line.trim());
     
-    if (lines.length < 2) return []; // Only header or empty
+    if (lines.length < 2) {
+      console.warn("Sheet is empty or only has headers");
+      return [];
+    }
     
     const rows = lines.slice(1); // Skip header row
     
-    return rows.map((line) => {
-      const columns = parseCSVLine(line);
-      return {
-        id: columns[0] || "",
-        name: columns[1] || "Unnamed Product",
-        price: parseFloat(columns[2]?.replace(/[^0-9.]/g, "") || "0"),
-        category: (columns[3] || "frocks") as Category,
-        description: columns[4] || "",
-        icon: columns[5] || "",
-        rating: parseFloat(columns[6] || "5"),
-        isPair: columns[7]?.toUpperCase() === "TRUE",
-        stockStatus: (columns[8] || "in-stock") as any,
-      };
-    }).filter(p => p.id);
+    const parsedProducts = rows.map((line, index) => {
+      try {
+        const columns = parseCSVLine(line);
+        return {
+          id: columns[0] || `row-${index}`,
+          name: columns[1] || "Unnamed Product",
+          price: parseFloat(columns[2]?.replace(/[^0-9.]/g, "") || "0"),
+          category: (columns[3]?.toLowerCase() || "frocks") as Category,
+          description: columns[4] || "",
+          icon: columns[5] || "",
+          rating: parseFloat(columns[6] || "5"),
+          isPair: columns[7]?.toUpperCase() === "TRUE",
+          stockStatus: (columns[8]?.toLowerCase() || "in-stock") as any,
+        };
+      } catch (e) {
+        console.error("Error parsing line:", line, e);
+        return null;
+      }
+    }).filter((p): p is Product => p !== null && !!p.id);
+
+    console.log(`Successfully parsed ${parsedProducts.length} products`);
+    return parsedProducts;
     
   } catch (error) {
-    console.error("Error fetching Google Sheet data:", error);
+    console.error("CRITICAL: Error fetching Google Sheet data:", error);
     try {
+      console.log("Falling back to initial products...");
       const { initialProducts } = await import("@/data/products");
       return initialProducts;
     } catch {
