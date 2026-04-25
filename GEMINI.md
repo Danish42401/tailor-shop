@@ -83,5 +83,13 @@
 - Regenerated a fresh one using `npm install --legacy-peer-deps` to match the current `package.json`.
 - This ensures `npm ci` works correctly on Cloudflare.
 **Action:** Regenerated and pushed `package-lock.json`.
+**Status:** Fixed and Synced.
+
+### [2026-04-25 03:40 PM] - Added .npmrc for Cloudflare
+**User Prompt:** Create .npmrc with legacy-peer-deps=true.
+**Plan:**
+- Created `.npmrc` file in root.
+- This ensures Cloudflare build environment uses `legacy-peer-deps` automatically.
+**Action:** Created and pushed `.npmrc`.
 **Git:** Committed and pushed to `main`.
 **Status:** Fixed and Synced.
