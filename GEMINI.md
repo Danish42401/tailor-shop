@@ -20,3 +20,14 @@
 **Action:** Implemented global cart state, created `CartDrawer.tsx`, updated `ClientLayout.tsx`, `Navigation.tsx`, and `Catalog/page.tsx`.
 **Git:** Committed and pushed to `origin main`.
 **Status:** Fixed and Synced.
+
+### [2026-04-25 01:45 PM] - Fix Sheet Data Sync & Caching
+**User Prompt:** Catalog page showing old products instead of Sheets data.
+**Plan:**
+- Verified URL: Sheet shows "House", "flowers", "BE MISAL PRODUCT".
+- Identified caching/fallback issue in user browser.
+- Updated `data-service.ts` with `cache: 'no-store'` and `revalidate: 0`.
+- Added detailed console logging for client-side debugging.
+**Action:** Updated `src/lib/data-service.ts`.
+**Git:** Committed and pushed to `main`.
+**Status:** Fixed and Synced.
