@@ -7,10 +7,10 @@ const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR
  * Robust CSV Parser that handles quoted strings with commas
  */
 function parseCSVLine(line: string): string[] {
-  const result = [];
+  const result: string[] = [];
   let cur = '';
   let inQuotes = false;
-  
+
   for (let i = 0; i < line.length; i++) {
     const char = line[i];
     if (char === '"') {
