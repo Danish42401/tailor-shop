@@ -1,0 +1,9 @@
+C:\Users\Danish\Desktop\kids-choice-boutique\AGENTS.md
+C:\Users\Danish\Desktop\kids-choice-boutique\CLAUDE.md
+C:\Users\Danish\Desktop\kids-choice-boutique\GEMINI.md
+C:\Users\Danish\Desktop\kids-choice-boutique\README.md
+C:\Users\Danish\Desktop\kids-choice-boutique\public\file.svg
+C:\Users\Danish\Desktop\kids-choice-boutique\public\globe.svg
+C:\Users\Danish\Desktop\kids-choice-boutique\public\next.svg
+C:\Users\Danish\Desktop\kids-choice-boutique\public\vercel.svg
+C:\Users\Danish\Desktop\kids-choice-boutique\public\window.svg
