@@ -91,5 +91,13 @@
 - Created `.npmrc` file in root.
 - This ensures Cloudflare build environment uses `legacy-peer-deps` automatically.
 **Action:** Created and pushed `.npmrc`.
+**Status:** Fixed and Synced.
+
+### [2026-04-25 03:50 PM] - Fixed Build Recursion Loop
+**User Prompt:** Fix recursive build loop in package.json.
+**Plan:**
+- Restored `build` script to `next build`.
+- `next-on-pages` should be run separately or via a custom script to avoid infinite recursion when it calls `npm run build`.
+**Action:** Updated `package.json`.
 **Git:** Committed and pushed to `main`.
 **Status:** Fixed and Synced.
