@@ -27,37 +27,41 @@ function parseCSVLine(line: string): string[] {
 }
 
 export async function getProductsFromSheet(): Promise<Product[]> {
-  if (!GOOGLE_SHEET_CSV_URL) {
-    const { initialProducts } = await import("@/data/products");
-    return initialProducts;
+  const sheetUrl = GOOGLE_SHEET_CSV_URL;
+
+  if (!sheetUrl) {
+    console.warn("GOOGLE_SHEET_CSV_URL is not defined");
+    return [];
   }
 
   try {
-    // Adding a timestamp to bypass any intermediate caching
-    const urlWithCacheBuster = `${GOOGLE_SHEET_CSV_URL}&t=${Date.now()}`;
+    // Edge-compatible fetch with cache busting
+    const urlWithCacheBuster = `${sheetUrl}&t=${Date.now()}`;
     
     console.log("Fetching products from:", urlWithCacheBuster);
     
     const response = await fetch(urlWithCacheBuster, {
-      cache: 'no-store', // Disable browser cache
-      next: { revalidate: 0 } // Disable Next.js cache
+      method: 'GET',
+      headers: {
+        'Accept': 'text/csv',
+      },
+      cache: 'no-store', // Cloudflare Edge compatible
     });
     
-    if (!response.ok) throw new Error(`Failed to fetch sheet data: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch sheet data: ${response.status}`);
+    }
     
     const csvData = await response.text();
-    console.log("CSV Data received, length:", csvData.length);
-    
     const lines = csvData.split(/\r?\n/).filter(line => line.trim());
     
     if (lines.length < 2) {
-      console.warn("Sheet is empty or only has headers");
       return [];
     }
     
     const rows = lines.slice(1); // Skip header row
     
-    const parsedProducts = rows.map((line, index) => {
+    return rows.map((line, index) => {
       try {
         const columns = parseCSVLine(line);
         return {
@@ -72,22 +76,14 @@ export async function getProductsFromSheet(): Promise<Product[]> {
           stockStatus: (columns[8]?.toLowerCase() || "in-stock") as any,
         };
       } catch (e) {
-        console.error("Error parsing line:", line, e);
+        console.error("Error parsing CSV line:", e);
         return null;
       }
     }).filter((p): p is Product => p !== null && !!p.id);
-
-    console.log(`Successfully parsed ${parsedProducts.length} products`);
-    return parsedProducts;
     
   } catch (error) {
-    console.error("CRITICAL: Error fetching Google Sheet data:", error);
-    try {
-      console.log("Falling back to initial products...");
-      const { initialProducts } = await import("@/data/products");
-      return initialProducts;
-    } catch {
-      return [];
-    }
+    console.error("Cloudflare Edge Fetch Error:", error);
+    // Return empty array or fallback to static data
+    return [];
   }
 }
