@@ -66,5 +66,13 @@
 - Restored `parseCSVLine` function in `src/lib/data-service.ts` to handle commas in quoted descriptions.
 - Verified Edge Runtime compatibility remains intact.
 **Action:** Updated `package.json` and `src/lib/data-service.ts`.
+**Status:** Fixed and Synced.
+
+### [2026-04-25 03:20 PM] - Downgraded Next.js for Cloudflare
+**User Prompt:** Downgrade Next.js to 15.5.2 to fix Cloudflare build conflict.
+**Plan:**
+- Downgraded Next.js from v16/latest to v15.5.2 to match `@cloudflare/next-on-pages` peer dependencies.
+- Added `overrides` to `package.json` to force the correct version across the dependency tree.
+**Action:** Updated `package.json`.
 **Git:** Committed and pushed to `main`.
 **Status:** Fixed and Synced.
