@@ -29,5 +29,15 @@
 - Updated `data-service.ts` with `cache: 'no-store'` and `revalidate: 0`.
 - Added detailed console logging for client-side debugging.
 **Action:** Updated `src/lib/data-service.ts`.
+**Status:** Fixed and Synced.
+
+### [2026-04-25 02:15 PM] - Fixed Mobile Cart Synchronization
+**User Prompt:** Adding to cart doesn't work on Android/Mobile.
+**Plan:**
+- Identified that cart state was local to components, causing sync issues.
+- Created `CartContext.tsx` for global state management.
+- Wrapped app with `CartProvider`.
+- Refactored `useCart` hook to use the shared context.
+**Action:** Created `src/context/CartContext.tsx`, updated `src/hooks/useCart.ts` and `src/components/features/ClientLayout.tsx`.
 **Git:** Committed and pushed to `main`.
 **Status:** Fixed and Synced.
