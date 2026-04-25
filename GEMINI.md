@@ -47,5 +47,15 @@
 - Removed `setIsCartOpen(true)` from `CartContext` and `Catalog` page.
 - Item count still updates, and floating button appears on mobile when items > 0.
 **Action:** Updated `src/context/CartContext.tsx` and `src/app/catalog/page.tsx`.
+**Status:** Fixed and Synced.
+
+### [2026-04-25 02:45 PM] - Prepared for Cloudflare Pages Deployment
+**User Prompt:** Prepare repo for Cloudflare Pages (Edge Runtime).
+**Plan:**
+- Switched build engine to `@cloudflare/next-on-pages`.
+- Forced Edge Runtime in `layout.tsx`.
+- Refactored `data-service.ts` to use Edge-safe `fetch()` for Google Sheets.
+- Added Cloudflare type definitions.
+**Action:** Updated `package.json`, `next.config.ts`, `src/app/layout.tsx`, `src/lib/data-service.ts`, and created `src/lib/cloudflare-env.d.ts`.
 **Git:** Committed and pushed to `main`.
 **Status:** Fixed and Synced.
