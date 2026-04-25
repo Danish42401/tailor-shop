@@ -74,5 +74,14 @@
 - Downgraded Next.js from v16/latest to v15.5.2 to match `@cloudflare/next-on-pages` peer dependencies.
 - Added `overrides` to `package.json` to force the correct version across the dependency tree.
 **Action:** Updated `package.json`.
+**Status:** Fixed and Synced.
+
+### [2026-04-25 03:30 PM] - Fixed package-lock.json Sync
+**User Prompt:** Fix package-lock.json sync error for Cloudflare build.
+**Plan:**
+- Deleted the old `package-lock.json`.
+- Regenerated a fresh one using `npm install --legacy-peer-deps` to match the current `package.json`.
+- This ensures `npm ci` works correctly on Cloudflare.
+**Action:** Regenerated and pushed `package-lock.json`.
 **Git:** Committed and pushed to `main`.
 **Status:** Fixed and Synced.
