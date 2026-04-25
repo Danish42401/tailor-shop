@@ -57,5 +57,14 @@
 - Refactored `data-service.ts` to use Edge-safe `fetch()` for Google Sheets.
 - Added Cloudflare type definitions.
 **Action:** Updated `package.json`, `next.config.ts`, `src/app/layout.tsx`, `src/lib/data-service.ts`, and created `src/lib/cloudflare-env.d.ts`.
+**Status:** Fixed and Synced.
+
+### [2026-04-25 03:10 PM] - Security Patch & CSV Parser Fix
+**User Prompt:** Upgrade Next.js (CVE fix) and restore robust CSV parser.
+**Plan:**
+- Upgraded Next.js to latest stable to fix CVE-2025-66478.
+- Restored `parseCSVLine` function in `src/lib/data-service.ts` to handle commas in quoted descriptions.
+- Verified Edge Runtime compatibility remains intact.
+**Action:** Updated `package.json` and `src/lib/data-service.ts`.
 **Git:** Committed and pushed to `main`.
 **Status:** Fixed and Synced.
