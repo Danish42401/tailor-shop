@@ -59,7 +59,15 @@ export default async function Home() {
             {featuredPairs.map((p) => (
               <div key={p.id} className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-500">
                 <div className="aspect-[4/5] bg-slate-50 dark:bg-slate-800 rounded-[2rem] flex items-center justify-center text-8xl group-hover:scale-105 transition-transform duration-500 mb-8 overflow-hidden relative">
-                  {p.icon}
+                  {p.icon && p.icon.startsWith("http") ? (
+                    <img 
+                      src={p.icon} 
+                      alt={p.name} 
+                      className="w-full h-full object-cover rounded-[1.5rem]"
+                    />
+                  ) : (
+                    <span>{p.icon || "👗"}</span>
+                  )}
                   <div className="absolute top-6 right-6 bg-amber-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-lg shadow-amber-900/40">
                     Exclusive Pair
                   </div>
