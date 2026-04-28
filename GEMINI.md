@@ -93,15 +93,14 @@
 **Action:** Created and pushed `.npmrc`.
 **Status:** Fixed and Synced.
 
-### [2026-04-28 12:45 PM] - Upgrade: Bespoke Studio 1-Step Integration
-**User Prompt:** Consolidate 3-step form into 1-step and use 8 specific measurement points.
+### [2026-04-28 01:15 PM] - Global Rebrand & Contact UI Optimization
+**User Prompt:** Change website name to Emirates Deep globally, move location button/address to Contact page.
 **Plan:**
-- Rebuilt `LuxuryBespokeForm.tsx` into a single-page "Studio View".
-- Implemented 8 specific measurement points: Chest, Shoulder, Frock Length, Armhole, Sleeve Length, Waist, Neck Width, Neck Depth.
-- Created a fully interactive Silhouette SVG diagram that reacts to field focus.
-- Updated `src/types/index.ts` and `src/lib/whatsapp.ts` to support new measurement keys.
-- Removed legacy 3-step logic and "Next/Previous" navigation.
-**Action:** Updated `LuxuryBespokeForm.tsx`, `index.ts`, and `whatsapp.ts`.
+- Renamed all headers and metadata to "Emirates Deep Collection".
+- Moved Google Maps button and shop address from measurement form to `/contact` page.
+- Updated `src/app/layout.tsx` for global SEO/Branding.
+- Cleaned up `LuxuryBespokeForm.tsx` header to focus strictly on measurements.
+**Action:** Updated `Navigation.tsx`, `layout.tsx`, `contact/page.tsx`, and `LuxuryBespokeForm.tsx`.
 **Git:** Committed and pushed to `origin main`.
 **Status:** Completed & Synced.
 

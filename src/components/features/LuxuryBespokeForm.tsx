@@ -200,13 +200,6 @@ export default function LuxuryBespokeForm() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <a 
-                href="https://www.google.com/maps?q=24.284376648567086,54.65970754623413&z=17&hl=en" 
-                target="_blank"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest hover:bg-[#c9a84c] hover:text-[#0a0f1e] transition-all"
-            >
-                <MapPin size={14} /> Shop Location
-            </a>
             <button 
                 onClick={handleUnitToggle}
                 className="px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all"

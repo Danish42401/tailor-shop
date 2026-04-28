@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: "Kids Choice - Premium Dubai Tailoring Boutique",
-  description: "Bespoke elegance for you & your little ones. Specialists in children frocks, ladies abaya, and mom & daughter pairs in Dubai.",
+  title: "Emirates Deep Collection | Premium Abu Dhabi Tailoring",
+  description: "Bespoke elegance for you & your little ones. Specialists in children frocks, ladies abaya, and bespoke tailoring in Abu Dhabi, Yasmart Mall.",
 };
 
 export default function RootLayout({

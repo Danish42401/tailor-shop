@@ -1,5 +1,5 @@
 import { siteSettings } from "@/data/products";
-import { Phone, MapPin, Clock, Mail, MessageSquare } from "lucide-react";
+import { Phone, MapPin, Clock, Mail, MessageSquare, ExternalLink } from "lucide-react";
 
 export default function Contact() {
   return (
@@ -7,18 +7,25 @@ export default function Contact() {
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-6">Visit Our <span className="text-amber-600">Boutique</span></h1>
         <p className="text-slate-500 dark:text-slate-400 text-lg max-w-xl mx-auto leading-relaxed font-medium">
-          Step into our world of bespoke fashion. Our master tailors are waiting to welcome you in the heart of Dubai.
+          Step into our world of bespoke fashion. Our master tailors are waiting to welcome you in Abu Dhabi.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-5xl">
         {/* Info Cards */}
         <div className="space-y-6">
-          <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none flex items-start gap-6">
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none flex items-start gap-6 group hover:border-amber-600/30 transition-all">
             <div className="p-4 bg-amber-100 dark:bg-amber-900/30 rounded-2xl text-amber-600"><MapPin size={24} /></div>
-            <div>
+            <div className="flex-1">
               <h4 className="font-bold text-lg mb-1">Our Location</h4>
-              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{siteSettings.shopAddress}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-4">{siteSettings.shopAddress}</p>
+              <a 
+                href="https://www.google.com/maps?q=24.284376648567086,54.65970754623413&z=17&hl=en" 
+                target="_blank"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-black uppercase tracking-widest hover:bg-amber-600 dark:hover:bg-amber-600 hover:text-white transition-all shadow-lg"
+              >
+                <ExternalLink size={14} /> View on Google Maps
+              </a>
             </div>
           </div>
 
