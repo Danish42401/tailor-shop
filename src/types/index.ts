@@ -21,17 +21,15 @@ export interface CustomOrderRequest {
   customerName: string;
   phoneNumber: string;
   measurements: {
-    fullLength?: string;
-    chestWidth?: string;
-    waistWidth?: string;
-    hipWidth?: string;
-    shoulderWidth?: string;
+    chest?: string;
+    shoulder?: string;
+    frockLength?: string;
+    armhole?: string;
     sleeveLength?: string;
-    armOpening?: string;
-    neckCollar?: string;
-    neckDepthFront?: string;
-    neckDepthBack?: string;
-    other?: string;
+    waist?: string;
+    neckWidth?: string;
+    neckDepth?: string;
+    [key: string]: string | undefined;
   };
   notes: string;
   preferredFabric?: string;

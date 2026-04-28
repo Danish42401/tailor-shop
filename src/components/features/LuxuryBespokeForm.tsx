@@ -7,27 +7,25 @@ import {
   Maximize2, 
   Camera, 
   Send, 
-  ChevronRight, 
-  ChevronLeft,
   Ruler,
   HelpCircle,
-  AlertCircle
+  AlertCircle,
+  CheckCircle2,
+  Phone
 } from "lucide-react";
 import { siteSettings } from "@/data/products";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
 
 // --- Types ---
 interface Measurements {
-  fullLength: string;
-  chestWidth: string;
-  waistWidth: string;
-  hipWidth: string;
-  shoulderWidth: string;
+  chest: string;
+  shoulder: string;
+  frockLength: string;
+  armhole: string;
   sleeveLength: string;
-  armOpening: string;
-  neckCollar: string;
-  neckDepthFront: string;
-  neckDepthBack: string;
+  waist: string;
+  neckWidth: string;
+  neckDepth: string;
   [key: string]: string;
 }
 
@@ -37,75 +35,117 @@ interface FormData {
   unit: "inch" | "cm";
   measurements: Measurements;
   notes: string;
-  referenceImage: string | null;
 }
 
-// --- Micro-Diagram Component ---
-const SilhouetteDiagram = ({ activeField, onPartClick }: { activeField: string | null, onPartClick: (field: string) => void }) => {
+// --- Interactive Silhouette Component ---
+const SilhouetteStudio = ({ 
+  activeField, 
+  onPartClick, 
+  unit 
+}: { 
+  activeField: string | null, 
+  onPartClick: (field: string) => void,
+  unit: string
+}) => {
   const highlight = "#c9a84c";
   const dim = "rgba(255, 255, 255, 0.1)";
-  
+  const activeStrokeWidth = "3";
+  const normalStrokeWidth = "1.5";
+
+  // Detailed paths for a Frock/Kameez silhouette
   const parts = [
-    { id: "fullLength", d: "M20 5 L20 45", type: "line" },
-    { id: "chestWidth", d: "M13 18 L27 18", type: "line" },
-    { id: "waistWidth", d: "M14 25 L26 25", type: "line" },
-    { id: "shoulderWidth", d: "M14 8 L26 8", type: "line" },
+    { id: "frockLength", d: "M20 8 L20 46", label: "Full Length" },
+    { id: "shoulder", d: "M12 9 L28 9", label: "Shoulder" },
+    { id: "chest", d: "M11 18 L29 18", label: "Chest" },
+    { id: "waist", d: "M13 26 L27 26", label: "Waist" },
+    { id: "armhole", d: "M11 15 Q9 15 9 11 Q9 7 12 9", label: "Armhole" }, // Simple loop representaton
+    { id: "sleeveLength", d: "M28 9 L34 22", label: "Sleeve" },
+    { id: "neckWidth", d: "M16 8 Q20 10 24 8", label: "Neck Width" },
+    { id: "neckDepth", d: "M20 8 L20 14", label: "Neck Depth" },
   ];
 
   return (
-    <div className="relative w-full max-w-[280px] aspect-[3/4] mx-auto p-4 bg-white/5 rounded-[2rem] border border-white/10 flex items-center justify-center">
-      <svg viewBox="0 0 40 50" className="w-full h-full text-white/20">
-        {/* Silhouette Body */}
+    <div className="relative w-full max-w-[320px] aspect-[3/4] mx-auto p-6 bg-white/5 rounded-[3rem] border border-white/10 flex items-center justify-center group/studio">
+      <svg viewBox="0 0 40 50" className="w-full h-full">
+        {/* Silhouette Base */}
         <path
           d="M14 8 Q20 7 26 8 L28 14 L34 22 L31 25 L27 18 L27 46 Q20 48 13 46 L13 18 L9 25 L6 22 L12 14 Z"
-          fill="currentColor"
-          className="transition-colors duration-500"
+          fill="rgba(255,255,255,0.03)"
+          stroke="rgba(255,255,255,0.1)"
+          strokeWidth="0.5"
         />
         
-        {/* Interactive Highlight Lines */}
+        {/* Measurement Lines */}
         {parts.map(p => (
-          <path
-            key={p.id}
-            d={p.d}
-            stroke={activeField === p.id ? highlight : dim}
-            strokeWidth={activeField === p.id ? "3" : "1.5"}
-            className="cursor-pointer hover:stroke-[#c9a84c] transition-all"
-            onClick={() => onPartClick(p.id)}
-          />
+          <g key={p.id} className="cursor-pointer" onClick={() => onPartClick(p.id)}>
+            <path
+              d={p.d}
+              stroke={activeField === p.id ? highlight : dim}
+              strokeWidth={activeField === p.id ? activeStrokeWidth : normalStrokeWidth}
+              strokeLinecap="round"
+              fill="none"
+              className="transition-all duration-500"
+            />
+            {activeField === p.id && (
+                <>
+                    <circle cx={p.d.split(' ')[1].replace('M', '').split('L')[0]} cy={p.d.split(' ')[2].split('L')[0]} r="1" fill={highlight} className="animate-pulse" />
+                    <text x="20" y="3" textAnchor="middle" className="text-[3px] fill-[#c9a84c] font-black uppercase tracking-widest">{p.label}</text>
+                </>
+            )}
+          </g>
         ))}
       </svg>
-      <div className="absolute top-4 left-4 flex flex-col gap-1">
-        <div className="w-3 h-3 rounded-full bg-[#c9a84c] animate-ping" />
-        <span className="text-[10px] font-black uppercase tracking-tighter text-[#c9a84c]">Interactive Mode</span>
+      
+      {/* Badge */}
+      <div className="absolute top-6 left-6 flex flex-col gap-1">
+        <div className="w-2 h-2 rounded-full bg-[#c9a84c] animate-ping" />
+        <span className="text-[8px] font-black uppercase tracking-widest text-[#c9a84c]/60">Studio Mode</span>
+      </div>
+
+      {/* Unit Indicator */}
+      <div className="absolute bottom-6 right-6 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-black text-[#c9a84c]">
+        {unit.toUpperCase()}
       </div>
     </div>
   );
 };
 
 export default function LuxuryBespokeForm() {
-  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     customerName: "",
     phoneNumber: "",
     unit: "inch",
     measurements: {
-      fullLength: "", chestWidth: "", waistWidth: "", hipWidth: "",
-      shoulderWidth: "", sleeveLength: "", armOpening: "", 
-      neckCollar: "", neckDepthFront: "", neckDepthBack: ""
+      chest: "",
+      shoulder: "",
+      frockLength: "",
+      armhole: "",
+      sleeveLength: "",
+      waist: "",
+      neckWidth: "",
+      neckDepth: ""
     },
-    notes: "",
-    referenceImage: null
+    notes: ""
   });
   const [activeField, setActiveField] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Auto-save logic
   useEffect(() => {
-    const saved = localStorage.getItem("bespoke_draft");
-    if (saved) setFormData(JSON.parse(saved));
+    const saved = localStorage.getItem("bespoke_studio_draft");
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            // Migrate old data if necessary or just reset
+            if (parsed.measurements && parsed.measurements.chest !== undefined) {
+                setFormData(parsed);
+            }
+        } catch(e) {}
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("bespoke_draft", JSON.stringify(formData));
+    localStorage.setItem("bespoke_studio_draft", JSON.stringify(formData));
   }, [formData]);
 
   const handleUnitToggle = () => {
@@ -122,176 +162,260 @@ export default function LuxuryBespokeForm() {
     setFormData({ ...formData, unit: newUnit, measurements: newMeasurements });
   };
 
-  const nextStep = () => setStep(s => Math.min(s + 1, 3));
-  const prevStep = () => setStep(s => Math.max(s - 1, 1));
-
   const handleSubmit = () => {
+    if (!formData.customerName || !formData.phoneNumber) {
+        alert("Please provide your Name and WhatsApp number.");
+        return;
+    }
+    
+    setIsSubmitting(true);
     const link = generateWhatsAppLink(siteSettings.whatsappNumber, [], 0, {
         customerName: formData.customerName,
         phoneNumber: formData.phoneNumber,
         notes: `${formData.notes} (Units: ${formData.unit})`,
         measurements: formData.measurements
-    } as any);
-    window.open(link, "_blank");
+    });
+    
+    setTimeout(() => {
+        window.open(link, "_blank");
+        setIsSubmitting(false);
+    }, 800);
   };
 
+  const MEASUREMENT_FIELDS = [
+    { id: "chest", label: "Chest Size" },
+    { id: "shoulder", label: "Shoulder Width" },
+    { id: "frockLength", label: "Frock Length" },
+    { id: "armhole", label: "Armhole Size" },
+    { id: "sleeveLength", label: "Sleeve Length" },
+    { id: "waist", label: "Waist Size" },
+    { id: "neckWidth", label: "Neck Width" },
+    { id: "neckDepth", label: "Neck Depth" },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#0a0f1e] text-slate-100 p-4 md:p-12 font-['Inter']">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-[#0a0f1e] text-slate-100 p-4 md:p-8 font-['Inter'] selection:bg-[#c9a84c]/30">
+      <div className="max-w-6xl mx-auto">
         
-        {/* Luxury Header */}
-        <header className="text-center mb-12">
-          <div className="inline-flex p-4 rounded-full bg-white/5 border border-white/10 mb-6 group hover:border-[#c9a84c] transition-all">
-            <Scissors className="text-[#c9a84c] group-hover:rotate-45 transition-transform" size={40} />
+        {/* Premium Header */}
+        <header className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-[#c9a84c]/10 border border-[#c9a84c]/20">
+                <Scissors className="text-[#c9a84c]" size={24} />
+              </div>
+              <h1 className="text-3xl md:text-5xl font-['Playfair_Display'] font-black tracking-tight text-white">
+                Bespoke <span className="text-[#c9a84c]">Studio</span>
+              </h1>
+            </div>
+            <p className="text-slate-500 font-medium tracking-[0.2em] uppercase text-[10px] pl-1">Dubai Luxury Tailoring Excellence</p>
           </div>
-          <h1 className="text-4xl md:text-7xl font-['Playfair_Display'] font-black tracking-tighter shimmer-text mb-4">
-            Bespoke Tailoring
-          </h1>
-          <p className="text-slate-500 font-medium tracking-wide uppercase text-xs">Dubai Master Craftsmanship</p>
+
+          <div className="flex items-center gap-4 bg-white/5 p-2 rounded-2xl border border-white/10">
+            <button 
+                onClick={handleUnitToggle}
+                className="px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:bg-white/5 active:scale-95"
+            >
+                Switch to {formData.unit === 'inch' ? 'Centimeters' : 'Inches'}
+            </button>
+          </div>
         </header>
 
-        {/* Progress Indicator */}
-        <div className="flex justify-between items-center max-w-md mx-auto mb-16 relative">
-          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/10 -z-10" />
-          {[1, 2, 3].map(i => (
-            <div key={i} className={`w-10 h-10 rounded-full flex items-center justify-center font-black text-sm border transition-all duration-500 ${step >= i ? 'step-active border-[#c9a84c] text-white' : 'bg-[#0a0f1e] border-white/10 text-slate-600'}`}>
-              {i}
-            </div>
-          ))}
-        </div>
-
-        {/* Form Container */}
-        <div className="glass-card rounded-[3rem] p-8 md:p-16 shadow-2xl relative overflow-hidden">
+        {/* Main Interface */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Step 1: Identity */}
-          {step === 1 && (
-            <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#c9a84c] ml-1">Client Full Name</label>
-                  <input 
-                    type="text"
-                    placeholder="e.g. Fatima Ahmed"
-                    className="w-full glass-input rounded-2xl py-5 px-8 outline-none font-bold text-xl"
-                    value={formData.customerName}
-                    onChange={e => setFormData({...formData, customerName: e.target.value})}
-                  />
+          {/* Left: Studio View */}
+          <div className="lg:col-span-5 sticky top-8">
+            <div className="glass-card rounded-[3rem] p-8 space-y-8 border-white/5 shadow-2xl overflow-hidden group">
+              <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#c9a84c]/5 rounded-full blur-[80px]" />
+              
+              <SilhouetteStudio 
+                activeField={activeField} 
+                onPartClick={setActiveField} 
+                unit={formData.unit}
+              />
+
+              {/* Dynamic Tip */}
+              <div className="bg-[#c9a84c]/5 border border-[#c9a84c]/20 rounded-2xl p-4 flex gap-4 items-center animate-in fade-in slide-in-from-bottom-2">
+                <div className="w-10 h-10 rounded-full bg-[#c9a84c] flex items-center justify-center shrink-0">
+                    <HelpCircle className="text-[#0a0f1e]" size={20} />
                 </div>
-                <div className="space-y-4">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#c9a84c] ml-1">WhatsApp Contact</label>
-                  <input 
-                    type="tel"
-                    placeholder="+971 -- --- ----"
-                    className="w-full glass-input rounded-2xl py-5 px-8 outline-none font-bold text-xl"
-                    value={formData.phoneNumber}
-                    onChange={e => setFormData({...formData, phoneNumber: e.target.value})}
-                  />
-                </div>
-              </div>
-
-              <div className="p-8 rounded-[2rem] border-2 border-dashed border-white/5 flex flex-col items-center gap-4 hover:border-[#c9a84c]/30 transition-all cursor-pointer">
-                <Camera size={32} className="text-slate-600" />
-                <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest">Attach Inspiration Photo</p>
-              </div>
-            </div>
-          )}
-
-          {/* Step 2: Dimensions */}
-          {step === 2 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 animate-in fade-in slide-in-from-right-4">
-              <div>
-                <SilhouetteDiagram activeField={activeField} onPartClick={setActiveField} />
-                <div className="mt-8 flex items-center justify-center gap-4">
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${formData.unit === 'inch' ? 'text-[#c9a84c]' : 'text-slate-600'}`}>INCH</span>
-                  <button onClick={handleUnitToggle} className="w-14 h-7 rounded-full bg-white/5 border border-white/10 p-1 flex items-center relative transition-all">
-                    <div className={`w-5 h-5 rounded-full bg-[#c9a84c] transition-all duration-300 ${formData.unit === 'cm' ? 'translate-x-7' : 'translate-x-0'}`} />
-                  </button>
-                  <span className={`text-[10px] font-black uppercase tracking-widest ${formData.unit === 'cm' ? 'text-[#c9a84c]' : 'text-slate-600'}`}>CM</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 h-fit max-h-[500px] overflow-y-auto no-scrollbar pr-2">
-                {Object.keys(formData.measurements).map(key => (
-                  <div key={key} className={`p-4 rounded-2xl border transition-all ${activeField === key ? 'border-[#c9a84c] bg-[#c9a84c]/5 ring-4 ring-[#c9a84c]/5' : 'border-white/5'}`}>
-                    <label className="text-[9px] font-black uppercase tracking-tighter text-slate-500 mb-2 block">{key.replace(/([A-Z])/g, ' $1')}</label>
-                    <input 
-                      type="number"
-                      className="w-full bg-transparent border-none p-0 outline-none font-black text-2xl text-white"
-                      placeholder="0.0"
-                      value={formData.measurements[key]}
-                      onFocus={() => setActiveField(key)}
-                      onChange={e => setFormData({
-                        ...formData, 
-                        measurements: {...formData.measurements, [key]: e.target.value}
-                      })}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Step 3: Aesthetics */}
-          {step === 3 && (
-            <div className="space-y-8 animate-in fade-in zoom-in-95">
-              <div className="space-y-4">
-                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#c9a84c] ml-1">Design Notes & Fabric Choice</label>
-                <textarea 
-                  rows={6}
-                  placeholder="Describe the silhouette, embroidery details, and fabric preference..."
-                  className="w-full glass-input rounded-[2.5rem] py-8 px-10 outline-none font-medium text-lg leading-relaxed"
-                  value={formData.notes}
-                  onChange={e => setFormData({...formData, notes: e.target.value})}
-                />
-              </div>
-
-              {/* Summary Card */}
-              <div className="bg-white/5 border border-white/10 rounded-3xl p-8 flex items-start gap-6">
-                <AlertCircle className="text-[#c9a84c] shrink-0" />
-                <div className="space-y-2">
-                  <p className="text-sm font-bold">Review your details</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">By sending this request, our designer will contact you within 24 hours to confirm the fabric availability and schedule a video consultation if needed.</p>
+                <div>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#c9a84c] mb-1">Tailor's Tip</p>
+                    <p className="text-xs text-slate-400 font-medium leading-relaxed">
+                        {activeField ? `Measure your ${activeField.replace(/([A-Z])/g, ' $1')} loosely with a soft tape for a comfortable fit.` : "Tap any measurement field or diagram line to see exactly where to measure."}
+                    </p>
                 </div>
               </div>
             </div>
-          )}
+          </div>
 
-          {/* Navigation Controls */}
-          <div className="mt-16 flex flex-col md:flex-row gap-4">
-            {step > 1 && (
-              <button 
-                onClick={prevStep}
-                className="flex-1 py-6 rounded-2xl border border-white/10 font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white/5 transition-all"
-              >
-                <ChevronLeft size={16} /> Previous
-              </button>
-            )}
+          {/* Right: Input Panel */}
+          <div className="lg:col-span-7 space-y-8 pb-32 lg:pb-0">
             
-            {step < 3 ? (
-              <button 
-                onClick={nextStep}
-                disabled={step === 1 && (!formData.customerName || !formData.phoneNumber)}
-                className="flex-[2] bg-white text-slate-900 py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-2 hover:bg-[#c9a84c] hover:text-white transition-all disabled:opacity-30"
-              >
-                Next Step <ChevronRight size={16} />
-              </button>
-            ) : (
-              <button 
-                onClick={handleSubmit}
-                className="flex-[2] luxury-gradient text-slate-900 py-6 rounded-2xl font-black uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-4 hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_30px_rgba(201,168,76,0.3)] sticky bottom-4 md:static"
-              >
-                Launch Design Request <Send size={18} />
-              </button>
-            )}
+            {/* 1. Identity Section */}
+            <div className="glass-card rounded-[2.5rem] p-8 border-white/5 shadow-xl space-y-6">
+                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                    <User className="text-[#c9a84c]" size={18} />
+                    <h2 className="text-xs font-black uppercase tracking-[0.3em] text-white">Client Details</h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-500 ml-1">Full Name</label>
+                        <input 
+                            type="text"
+                            placeholder="e.g. Fatima Ahmed"
+                            className="w-full glass-input rounded-2xl py-4 px-6 outline-none font-bold text-lg focus:ring-2 focus:ring-[#c9a84c]/20"
+                            value={formData.customerName}
+                            onChange={e => setFormData({...formData, customerName: e.target.value})}
+                        />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-500 ml-1">WhatsApp Number</label>
+                        <div className="relative">
+                            <input 
+                                type="tel"
+                                placeholder="+971 -- --- ----"
+                                className="w-full glass-input rounded-2xl py-4 px-12 outline-none font-bold text-lg focus:ring-2 focus:ring-[#c9a84c]/20"
+                                value={formData.phoneNumber}
+                                onChange={e => setFormData({...formData, phoneNumber: e.target.value})}
+                            />
+                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* 2. Measurements Grid */}
+            <div className="glass-card rounded-[2.5rem] p-8 border-white/5 shadow-xl space-y-6">
+                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                    <Ruler className="text-[#c9a84c]" size={18} />
+                    <h2 className="text-xs font-black uppercase tracking-[0.3em] text-white">Precise Measurements</h2>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {MEASUREMENT_FIELDS.map(field => (
+                        <div 
+                            key={field.id}
+                            className={`p-4 rounded-2xl border transition-all duration-300 ${activeField === field.id ? 'border-[#c9a84c] bg-[#c9a84c]/5 shadow-[0_0_20px_rgba(201,168,76,0.1)]' : 'border-white/5 bg-white/[0.02] hover:bg-white/[0.04]'}`}
+                            onMouseEnter={() => setActiveField(field.id)}
+                        >
+                            <label className="text-[8px] font-black uppercase tracking-tighter text-slate-500 mb-2 block">{field.label}</label>
+                            <div className="relative">
+                                <input 
+                                    type="number"
+                                    step="0.1"
+                                    placeholder="0.0"
+                                    className="w-full bg-transparent border-none p-0 outline-none font-black text-2xl text-white placeholder:text-white/5"
+                                    value={formData.measurements[field.id]}
+                                    onFocus={() => setActiveField(field.id)}
+                                    onChange={e => setFormData({
+                                        ...formData,
+                                        measurements: {...formData.measurements, [field.id]: e.target.value}
+                                    })}
+                                />
+                                <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[8px] font-black text-slate-600 uppercase">{formData.unit}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* 3. Design Notes */}
+            <div className="glass-card rounded-[2.5rem] p-8 border-white/5 shadow-xl space-y-6">
+                <div className="flex items-center gap-4 border-b border-white/5 pb-4">
+                    <Scissors className="text-[#c9a84c]" size={18} />
+                    <h2 className="text-xs font-black uppercase tracking-[0.3em] text-white">Style Preferences</h2>
+                </div>
+                <textarea 
+                    rows={4}
+                    placeholder="Describe the silhouette, embroidery details, fabric preference or any special requests..."
+                    className="w-full glass-input rounded-2xl py-6 px-8 outline-none font-medium text-base leading-relaxed focus:ring-2 focus:ring-[#c9a84c]/20"
+                    value={formData.notes}
+                    onChange={e => setFormData({...formData, notes: e.target.value})}
+                />
+                
+                <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-dashed border-white/10 group hover:border-[#c9a84c]/50 transition-all cursor-pointer">
+                    <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-slate-500 group-hover:text-[#c9a84c]">
+                        <Camera size={24} />
+                    </div>
+                    <div>
+                        <p className="text-[10px] font-black uppercase tracking-widest">Attach Inspiration Image</p>
+                        <p className="text-[9px] text-slate-500">Coming soon: Upload directly to WhatsApp</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Submit Action */}
+            <div className="pt-4 pb-12 lg:pb-0">
+                <button 
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    className="w-full py-6 rounded-3xl luxury-gradient text-[#0a0f1e] font-black uppercase tracking-[0.4em] text-xs flex items-center justify-center gap-4 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_20px_40px_rgba(201,168,76,0.2)] disabled:opacity-50 group"
+                >
+                    {isSubmitting ? "Finalizing Design..." : (
+                        <>
+                            Launch Design Request
+                            <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                        </>
+                    )}
+                </button>
+                <div className="mt-6 flex items-center justify-center gap-6 opacity-40">
+                    <div className="flex items-center gap-2">
+                        <CheckCircle2 size={12} />
+                        <span className="text-[8px] font-black uppercase tracking-widest">Master Crafted</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <CheckCircle2 size={12} />
+                        <span className="text-[8px] font-black uppercase tracking-widest">Dubai Certified</span>
+                    </div>
+                </div>
+            </div>
+
           </div>
 
         </div>
 
-        <footer className="mt-12 text-center text-slate-600 text-[10px] font-black uppercase tracking-[0.4em]">
-          Dubai • Deira • Boutique Excellence
+        <footer className="mt-20 text-center pb-12">
+          <p className="text-slate-700 text-[10px] font-black uppercase tracking-[0.5em]">Boutique Excellence • Since 1998</p>
         </footer>
 
       </div>
+      
+      <style jsx global>{`
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(201, 168, 76, 0.3);
+        }
+        .luxury-gradient {
+            background: linear-gradient(135deg, #e5c05b 0%, #c9a84c 50%, #b3913d 100%);
+        }
+        .shimmer-text {
+            background: linear-gradient(90deg, #fff 0%, #c9a84c 50%, #fff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+      `}</style>
     </div>
   );
 }

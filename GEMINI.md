@@ -93,11 +93,15 @@
 **Action:** Created and pushed `.npmrc`.
 **Status:** Fixed and Synced.
 
-### [2026-04-25 03:50 PM] - Fixed Build Recursion Loop
-**User Prompt:** Fix recursive build loop in package.json.
+### [2026-04-28 12:45 PM] - Upgrade: Bespoke Studio 1-Step Integration
+**User Prompt:** Consolidate 3-step form into 1-step and use 8 specific measurement points.
 **Plan:**
-- Restored `build` script to `next build`.
-- `next-on-pages` should be run separately or via a custom script to avoid infinite recursion when it calls `npm run build`.
-**Action:** Updated `package.json`.
-**Git:** Committed and pushed to `main`.
-**Status:** Fixed and Synced.
+- Rebuilt `LuxuryBespokeForm.tsx` into a single-page "Studio View".
+- Implemented 8 specific measurement points: Chest, Shoulder, Frock Length, Armhole, Sleeve Length, Waist, Neck Width, Neck Depth.
+- Created a fully interactive Silhouette SVG diagram that reacts to field focus.
+- Updated `src/types/index.ts` and `src/lib/whatsapp.ts` to support new measurement keys.
+- Removed legacy 3-step logic and "Next/Previous" navigation.
+**Action:** Updated `LuxuryBespokeForm.tsx`, `index.ts`, and `whatsapp.ts`.
+**Git:** Committed and pushed to `origin main`.
+**Status:** Completed & Synced.
+
