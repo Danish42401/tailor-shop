@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { 
-  ArrowsUpDown, 
-  ArrowsRightLeft, 
+  ArrowUpDown, 
+  ArrowLeftRight, 
   Maximize, 
   Minimize, 
   MoveRight, 
@@ -21,11 +21,11 @@ interface Props {
 }
 
 const MEASUREMENT_FIELDS = [
-  { id: "fullLength", icon: <ArrowsUpDown size={18} />, num: 1 },
-  { id: "chestWidth", icon: <ArrowsRightLeft size={18} />, num: 2 },
-  { id: "waistWidth", icon: <ArrowsRightLeft size={18} />, num: 3 },
-  { id: "hipWidth", icon: <ArrowsRightLeft size={18} />, num: 4 },
-  { id: "shoulderWidth", icon: <ArrowsRightLeft size={18} />, num: 5 },
+  { id: "fullLength", icon: <ArrowUpDown size={18} />, num: 1 },
+  { id: "chestWidth", icon: <ArrowLeftRight size={18} />, num: 2 },
+  { id: "waistWidth", icon: <ArrowLeftRight size={18} />, num: 3 },
+  { id: "hipWidth", icon: <ArrowLeftRight size={18} />, num: 4 },
+  { id: "shoulderWidth", icon: <ArrowLeftRight size={18} />, num: 5 },
   { id: "sleeveLength", icon: <MoveRight size={18} />, num: 6 },
   { id: "armOpening", icon: <RotateCcw size={18} />, num: 7 },
   { id: "neckCollar", icon: <User size={18} />, num: 8 },
