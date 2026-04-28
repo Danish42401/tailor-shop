@@ -14,11 +14,50 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .luxury-gradient {
-  background: linear-gradient(135deg, #d4af37 0%, #f1e4d1 100%);
+  background: linear-gradient(135deg, #c9a84c 0%, #f1e4d1 50%, #c9a84c 100%);
 }
 
 .gold-text {
-  color: #d4af37;
+  color: #c9a84c;
+}
+
+@keyframes gold-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #c9a84c 0%, #f1e4d1 50%, #c9a84c 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gold-shimmer 3s linear infinite;
+}
+
+.glass-card {
+  background: rgba(10, 15, 30, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  border-color: #c9a84c;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
+  transform: scale(1.02);
+}
+
+.step-active {
+  background: #c9a84c;
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.5);
 }
 
 /* Custom scrollbar for boutique feel */
