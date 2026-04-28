@@ -193,7 +193,7 @@ export default function LuxuryBespokeForm() {
                 <Scissors className="text-[#c9a84c]" size={24} />
               </div>
               <h1 className="text-3xl md:text-5xl font-['Playfair_Display'] font-black tracking-tight text-white">
-                Emirates <span className="text-[#c9a84c]">Deep</span>
+                Emirates <span className="text-[#c9a84c]">deep collection</span>
               </h1>
             </div>
             <p className="text-slate-500 font-medium tracking-[0.2em] uppercase text-[10px] pl-1">Abu Dhabi • Baniyas East • Yasmart Mall</p>

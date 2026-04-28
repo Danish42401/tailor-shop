@@ -75,7 +75,7 @@ export const MobileHeader = () => {
     <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-50 md:hidden px-6 py-4">
       <div className="flex justify-between items-center">
         <Link href="/" className="text-xl font-black tracking-tighter text-slate-900 dark:text-white flex items-center gap-2">
-          <span className="text-amber-600">EMIRATES</span>DEEP
+          <span className="text-amber-600">EMIRATES</span> DEEP COLLECTION
         </Link>
         <button 
           onClick={() => setIsCartOpen(true)} 
@@ -100,7 +100,7 @@ export const DesktopHeader = ({ cartCount }: { cartCount: number }) => {
     <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-50 hidden md:block px-12 py-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white flex items-center gap-2">
-          <span className="text-amber-600">EMIRATES</span>DEEP
+          <span className="text-amber-600">EMIRATES</span> DEEP COLLECTION
         </Link>
         
         <div className="flex items-center gap-8 font-semibold text-sm uppercase tracking-widest text-slate-600 dark:text-slate-300">

@@ -93,14 +93,13 @@
 **Action:** Created and pushed `.npmrc`.
 **Status:** Fixed and Synced.
 
-### [2026-04-28 01:15 PM] - Global Rebrand & Contact UI Optimization
-**User Prompt:** Change website name to Emirates Deep globally, move location button/address to Contact page.
+### [2026-04-28 01:25 PM] - Brand Name Correction: Emirates deep collection
+**User Prompt:** Use exact name "Emirates deep collection" globally.
 **Plan:**
-- Renamed all headers and metadata to "Emirates Deep Collection".
-- Moved Google Maps button and shop address from measurement form to `/contact` page.
-- Updated `src/app/layout.tsx` for global SEO/Branding.
-- Cleaned up `LuxuryBespokeForm.tsx` header to focus strictly on measurements.
-**Action:** Updated `Navigation.tsx`, `layout.tsx`, `contact/page.tsx`, and `LuxuryBespokeForm.tsx`.
+- Updated all navigation headers to "EMIRATES DEEP COLLECTION".
+- Updated Bespoke Studio header to "Emirates deep collection".
+- Verified consistency across metadata and settings.
+**Action:** Updated `Navigation.tsx` and `LuxuryBespokeForm.tsx`.
 **Git:** Committed and pushed to `origin main`.
 **Status:** Completed & Synced.
 
