@@ -1,112 +1,156 @@
 "use client";
 
-import React, { useState } from "react";
-import { 
-  ArrowUpDown, 
-  ArrowLeftRight, 
-  Maximize, 
-  Minimize, 
-  MoveRight, 
-  RotateCcw, 
-  User,
-  Scissors,
-  ChevronDown,
-  ChevronUp
-} from "lucide-react";
-import { MeasurementDiagram } from "./MeasurementDiagram";
+import React from "react";
+import { Scissors } from "lucide-react";
 
 interface Props {
   measurements: any;
   onChange: (field: string, value: string) => void;
 }
 
+const MicroIcon = ({ type }: { type: string }) => {
+  const baseClass = "w-12 h-12 text-slate-400 dark:text-slate-600 shrink-0";
+  const strokeColor = "currentColor";
+  const highlightColor = "#f59e0b"; // Amber-500
+  
+  const FrockBase = () => (
+    <path
+      d="M14 8 Q20 7 26 8 L28 14 L34 22 L31 25 L27 18 L27 46 Q20 48 13 46 L13 18 L9 25 L6 22 L12 14 Z"
+      fill="none"
+      stroke={strokeColor}
+      strokeWidth="1.5"
+    />
+  );
+
+  switch (type) {
+    case "fullLength":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <line x1="20" y1="8" x2="20" y2="47" stroke={highlightColor} strokeWidth="3" strokeLinecap="round" />
+          <circle cx="20" cy="8" r="2" fill={highlightColor} />
+          <circle cx="20" cy="47" r="2" fill={highlightColor} />
+        </svg>
+      );
+    case "chestWidth":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <line x1="13" y1="19" x2="27" y2="19" stroke={highlightColor} strokeWidth="3" strokeLinecap="round" />
+        </svg>
+      );
+    case "waistWidth":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <line x1="13" y1="26" x2="27" y2="26" stroke={highlightColor} strokeWidth="3" strokeLinecap="round" />
+        </svg>
+      );
+    case "hipWidth":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <line x1="12" y1="36" x2="28" y2="36" stroke={highlightColor} strokeWidth="3" strokeLinecap="round" />
+        </svg>
+      );
+    case "shoulderWidth":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <line x1="14" y1="9" x2="26" y2="9" stroke={highlightColor} strokeWidth="3" strokeLinecap="round" />
+        </svg>
+      );
+    case "sleeveLength":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <line x1="26" y1="9" x2="33" y2="21" stroke={highlightColor} strokeWidth="3" strokeLinecap="round" />
+        </svg>
+      );
+    case "armOpening":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <ellipse cx="33" cy="22" rx="4" ry="2" transform="rotate(-30 33 22)" stroke={highlightColor} strokeWidth="3" fill="none" />
+        </svg>
+      );
+    case "neckCollar":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <path d="M16 8 Q20 10 24 8" stroke={highlightColor} strokeWidth="3" fill="none" strokeLinecap="round" />
+        </svg>
+      );
+    case "neckDepthFront":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass}>
+          <FrockBase />
+          <line x1="20" y1="8" x2="20" y2="13" stroke={highlightColor} strokeWidth="3" strokeLinecap="round" />
+          <path d="M18 11 L20 13 L22 11" stroke={highlightColor} strokeWidth="2" fill="none" />
+        </svg>
+      );
+    case "neckDepthBack":
+      return (
+        <svg viewBox="0 0 40 50" className={baseClass} style={{ opacity: 0.6 }}>
+          <FrockBase />
+          <line x1="25" y1="7" x2="25" y2="10" stroke={highlightColor} strokeWidth="3" strokeLinecap="round" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
 const MEASUREMENT_FIELDS = [
-  { id: "fullLength", icon: <ArrowUpDown size={18} />, num: 1 },
-  { id: "chestWidth", icon: <ArrowLeftRight size={18} />, num: 2 },
-  { id: "waistWidth", icon: <ArrowLeftRight size={18} />, num: 3 },
-  { id: "hipWidth", icon: <ArrowLeftRight size={18} />, num: 4 },
-  { id: "shoulderWidth", icon: <ArrowLeftRight size={18} />, num: 5 },
-  { id: "sleeveLength", icon: <MoveRight size={18} />, num: 6 },
-  { id: "armOpening", icon: <RotateCcw size={18} />, num: 7 },
-  { id: "neckCollar", icon: <User size={18} />, num: 8 },
-  { id: "neckDepthFront", icon: <ChevronDown size={18} />, num: 9 },
-  { id: "neckDepthBack", icon: <ChevronUp size={18} />, num: 10 },
+  { id: "fullLength" },
+  { id: "chestWidth" },
+  { id: "waistWidth" },
+  { id: "hipWidth" },
+  { id: "shoulderWidth" },
+  { id: "sleeveLength" },
+  { id: "armOpening" },
+  { id: "neckCollar" },
+  { id: "neckDepthFront" },
+  { id: "neckDepthBack" },
 ];
 
 export const BespokeMeasurements: React.FC<Props> = ({ measurements, onChange }) => {
-  const [activeField, setActiveField] = useState<string | null>(null);
-
   return (
-    <div className="flex flex-col md:flex-row gap-8 items-start">
-      {/* Sticky Diagram for Mobile */}
-      <div className="w-full md:w-1/2 sticky top-20 z-10 md:static">
-        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-4 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl">
-          <MeasurementDiagram activeField={activeField} />
-          <div className="mt-4 flex justify-center gap-2 overflow-x-auto py-2 no-scrollbar">
-            {MEASUREMENT_FIELDS.map((f) => (
-              <div 
-                key={f.id}
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-black transition-all ${
-                  activeField === f.id 
-                    ? "bg-amber-500 text-white scale-110 shadow-lg shadow-amber-500/30" 
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-400"
-                }`}
-              >
-                {f.num}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Input Grid */}
-      <div className="w-full md:w-1/2 grid grid-cols-2 gap-4">
-        {MEASUREMENT_FIELDS.map((field) => (
-          <div 
-            key={field.id} 
-            className={`relative group transition-all p-4 rounded-3xl border ${
-              activeField === field.id 
-                ? "border-amber-500 bg-amber-50/50 dark:bg-amber-900/10 ring-4 ring-amber-500/5" 
-                : "border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900"
-            }`}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className={`flex items-center justify-center w-8 h-8 rounded-xl font-black text-sm ${
-                activeField === field.id ? "bg-amber-500 text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500"
-              }`}>
-                {field.num}
-              </span>
-              <span className={activeField === field.id ? "text-amber-500" : "text-slate-300"}>
-                {field.icon}
-              </span>
-            </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {MEASUREMENT_FIELDS.map((field) => (
+        <div 
+          key={field.id} 
+          className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 transition-all focus-within:ring-2 focus-within:ring-amber-500/20 focus-within:bg-white dark:focus-within:bg-slate-800"
+        >
+          {/* Visual Symbol */}
+          <MicroIcon type={field.id} />
+          
+          {/* Direct Input */}
+          <div className="flex-1">
             <input
               type="text"
               inputMode="decimal"
               placeholder="Inches"
-              className="w-full bg-transparent border-none p-0 focus:ring-0 font-black text-xl placeholder:text-slate-200 dark:placeholder:text-slate-700"
+              className="w-full bg-transparent border-none p-0 focus:ring-0 font-black text-2xl placeholder:text-slate-300 dark:placeholder:text-slate-700"
               value={measurements[field.id] || ""}
-              onFocus={() => setActiveField(field.id)}
-              onBlur={() => setActiveField(null)}
               onChange={(e) => onChange(field.id, e.target.value)}
             />
           </div>
-        ))}
-        
-        {/* Extra Notes for Measurement */}
-        <div className="col-span-2 space-y-3 mt-4">
-          <div className="flex items-center gap-2 text-slate-400 px-2">
-            <Scissors size={14} />
-            <span className="text-[10px] font-black uppercase tracking-widest">Other Details</span>
-          </div>
-          <input 
-            type="text"
-            placeholder="e.g. Loose fit from arms..."
-            className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-amber-500 font-bold"
-            value={measurements.other || ""}
-            onChange={(e) => onChange("other", e.target.value)}
-          />
         </div>
+      ))}
+      
+      {/* Extra Notes */}
+      <div className="sm:col-span-2 flex items-center gap-4 p-4 rounded-3xl bg-slate-100/50 dark:bg-slate-900/50 border border-dashed border-slate-200 dark:border-slate-700 mt-4">
+        <div className="w-12 h-12 flex items-center justify-center text-slate-400">
+          <Scissors size={24} />
+        </div>
+        <input 
+          type="text"
+          placeholder="Other specific details..."
+          className="w-full bg-transparent border-none p-0 focus:ring-0 font-bold text-lg placeholder:text-slate-400"
+          value={measurements.other || ""}
+          onChange={(e) => onChange("other", e.target.value)}
+        />
       </div>
     </div>
   );
