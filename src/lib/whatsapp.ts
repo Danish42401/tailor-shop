@@ -30,11 +30,17 @@ export const generateWhatsAppLink = (
   if (customerData?.measurements && Object.values(customerData.measurements).some(v => v)) {
     message += `\n*Measurements provided:*\n`;
     const m = customerData.measurements;
-    if (m.length) message += `- Length: ${m.length}\n`;
-    if (m.shoulder) message += `- Shoulder: ${m.shoulder}\n`;
-    if (m.chest) message += `- Chest: ${m.chest}\n`;
-    if (m.waist) message += `- Waist: ${m.waist}\n`;
-    if (m.other) message += `- Extra: ${m.other}\n`;
+    if (m.fullLength) message += `- [1] Full Length: ${m.fullLength}\n`;
+    if (m.chestWidth) message += `- [2] Chest Width: ${m.chestWidth}\n`;
+    if (m.waistWidth) message += `- [3] Waist Width: ${m.waistWidth}\n`;
+    if (m.hipWidth) message += `- [4] Hip Width: ${m.hipWidth}\n`;
+    if (m.shoulderWidth) message += `- [5] Shoulder Width: ${m.shoulderWidth}\n`;
+    if (m.sleeveLength) message += `- [6] Sleeve Length: ${m.sleeveLength}\n`;
+    if (m.armOpening) message += `- [7] Arm Opening: ${m.armOpening}\n`;
+    if (m.neckCollar) message += `- [8] Neck/Collar: ${m.neckCollar}\n`;
+    if (m.neckDepthFront) message += `- [9] Neck Depth (F): ${m.neckDepthFront}\n`;
+    if (m.neckDepthBack) message += `- [10] Neck Depth (B): ${m.neckDepthBack}\n`;
+    if (m.other) message += `- Other: ${m.other}\n`;
   }
 
   message += `\n_Please confirm the order and discuss the fitting schedule._`;

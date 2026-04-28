@@ -6,20 +6,38 @@ import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { Ruler, Send, CheckCircle2, Info } from "lucide-react";
 import { CustomOrderRequest } from "@/types";
 
+import { BespokeMeasurements } from "@/components/features/BespokeMeasurements";
+
 export default function CustomOrder() {
   const [formData, setFormData] = useState<CustomOrderRequest>({
     customerName: "",
     phoneNumber: "",
     measurements: {
-      length: "",
-      shoulder: "",
-      chest: "",
-      waist: "",
+      fullLength: "",
+      chestWidth: "",
+      waistWidth: "",
+      hipWidth: "",
+      shoulderWidth: "",
+      sleeveLength: "",
+      armOpening: "",
+      neckCollar: "",
+      neckDepthFront: "",
+      neckDepthBack: "",
       other: "",
     },
     notes: "",
     preferredFabric: "",
   });
+
+  const handleMeasurementChange = (field: string, value: string) => {
+    setFormData({
+      ...formData,
+      measurements: {
+        ...formData.measurements,
+        [field]: value
+      }
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,31 +88,18 @@ export default function CustomOrder() {
         <div className="space-y-8">
           <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
             <CheckCircle2 className="text-amber-500" size={20} />
-            <h2 className="text-xl font-bold tracking-tight uppercase tracking-widest">Measurements (Optional)</h2>
+            <h2 className="text-xl font-bold tracking-tight uppercase tracking-widest">Measurements</h2>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {['length', 'shoulder', 'chest', 'waist'].map((m) => (
-              <div key={m} className="space-y-2 text-center">
-                <label className="text-[10px] font-black uppercase tracking-tighter text-slate-400">{m}</label>
-                <input 
-                  type="text"
-                  placeholder="Inches"
-                  className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-xl py-3 px-2 text-center focus:ring-1 focus:ring-amber-500 font-bold text-sm"
-                  value={(formData.measurements as any)[m]}
-                  onChange={(e) => setFormData({
-                    ...formData, 
-                    measurements: { ...formData.measurements, [m]: e.target.value }
-                  })}
-                />
-              </div>
-            ))}
-          </div>
+          <BespokeMeasurements 
+            measurements={formData.measurements} 
+            onChange={handleMeasurementChange} 
+          />
           
           <div className="flex items-start gap-3 bg-amber-50 dark:bg-amber-900/10 p-4 rounded-2xl border border-amber-100 dark:border-amber-900/30">
             <Info className="text-amber-600 shrink-0" size={18} />
             <p className="text-xs text-amber-800 dark:text-amber-400 leading-relaxed font-medium">
-              Don't worry if you don't know your measurements. We will guide you on WhatsApp or you can visit our shop for a professional fitting.
+              Don't worry if you don't know your measurements. Each number (1-10) in the diagram shows exactly where to measure. We will also guide you on WhatsApp.
             </p>
           </div>
         </div>
