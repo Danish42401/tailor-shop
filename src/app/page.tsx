@@ -18,12 +18,12 @@ export default async function Home() {
           <span className="inline-block bg-amber-600/20 text-amber-500 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 border border-amber-500/30">
             {siteSettings.shopAddress}
           </span>
-          <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tighter">
+          <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tighter uppercase">
             {siteSettings.heroTitle} <br/>
             <span className="text-amber-500">For You & Yours</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl leading-relaxed font-medium">
-            Discover Dubai's finest bespoke tailoring. From royal children's frocks to designer abayas, we craft perfection in every stitch.
+            Discover Abu Dhabi's finest bespoke tailoring at Emirates deep collection. From royal children's frocks to designer abayas, we craft perfection in every stitch.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Link 
@@ -47,7 +47,7 @@ export default async function Home() {
         <div className="flex justify-between items-end mb-12">
           <div>
             <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">The Signature <span className="text-amber-600">Pairs</span></h2>
-            <p className="text-slate-500 dark:text-slate-400 font-medium max-w-md">Our world-famous Mom & Daughter matching sets, handcrafted with love.</p>
+            <p className="text-slate-500 dark:text-slate-400 font-medium max-w-md">Our world-famous Mom & Daughter matching sets, handcrafted with love in Abu Dhabi.</p>
           </div>
           <Link href="/catalog" className="hidden md:flex items-center gap-2 text-amber-600 font-bold hover:gap-4 transition-all">
             View All <ArrowRight size={20} />
@@ -109,7 +109,7 @@ export default async function Home() {
               <Ruler size={32} />
             </div>
             <h4 className="text-xl font-bold">Perfect Fit</h4>
-            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Expert measurements taken at our Deira shop or through our online bespoke guide.</p>
+            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Expert measurements taken at our Baniyas East shop or through our online bespoke guide.</p>
           </div>
           <div className="flex flex-col items-center text-center gap-4">
             <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center text-amber-600">
