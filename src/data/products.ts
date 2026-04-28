@@ -93,7 +93,7 @@ export const initialProducts: Product[] = [
 
 export const siteSettings = {
   whatsappNumber: "971562392496",
-  shopAddress: "Deira, Dubai, UAE",
-  heroTitle: "Bespoke Elegance",
-  heroSubtitle: "For You & Your Little Ones",
+  shopAddress: "Abu Dhabi, Baniyas East, Yasmart Mall",
+  heroTitle: "Emirates Deep Collection",
+  heroSubtitle: "Premium Tailoring & Bespoke Designs in Abu Dhabi",
 };

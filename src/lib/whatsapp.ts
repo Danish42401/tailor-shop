@@ -6,7 +6,7 @@ export const generateWhatsAppLink = (
   totalPrice: number,
   customerData?: CustomOrderRequest
 ) => {
-  let message = `*KIDS CHOICE DUBAI - New Order Request*\n\n`;
+  let message = `*EMIRATES DEEP COLLECTION - New Order Request*\n\n`;
 
   if (customerData) {
     message += `*Customer:* ${customerData.customerName}\n`;
@@ -30,14 +30,16 @@ export const generateWhatsAppLink = (
   if (customerData?.measurements && Object.values(customerData.measurements).some(v => v)) {
     message += `\n*Measurements Provided:*\n`;
     const m = customerData.measurements;
-    if (m.chest) message += `- [1] Chest: ${m.chest}\n`;
-    if (m.shoulder) message += `- [2] Shoulder: ${m.shoulder}\n`;
-    if (m.frockLength) message += `- [3] Frock Length: ${m.frockLength}\n`;
-    if (m.armhole) message += `- [4] Armhole: ${m.armhole}\n`;
-    if (m.sleeveLength) message += `- [5] Sleeve Length: ${m.sleeveLength}\n`;
-    if (m.waist) message += `- [6] Waist: ${m.waist}\n`;
-    if (m.neckWidth) message += `- [7] Neck Width: ${m.neckWidth}\n`;
-    if (m.neckDepth) message += `- [8] Neck Depth: ${m.neckDepth}\n`;
+    if (m.length) message += `- [1] Length: ${m.length}\n`;
+    if (m.chest) message += `- [2] Chest: ${m.chest}\n`;
+    if (m.waist) message += `- [3] Waist: ${m.waist}\n`;
+    if (m.shoulder) message += `- [4] Shoulder: ${m.shoulder}\n`;
+    if (m.shoulderToWaist) message += `- [5] Shoulder to Waist: ${m.shoulderToWaist}\n`;
+    if (m.armhole) message += `- [6] Armhole: ${m.armhole}\n`;
+    if (m.sleeveLength) message += `- [7] Sleeve Length: ${m.sleeveLength}\n`;
+    if (m.neckWidth) message += `- [8] Neck Width: ${m.neckWidth}\n`;
+    if (m.neckDepth) message += `- [9] Neck Depth: ${m.neckDepth}\n`;
+    if (m.hemWidth) message += `- [10] Hem Width / Flare: ${m.hemWidth}\n`;
   }
 
   message += `\n_Please confirm the order and discuss the fitting schedule._`;
