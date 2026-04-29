@@ -11,8 +11,7 @@ import {
   CheckCircle2,
   Phone,
   MapPin,
-  ExternalLink,
-  Image as ImageIcon
+  ExternalLink
 } from "lucide-react";
 import { siteSettings } from "@/data/products";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
@@ -242,10 +241,15 @@ export default function LuxuryBespokeForm() {
 
           {/* Middle: Guide Placeholder & Tip */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="glass-card rounded-[2.5rem] p-8 flex flex-col items-center justify-center text-center border-dashed border-white/10 group hover:border-[#c9a84c]/30 transition-all min-h-[200px]">
-                <ImageIcon className="text-slate-700 mb-4 group-hover:text-[#c9a84c]/50 transition-colors" size={48} />
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Measurement Guide Picture</p>
-                <p className="text-[9px] text-slate-600 mt-1">Coming Soon / قريباً</p>
+            <div className="glass-card rounded-[2.5rem] overflow-hidden border border-white/10 group hover:border-[#c9a84c]/30 transition-all min-h-[300px] relative">
+                <img 
+                  src="https://res.cloudinary.com/dyxnglxdj/image/upload/v1777440354/Gemini_Generated_Image_h7s5ysh7s5ysh7s5_ogy8dh.png" 
+                  alt="Measurement Guide" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1e]/80 via-transparent to-transparent flex items-end p-8">
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#c9a84c]">Measurement Guide Picture</p>
+                </div>
             </div>
 
             <div className="glass-card rounded-[2.5rem] p-8 bg-[#c9a84c]/5 border-[#c9a84c]/20 flex flex-col justify-center">
