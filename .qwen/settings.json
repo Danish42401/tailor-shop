@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xcopy *)",
+      "mcp__github__search_repositories"
+    ]
+  },
+  "$version": 3
+}

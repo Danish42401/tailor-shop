@@ -1,43 +1,31 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { 
   Scissors, 
-  User, 
-  Camera, 
   Send, 
   Ruler,
   HelpCircle,
   CheckCircle2,
   Phone,
-  MapPin,
-  ExternalLink
 } from "lucide-react";
 import { siteSettings } from "@/data/products";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
+import { FormData } from "@/types";
 
-// --- Types ---
-interface Measurements {
-  length: string;
-  chest: string;
-  waist: string;
-  shoulder: string;
-  shoulderToWaist: string;
-  armhole: string;
-  sleeveLength: string;
-  neckWidth: string;
-  neckDepth: string;
-  hemWidth: string;
-  [key: string]: string;
-}
-
-interface FormData {
-  customerName: string;
-  phoneNumber: string;
-  unit: "inch" | "cm";
-  measurements: Measurements;
-  notes: string;
-}
+const MEASUREMENT_FIELDS = [
+  { id: "fullLength", label: "1. Length", en: "From shoulder to desired dress length", ar: "من الكتف إلى طول الفستان المطلوب" },
+  { id: "chestWidth", label: "2. Chest", en: "Around the fullest part of the chest", ar: "حول أوسع جزء من الصدر" },
+  { id: "waistWidth", label: "3. Waist", en: "Around the natural waist", ar: "حول الخصر الطبيعي" },
+  { id: "shoulderWidth", label: "4. Shoulder", en: "From one shoulder end to the other", ar: "من نهاية كتف إلى نهاية الكتف الآخر" },
+  { id: "hipWidth", label: "5. Hip Width", en: "Around the widest part of the hips", ar: "حول أوسع جزء من الوركين" },
+  { id: "sleeveLength", label: "6. Sleeve Length", en: "From shoulder to sleeve end", ar: "من الكتف إلى نهاية الكم" },
+  { id: "armOpening", label: "7. Arm Opening", en: "Around the arm where sleeve joins", ar: "حول فتحة الإبط حيث يثبت الكم" },
+  { id: "neckCollar", label: "8. Neck/Collar", en: "Width of the neckline", ar: "عرض فتحة الرقبة" },
+  { id: "neckDepthFront", label: "9. Front Neck Depth", en: "Depth of the neckline (front)", ar: "عمق فتحة الرقبة (أمام)" },
+  { id: "neckDepthBack", label: "10. Back Neck Depth", en: "Depth of the neckline (back)", ar: "عمق فتحة الرقبة (خلف)" },
+];
 
 export default function LuxuryBespokeForm() {
   const [formData, setFormData] = useState<FormData>({
@@ -45,43 +33,52 @@ export default function LuxuryBespokeForm() {
     phoneNumber: "",
     unit: "inch",
     measurements: {
-      length: "",
-      chest: "",
-      waist: "",
-      shoulder: "",
-      shoulderToWaist: "",
-      armhole: "",
+      fullLength: "",
+      chestWidth: "",
+      waistWidth: "",
+      shoulderWidth: "",
+      hipWidth: "",
       sleeveLength: "",
-      neckWidth: "",
-      neckDepth: "",
-      hemWidth: ""
+      armOpening: "",
+      neckCollar: "",
+      neckDepthFront: "",
+      neckDepthBack: ""
     },
     notes: ""
   });
+  
   const [activeField, setActiveField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("bespoke_studio_draft_v2");
+    const saved = localStorage.getItem("bespoke_studio_draft_v3");
     if (saved) {
         try {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFormData(JSON.parse(saved));
-        } catch(e) {}
+        } catch(e) {
+            console.error("Failed to load bespoke draft", e);
+        }
     }
+    setIsMounted(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("bespoke_studio_draft_v2", JSON.stringify(formData));
-  }, [formData]);
+    if (isMounted) {
+      localStorage.setItem("bespoke_studio_draft_v3", JSON.stringify(formData));
+    }
+  }, [formData, isMounted]);
 
   const handleUnitToggle = () => {
     const newUnit = formData.unit === "inch" ? "cm" : "inch";
     const factor = newUnit === "cm" ? 2.54 : 1 / 2.54;
     
     const newMeasurements = { ...formData.measurements };
-    Object.keys(newMeasurements).forEach(key => {
-      if (newMeasurements[key]) {
-        newMeasurements[key] = (parseFloat(newMeasurements[key]) * factor).toFixed(1);
+    MEASUREMENT_FIELDS.forEach(field => {
+      const val = newMeasurements[field.id];
+      if (val) {
+        newMeasurements[field.id] = (parseFloat(val) * factor).toFixed(1);
       }
     });
 
@@ -108,74 +105,11 @@ export default function LuxuryBespokeForm() {
     }, 800);
   };
 
-  const MEASUREMENT_FIELDS = [
-    { 
-        id: "length", 
-        label: "1. Length", 
-        en: "From shoulder to desired dress length", 
-        ar: "من الكتف إلى طول الفستان المطلوب" 
-    },
-    { 
-        id: "chest", 
-        label: "2. Chest", 
-        en: "Around the fullest part of the chest", 
-        ar: "حول أوسع جزء من الصدر" 
-    },
-    { 
-        id: "waist", 
-        label: "3. Waist", 
-        en: "Around the natural waist", 
-        ar: "حول الخصر الطبيعي" 
-    },
-    { 
-        id: "shoulder", 
-        label: "4. Shoulder", 
-        en: "From one shoulder end to the other", 
-        ar: "من نهاية كتف إلى نهاية الكتف الآخر" 
-    },
-    { 
-        id: "shoulderToWaist", 
-        label: "5. Shoulder to Waist Length", 
-        en: "From shoulder down to the waist", 
-        ar: "من الكتف إلى الخصر" 
-    },
-    { 
-        id: "armhole", 
-        label: "6. Armhole", 
-        en: "Around the arm where sleeve joins", 
-        ar: "حول فتحة الإبط حيث يثبت الكم" 
-    },
-    { 
-        id: "sleeveLength", 
-        label: "7. Sleeve Length", 
-        en: "From shoulder to sleeve end", 
-        ar: "من الكتف إلى نهاية الكم" 
-    },
-    { 
-        id: "neckWidth", 
-        label: "8. Neck Width", 
-        en: "Width of the neckline", 
-        ar: "عرض فتحة الرقبة" 
-    },
-    { 
-        id: "neckDepth", 
-        label: "9. Neck Depth", 
-        en: "Depth of the neckline (front/back)", 
-        ar: "عمق فتحة الرقبة (أمام/خلف)" 
-    },
-    { 
-        id: "hemWidth", 
-        label: "10. Hem Width / Flare", 
-        en: "Width of the dress at the bottom", 
-        ar: "عرض الفستان من الأسفل" 
-    },
-  ];
-
   const getTip = (fieldId: string | null) => {
     switch(fieldId) {
-        case 'length': return { en: "Stand straight while measuring length.", ar: "قف بشكل مستقيم أثناء قياس الطول." };
-        case 'chest': return { en: "Keep the tape slightly loose for breathing room.", ar: "اترك شريط القياس فضفاضاً قليلاً لسهولة التنفس." };
-        case 'waist': return { en: "Measure at the narrowest part of your torso.", ar: "قس عند أضيق جزء من جذعك." };
+        case 'fullLength': return { en: "Stand straight while measuring length.", ar: "قف بشكل مستقيم أثناء قياس الطول." };
+        case 'chestWidth': return { en: "Keep the tape slightly loose for breathing room.", ar: "اترك شريط القياس فضفاضاً قليلاً لسهولة التنفس." };
+        case 'waistWidth': return { en: "Measure at the narrowest part of your torso.", ar: "قس عند أضيق جزء من جذعک." };
         default: return { en: "Use a soft measuring tape for accuracy.", ar: "استخدم شريط قياس ناعم لضمان الدقة." };
     }
   };
@@ -184,7 +118,6 @@ export default function LuxuryBespokeForm() {
     <div className="min-h-screen bg-[#0a0f1e] text-slate-100 p-4 md:p-8 font-['Inter'] selection:bg-[#c9a84c]/30">
       <div className="max-w-4xl mx-auto">
         
-        {/* Rebranded Header */}
         <header className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-3">
@@ -195,7 +128,7 @@ export default function LuxuryBespokeForm() {
                 Emirates <span className="text-[#c9a84c]">deep collection</span>
               </h1>
             </div>
-            <p className="text-slate-500 font-medium tracking-[0.2em] uppercase text-[10px] pl-1">Abu Dhabi • Baniyas East • Yasmart Mall</p>
+            <p className="text-slate-500 font-medium tracking-[0.2em] uppercase text-[10px] pl-1">{siteSettings.shopAddress}</p>
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -209,8 +142,6 @@ export default function LuxuryBespokeForm() {
         </header>
 
         <div className="grid grid-cols-1 gap-8">
-          
-          {/* Top: Identity Bar */}
           <div className="glass-card rounded-[2.5rem] p-8 border-white/5 shadow-xl">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -239,13 +170,13 @@ export default function LuxuryBespokeForm() {
               </div>
           </div>
 
-          {/* Middle: Guide Placeholder & Tip */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="glass-card rounded-[2.5rem] overflow-hidden border border-white/10 group hover:border-[#c9a84c]/30 transition-all min-h-[300px] relative">
-                <img 
+                <Image 
                   src="https://res.cloudinary.com/dyxnglxdj/image/upload/v1777440354/Gemini_Generated_Image_h7s5ysh7s5ysh7s5_ogy8dh.png" 
                   alt="Measurement Guide" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1e]/80 via-transparent to-transparent flex items-end p-8">
                   <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#c9a84c]">Measurement Guide Picture</p>
@@ -257,14 +188,13 @@ export default function LuxuryBespokeForm() {
                     <div className="w-8 h-8 rounded-full bg-[#c9a84c] flex items-center justify-center">
                         <HelpCircle className="text-[#0a0f1e]" size={16} />
                     </div>
-                    <h3 className="text-[10px] font-black uppercase tracking-widest text-[#c9a84c]">Tailor's Tip / نصيحة الخياط</h3>
+                    <h3 className="text-[10px] font-black uppercase tracking-widest text-[#c9a84c]">Tailor&apos;s Tip / نصيحة الخياط</h3>
                 </div>
                 <p className="text-sm font-bold text-white mb-1">{getTip(activeField).en}</p>
-                <p className="text-sm font-medium text-slate-400 text-right dir-rtl" dir="rtl">{getTip(activeField).ar}</p>
+                <p className="text-sm font-medium text-slate-400 text-right" dir="rtl">{getTip(activeField).ar}</p>
             </div>
           </div>
 
-          {/* Bottom: Measurement List (10 Points) */}
           <div className="glass-card rounded-[3rem] p-6 md:p-12 border-white/5 shadow-2xl space-y-8">
             <div className="flex items-center gap-4 border-b border-white/5 pb-6">
                 <Ruler className="text-[#c9a84c]" size={20} />
@@ -290,7 +220,7 @@ export default function LuxuryBespokeForm() {
                                     step="0.1"
                                     placeholder="0.0"
                                     className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 outline-none font-black text-xl text-center focus:border-[#c9a84c] transition-all"
-                                    value={formData.measurements[field.id]}
+                                    value={formData.measurements[field.id] || ""}
                                     onFocus={() => setActiveField(field.id)}
                                     onChange={e => setFormData({
                                         ...formData,
@@ -304,7 +234,6 @@ export default function LuxuryBespokeForm() {
                 ))}
             </div>
 
-            {/* Design Notes */}
             <div className="pt-8 space-y-4">
                 <label className="text-[10px] font-black uppercase tracking-widest text-[#c9a84c] ml-1">Additional Notes / ملاحظات إضافية</label>
                 <textarea 
@@ -316,7 +245,6 @@ export default function LuxuryBespokeForm() {
                 />
             </div>
 
-            {/* Submit Button */}
             <div className="pt-8">
                 <button 
                     onClick={handleSubmit}
@@ -332,7 +260,6 @@ export default function LuxuryBespokeForm() {
                 </button>
             </div>
           </div>
-
         </div>
 
         <footer className="mt-16 text-center pb-12 space-y-4">
@@ -342,7 +269,6 @@ export default function LuxuryBespokeForm() {
           </div>
           <p className="text-slate-800 text-[10px] font-black uppercase tracking-[0.5em]">Emirates Deep Collection • 2026</p>
         </footer>
-
       </div>
       
       <style jsx global>{`
@@ -359,9 +285,6 @@ export default function LuxuryBespokeForm() {
         }
         .luxury-gradient {
             background: linear-gradient(135deg, #e5c05b 0%, #c9a84c 50%, #b3913d 100%);
-        }
-        .dir-rtl {
-            direction: rtl;
         }
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { useCart } from "@/hooks/useCart";
 import { getProductsFromSheet } from "@/lib/data-service";
 import { Star, ShoppingBag, Plus, Loader2 } from "lucide-react";
@@ -61,9 +62,11 @@ export default function Catalog() {
             <div key={p.id} className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 p-5 group">
               <div className="aspect-square bg-slate-50 dark:bg-slate-800 rounded-[1.5rem] flex items-center justify-center text-7xl mb-6 relative overflow-hidden group">
                 {p.icon && p.icon.startsWith("http") ? (
-                  <img 
+                  <Image 
                     src={p.icon} 
                     alt={p.name} 
+                    width={500}
+                    height={500}
                     className="w-full h-full object-cover rounded-[1.5rem] group-hover:scale-110 transition-transform duration-500"
                   />
                 ) : (

@@ -17,24 +17,27 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
-export interface CustomOrderRequest {
+export interface Measurements {
+  fullLength?: string;
+  chestWidth?: string;
+  waistWidth?: string;
+  hipWidth?: string;
+  shoulderWidth?: string;
+  sleeveLength?: string;
+  armOpening?: string;
+  neckCollar?: string;
+  neckDepthFront?: string;
+  neckDepthBack?: string;
+  other?: string;
+  [key: string]: string | undefined;
+}
+
+export interface FormData {
   customerName: string;
   phoneNumber: string;
-  measurements: {
-    length?: string;
-    chest?: string;
-    waist?: string;
-    shoulder?: string;
-    shoulderToWaist?: string;
-    armhole?: string;
-    sleeveLength?: string;
-    neckWidth?: string;
-    neckDepth?: string;
-    hemWidth?: string;
-    [key: string]: string | undefined;
-  };
+  unit: "inch" | "cm";
+  measurements: Measurements;
   notes: string;
-  preferredFabric?: string;
 }
 
 export interface SiteSettings {

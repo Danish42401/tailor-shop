@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCart } from "@/hooks/useCart";
 import { siteSettings } from "@/data/products";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
@@ -44,9 +45,14 @@ export const CartDrawer = () => {
           ) : (
             cart.map((item) => (
               <div key={item.id} className="flex gap-4 group">
-                <div className="w-20 h-24 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl overflow-hidden flex-shrink-0">
+                <div className="w-20 h-24 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl overflow-hidden flex-shrink-0 relative">
                   {item.icon && item.icon.startsWith("http") ? (
-                    <img src={item.icon} alt={item.name} className="w-full h-full object-cover" />
+                    <Image 
+                      src={item.icon} 
+                      alt={item.name} 
+                      fill
+                      className="object-cover"
+                    />
                   ) : (
                     <span>{item.icon || "👗"}</span>
                   )}

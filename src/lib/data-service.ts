@@ -4,26 +4,55 @@ import { Product, Category } from "@/types";
 const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVUuM8JphrpAOtu0GZrChKUxCXQr3vbMZdeA8_OWAhVvgxHu0nzA0aPgPmJWe_kX8Qh9fzSDD7vsQO/pub?output=csv"; 
 
 /**
- * Robust CSV Parser that handles quoted strings with commas
+ * Robust CSV Parser that handles quoted strings, commas, and multi-line cells
  */
-function parseCSVLine(line: string): string[] {
-  const result: string[] = [];
-  let cur = '';
+function parseCSV(csvText: string): string[][] {
+  const rows: string[][] = [];
+  let currentRow: string[] = [];
+  let currentCell = '';
   let inQuotes = false;
 
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
+  for (let i = 0; i < csvText.length; i++) {
+    const char = csvText[i];
+    const nextChar = csvText[i + 1];
+
     if (char === '"') {
-      inQuotes = !inQuotes;
+      if (inQuotes && nextChar === '"') {
+        currentCell += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
     } else if (char === ',' && !inQuotes) {
-      result.push(cur.trim());
-      cur = '';
+      currentRow.push(currentCell.trim());
+      currentCell = '';
+    } else if ((char === '\r' || char === '\n') && !inQuotes) {
+      if (char === '\r' && nextChar === '\n') i++;
+      currentRow.push(currentCell.trim());
+      if (currentRow.length > 0 && currentRow.some(cell => cell !== '')) {
+        rows.push(currentRow);
+      }
+      currentRow = [];
+      currentCell = '';
     } else {
-      cur += char;
+      currentCell += char;
     }
   }
-  result.push(cur.trim());
-  return result;
+
+  if (currentCell || currentRow.length > 0) {
+    currentRow.push(currentCell.trim());
+    rows.push(currentRow);
+  }
+
+  return rows;
+}
+
+/**
+ * Generate a stable ID based on product properties if ID is missing
+ */
+function generateStableId(name: string, price: string, index: number): string {
+  const cleanName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return `${cleanName}-${price}-${index}`;
 }
 
 export async function getProductsFromSheet(): Promise<Product[]> {
@@ -35,55 +64,47 @@ export async function getProductsFromSheet(): Promise<Product[]> {
   }
 
   try {
-    // Edge-compatible fetch with cache busting
     const urlWithCacheBuster = `${sheetUrl}&t=${Date.now()}`;
-    
-    console.log("Fetching products from:", urlWithCacheBuster);
-    
     const response = await fetch(urlWithCacheBuster, {
       method: 'GET',
-      headers: {
-        'Accept': 'text/csv',
-      },
-      cache: 'no-store', // Cloudflare Edge compatible
+      headers: { 'Accept': 'text/csv' },
+      cache: 'no-store',
     });
     
-    if (!response.ok) {
-      throw new Error(`Failed to fetch sheet data: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Failed to fetch sheet data: ${response.status}`);
     
     const csvData = await response.text();
-    const lines = csvData.split(/\r?\n/).filter(line => line.trim());
+    const allRows = parseCSV(csvData);
     
-    if (lines.length < 2) {
-      return [];
-    }
+    if (allRows.length < 2) return [];
     
-    const rows = lines.slice(1); // Skip header row
+    const dataRows = allRows.slice(1); // Skip header
     
-    return rows.map((line, index) => {
+    return dataRows.map((columns, index) => {
       try {
-        const columns = parseCSVLine(line);
+        const name = columns[1] || "Unnamed Product";
+        const rawPrice = columns[2]?.replace(/[^0-9.]/g, "") || "0";
+        const id = columns[0] || generateStableId(name, rawPrice, index);
+
         return {
-          id: columns[0] || `row-${index}`,
-          name: columns[1] || "Unnamed Product",
-          price: parseFloat(columns[2]?.replace(/[^0-9.]/g, "") || "0"),
+          id,
+          name,
+          price: parseFloat(rawPrice),
           category: (columns[3]?.toLowerCase() || "frocks") as Category,
           description: columns[4] || "",
           icon: columns[5] || "",
           rating: parseFloat(columns[6] || "5"),
           isPair: columns[7]?.toUpperCase() === "TRUE",
-          stockStatus: (columns[8]?.toLowerCase() || "in-stock") as any,
+          stockStatus: (columns[8]?.toLowerCase() || "in-stock") as 'in-stock' | 'low-stock' | 'out-of-stock',
         };
       } catch (e) {
-        console.error("Error parsing CSV line:", e);
+        console.error("Error parsing product row:", e);
         return null;
       }
     }).filter((p): p is Product => p !== null && !!p.id);
     
   } catch (error) {
     console.error("Cloudflare Edge Fetch Error:", error);
-    // Return empty array or fallback to static data
     return [];
   }
 }

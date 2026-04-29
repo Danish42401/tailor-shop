@@ -30,16 +30,16 @@ export const generateWhatsAppLink = (
   if (customerData?.measurements && Object.values(customerData.measurements).some(v => v)) {
     message += `\n*Measurements Provided:*\n`;
     const m = customerData.measurements;
-    if (m.length) message += `- [1] Length: ${m.length}\n`;
-    if (m.chest) message += `- [2] Chest: ${m.chest}\n`;
-    if (m.waist) message += `- [3] Waist: ${m.waist}\n`;
-    if (m.shoulder) message += `- [4] Shoulder: ${m.shoulder}\n`;
-    if (m.shoulderToWaist) message += `- [5] Shoulder to Waist: ${m.shoulderToWaist}\n`;
-    if (m.armhole) message += `- [6] Armhole: ${m.armhole}\n`;
-    if (m.sleeveLength) message += `- [7] Sleeve Length: ${m.sleeveLength}\n`;
-    if (m.neckWidth) message += `- [8] Neck Width: ${m.neckWidth}\n`;
-    if (m.neckDepth) message += `- [9] Neck Depth: ${m.neckDepth}\n`;
-    if (m.hemWidth) message += `- [10] Hem Width / Flare: ${m.hemWidth}\n`;
+    if (m.fullLength) message += `- [1] Length: ${m.fullLength}\n`;
+    if (m.chestWidth) message += `- [2] Chest: ${m.chestWidth}\n`;
+    if (m.waistWidth) message += `- [3] Waist: ${m.waistWidth}\n`;
+    if (m.shoulderWidth) message += `- [4] Shoulder: ${m.shoulderWidth}\n`;
+    if (m.hipWidth) message += `- [5] Hip Width: ${m.hipWidth}\n`;
+    if (m.sleeveLength) message += `- [6] Sleeve Length: ${m.sleeveLength}\n`;
+    if (m.armOpening) message += `- [7] Arm Opening: ${m.armOpening}\n`;
+    if (m.neckCollar) message += `- [8] Neck/Collar: ${m.neckCollar}\n`;
+    if (m.neckDepthFront) message += `- [9] Front Neck Depth: ${m.neckDepthFront}\n`;
+    if (m.neckDepthBack) message += `- [10] Back Neck Depth: ${m.neckDepthBack}\n`;
   }
 
   message += `\n_Please confirm the order and discuss the fitting schedule._`;

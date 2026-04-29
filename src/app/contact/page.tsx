@@ -1,5 +1,5 @@
 import { siteSettings } from "@/data/products";
-import { Phone, MapPin, Clock, Mail, MessageSquare, ExternalLink } from "lucide-react";
+import { Phone, MapPin, Clock, MessageSquare, ExternalLink } from "lucide-react";
 
 export default function Contact() {
   return (

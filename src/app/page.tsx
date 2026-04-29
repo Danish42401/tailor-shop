@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Star, Ruler, ShoppingBag, ShieldCheck, Phone } from "lucide-react";
 import { siteSettings } from "@/data/products";
 import { getProductsFromSheet } from "@/lib/data-service";
@@ -11,7 +12,13 @@ export default async function Home() {
     <div className="flex flex-col gap-16 md:gap-24">
       {/* Hero Section */}
       <section className="relative px-6 py-20 md:py-32 bg-slate-950 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1590736704728-f4730bb30770?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center" />
+        <Image 
+          src="https://images.unsplash.com/photo-1590736704728-f4730bb30770?q=80&w=1974&auto=format&fit=crop"
+          alt="Luxury Boutique"
+          fill
+          priority
+          className="object-cover opacity-20"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
         
         <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
@@ -23,7 +30,7 @@ export default async function Home() {
             <span className="text-amber-500">For You & Yours</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl leading-relaxed font-medium">
-            Discover Abu Dhabi's finest bespoke tailoring at Emirates deep collection. From royal children's frocks to designer abayas, we craft perfection in every stitch.
+            Discover Abu Dhabi&apos;s finest bespoke tailoring at Emirates deep collection. From royal children&apos;s frocks to designer abayas, we craft perfection in every stitch.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Link 
@@ -60,9 +67,11 @@ export default async function Home() {
               <div key={p.id} className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-500">
                 <div className="aspect-[4/5] bg-slate-50 dark:bg-slate-800 rounded-[2rem] flex items-center justify-center text-8xl group-hover:scale-105 transition-transform duration-500 mb-8 overflow-hidden relative">
                   {p.icon && p.icon.startsWith("http") ? (
-                    <img 
+                    <Image 
                       src={p.icon} 
                       alt={p.name} 
+                      width={400}
+                      height={500}
                       className="w-full h-full object-cover rounded-[1.5rem]"
                     />
                   ) : (

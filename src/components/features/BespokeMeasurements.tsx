@@ -3,30 +3,32 @@
 import React from "react";
 import { Scissors } from "lucide-react";
 
+import { Measurements } from "@/types";
+
 interface Props {
-  measurements: any;
+  measurements: Measurements;
   onChange: (field: string, value: string) => void;
 }
+
+const FrockBase = ({ strokeColor }: { strokeColor: string }) => (
+  <path
+    d="M14 8 Q20 7 26 8 L28 14 L34 22 L31 25 L27 18 L27 46 Q20 48 13 46 L13 18 L9 25 L6 22 L12 14 Z"
+    fill="none"
+    stroke={strokeColor}
+    strokeWidth="1.5"
+  />
+);
 
 const MicroIcon = ({ type }: { type: string }) => {
   const baseClass = "w-16 h-16 text-slate-400 dark:text-slate-600 shrink-0 bg-slate-100 dark:bg-slate-800 p-2 rounded-2xl";
   const strokeColor = "currentColor";
   const highlightColor = "#f59e0b"; // Amber-500
   
-  const FrockBase = () => (
-    <path
-      d="M14 8 Q20 7 26 8 L28 14 L34 22 L31 25 L27 18 L27 46 Q20 48 13 46 L13 18 L9 25 L6 22 L12 14 Z"
-      fill="none"
-      stroke={strokeColor}
-      strokeWidth="1.5"
-    />
-  );
-
   switch (type) {
     case "fullLength":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <line x1="20" y1="8" x2="20" y2="47" stroke={highlightColor} strokeWidth="4" strokeLinecap="round" />
           <circle cx="20" cy="8" r="2.5" fill={highlightColor} />
           <circle cx="20" cy="47" r="2.5" fill={highlightColor} />
@@ -35,56 +37,56 @@ const MicroIcon = ({ type }: { type: string }) => {
     case "chestWidth":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <line x1="13" y1="19" x2="27" y2="19" stroke={highlightColor} strokeWidth="4" strokeLinecap="round" />
         </svg>
       );
     case "waistWidth":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <line x1="13" y1="26" x2="27" y2="26" stroke={highlightColor} strokeWidth="4" strokeLinecap="round" />
         </svg>
       );
     case "hipWidth":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <line x1="12" y1="36" x2="28" y2="36" stroke={highlightColor} strokeWidth="4" strokeLinecap="round" />
         </svg>
       );
     case "shoulderWidth":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <line x1="14" y1="9" x2="26" y2="9" stroke={highlightColor} strokeWidth="4" strokeLinecap="round" />
         </svg>
       );
     case "sleeveLength":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <line x1="26" y1="9" x2="33" y2="21" stroke={highlightColor} strokeWidth="4" strokeLinecap="round" />
         </svg>
       );
     case "armOpening":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <ellipse cx="33" cy="22" rx="5" ry="3" transform="rotate(-30 33 22)" stroke={highlightColor} strokeWidth="4" fill="none" />
         </svg>
       );
     case "neckCollar":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <path d="M16 8 Q20 11 24 8" stroke={highlightColor} strokeWidth="4" fill="none" strokeLinecap="round" />
         </svg>
       );
     case "neckDepthFront":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <line x1="20" y1="8" x2="20" y2="15" stroke={highlightColor} strokeWidth="4" strokeLinecap="round" />
           <path d="M17 12 L20 15 L23 12" stroke={highlightColor} strokeWidth="2.5" fill="none" strokeLinecap="round" />
         </svg>
@@ -92,7 +94,7 @@ const MicroIcon = ({ type }: { type: string }) => {
     case "neckDepthBack":
       return (
         <svg viewBox="0 0 40 50" className={baseClass}>
-          <FrockBase />
+          <FrockBase strokeColor={strokeColor} />
           <line x1="20" y1="6" x2="20" y2="10" stroke={highlightColor} strokeWidth="4" strokeLinecap="round" />
         </svg>
       );

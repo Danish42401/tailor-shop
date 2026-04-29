@@ -20,23 +20,29 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Load from localStorage
   useEffect(() => {
     const saved = localStorage.getItem("kids_choice_cart");
     if (saved) {
       try {
-        setCart(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setCart(parsed);
       } catch (e) {
         console.error("Cart load error", e);
       }
     }
+    setIsMounted(true);
   }, []);
 
   // Save to localStorage
   useEffect(() => {
-    localStorage.setItem("kids_choice_cart", JSON.stringify(cart));
-  }, [cart]);
+    if (isMounted) {
+      localStorage.setItem("kids_choice_cart", JSON.stringify(cart));
+    }
+  }, [cart, isMounted]);
 
   const addToCart = useCallback((product: Product) => {
     setCart((prev) => {
@@ -68,12 +74,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const clearCart = useCallback(() => setCart([]), []);
 
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalItems = isMounted ? cart.reduce((acc, item) => acc + item.quantity, 0) : 0;
+  const totalPrice = isMounted ? cart.reduce((acc, item) => acc + item.price * item.quantity, 0) : 0;
 
   return (
     <CartContext.Provider value={{
-      cart,
+      cart: isMounted ? cart : [],
       addToCart,
       removeFromCart,
       updateQuantity,
