@@ -1,11 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Star, Ruler, ShoppingBag, ShieldCheck, Phone } from "lucide-react";
 import { siteSettings } from "@/data/products";
-import { getProductsFromSheet } from "@/lib/data-service";
+import { useProducts } from "@/lib/data-service";
+import { useLanguage } from "@/context/LanguageContext";
+import { ProductCardSkeleton } from "@/components/ui/Skeleton";
 
-export default async function Home() {
-  const products = await getProductsFromSheet();
+export default function Home() {
+  const { products, isLoading } = useProducts();
+  const { t } = useLanguage();
   const featuredPairs = products.filter(p => p.isPair).slice(0, 3);
 
   return (
@@ -26,24 +31,24 @@ export default async function Home() {
             {siteSettings.shopAddress}
           </span>
           <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tighter uppercase">
-            {siteSettings.heroTitle} <br/>
-            <span className="text-amber-500">For You & Yours</span>
+            {t("hero.title")} <br/>
+            <span className="text-amber-500">{t("hero.subtitle")}</span>
           </h1>
           <p className="text-lg md:text-xl text-slate-300 mb-12 max-w-2xl leading-relaxed font-medium">
-            Discover Abu Dhabi&apos;s finest bespoke tailoring at Emirates deep collection. From royal children&apos;s frocks to designer abayas, we craft perfection in every stitch.
+            {t("hero.desc")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <Link 
               href="/catalog" 
               className="bg-amber-600 hover:bg-amber-700 text-white px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-amber-900/20"
             >
-              Explore Collection <ShoppingBag size={20} />
+              {t("hero.cta.explore")} <ShoppingBag size={20} />
             </Link>
             <Link 
               href="/custom" 
               className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-10 py-5 rounded-2xl font-bold flex items-center justify-center gap-3 transition-all active:scale-95"
             >
-              Bespoke Request <Ruler size={20} />
+              {t("hero.cta.bespoke")} <Ruler size={20} />
             </Link>
           </div>
         </div>
@@ -61,7 +66,11 @@ export default async function Home() {
           </Link>
         </div>
 
-        {featuredPairs.length > 0 ? (
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[1, 2, 3].map(i => <ProductCardSkeleton key={i} />)}
+          </div>
+        ) : featuredPairs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {featuredPairs.map((p) => (
               <div key={p.id} className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all duration-500">
@@ -89,8 +98,8 @@ export default async function Home() {
                       <Star size={16} fill="currentColor" /> {p.rating}
                     </div>
                   </div>
-                  <Link href="/catalog" className="mt-6 w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    Select Design <ArrowRight size={18} />
+                  <Link href={`/product/${p.id}`} className="mt-6 w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    {t("catalog.view_details")} <ArrowRight size={18} />
                   </Link>
                 </div>
               </div>

@@ -1,17 +1,23 @@
 "use client";
 
+import React, { useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/hooks/useCart";
 import { siteSettings } from "@/data/products";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { ShoppingBag, X, Minus, Plus, Trash2, Send } from "lucide-react";
+import { OrderSummaryModal } from "./OrderSummaryModal";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const CartDrawer = () => {
   const { cart, updateQuantity, removeFromCart, totalPrice, isCartOpen, setIsCartOpen } = useCart();
+  const { t } = useLanguage();
+  const [showSummary, setShowSummary] = useState(false);
 
   const handleWhatsAppOrder = () => {
     const link = generateWhatsAppLink(siteSettings.whatsappNumber, cart, totalPrice);
     window.open(link, "_blank");
+    setShowSummary(false);
   };
 
   return (
@@ -29,7 +35,7 @@ export const CartDrawer = () => {
         <div className="p-8 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-3">
             <ShoppingBag className="text-amber-600" />
-            <h2 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Your Selection</h2>
+            <h2 className="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">{t("cart.title")}</h2>
           </div>
           <button onClick={() => setIsCartOpen(false)} className="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full text-slate-500">
             <X size={24} />
@@ -40,7 +46,7 @@ export const CartDrawer = () => {
           {cart.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-slate-400 gap-4 opacity-50">
               <ShoppingBag size={64} strokeWidth={1} />
-              <p className="font-bold">Selection is empty</p>
+              <p className="font-bold">{t("cart.empty")}</p>
             </div>
           ) : (
             cart.map((item) => (
@@ -78,18 +84,26 @@ export const CartDrawer = () => {
 
         <div className="p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
           <div className="flex justify-between items-center mb-8">
-            <span className="font-bold text-slate-400 uppercase tracking-widest text-[10px]">Estimated Total</span>
+            <span className="font-bold text-slate-400 uppercase tracking-widest text-[10px]">{t("cart.total")}</span>
             <span className="text-3xl font-black font-playfair text-slate-900 dark:text-white">AED {totalPrice.toFixed(2)}</span>
           </div>
           <button 
             disabled={cart.length === 0}
-            onClick={handleWhatsAppOrder}
+            onClick={() => setShowSummary(true)}
             className="w-full bg-green-500 hover:bg-green-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-50 disabled:grayscale"
           >
-            Discuss on WhatsApp <Send size={18} />
+            {t("cart.cta")} <Send size={18} />
           </button>
         </div>
       </div>
+
+      <OrderSummaryModal 
+        isOpen={showSummary}
+        onClose={() => setShowSummary(false)}
+        onConfirm={handleWhatsAppOrder}
+        cart={cart}
+        totalPrice={totalPrice}
+      />
     </>
   );
 };

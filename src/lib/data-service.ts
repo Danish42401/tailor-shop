@@ -1,3 +1,4 @@
+import useSWR from 'swr';
 import { Product, Category } from "@/types";
 
 // This is where your Google Sheet CSV Link will go
@@ -55,56 +56,57 @@ function generateStableId(name: string, price: string, index: number): string {
   return `${cleanName}-${price}-${index}`;
 }
 
-export async function getProductsFromSheet(): Promise<Product[]> {
-  const sheetUrl = GOOGLE_SHEET_CSV_URL;
+const fetcher = async (url: string) => {
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: { 'Accept': 'text/csv' },
+    cache: 'no-store',
+  });
+  if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
+  return response.text();
+};
 
-  if (!sheetUrl) {
-    console.warn("GOOGLE_SHEET_CSV_URL is not defined");
-    return [];
-  }
+export function useProducts() {
+  const { data, error, isLoading, mutate } = useSWR(GOOGLE_SHEET_CSV_URL, fetcher, {
+    revalidateOnFocus: true,
+    refreshInterval: 30000, // Auto refresh every 30 seconds
+  });
 
-  try {
-    const urlWithCacheBuster = `${sheetUrl}&t=${Date.now()}`;
-    const response = await fetch(urlWithCacheBuster, {
-      method: 'GET',
-      headers: { 'Accept': 'text/csv' },
-      cache: 'no-store',
-    });
-    
-    if (!response.ok) throw new Error(`Failed to fetch sheet data: ${response.status}`);
-    
-    const csvData = await response.text();
-    const allRows = parseCSV(csvData);
-    
-    if (allRows.length < 2) return [];
-    
-    const dataRows = allRows.slice(1); // Skip header
-    
-    return dataRows.map((columns, index) => {
-      try {
-        const name = columns[1] || "Unnamed Product";
-        const rawPrice = columns[2]?.replace(/[^0-9.]/g, "") || "0";
-        const id = columns[0] || generateStableId(name, rawPrice, index);
+  const products = data ? parseProductsFromCSV(data) : [];
 
-        return {
-          id,
-          name,
-          price: parseFloat(rawPrice),
-          category: (columns[3]?.toLowerCase() || "frocks") as Category,
-          description: columns[4] || "",
-          icon: columns[5] || "",
-          rating: parseFloat(columns[6] || "5"),
-          isPair: columns[7]?.toUpperCase() === "TRUE",
-          stockStatus: (columns[8]?.toLowerCase() || "in-stock") as 'in-stock' | 'low-stock' | 'out-of-stock',
-        };
-      } catch (e) {
-        console.error("Error parsing product row:", e);
-        return null;
-      }
-    }).filter((p): p is Product => p !== null && !!p.id);
-    
-  } catch (error) {
-    console.error("Cloudflare Edge Fetch Error:", error);
-    return [];
-  }
+  return {
+    products,
+    error,
+    isLoading,
+    refresh: mutate
+  };
+}
+
+function parseProductsFromCSV(csvData: string): Product[] {
+  const allRows = parseCSV(csvData);
+  if (allRows.length < 2) return [];
+  
+  const dataRows = allRows.slice(1);
+  return dataRows.map((columns, index) => {
+    try {
+      const name = columns[1] || "Unnamed Product";
+      const rawPrice = columns[2]?.replace(/[^0-9.]/g, "") || "0";
+      const id = columns[0] || generateStableId(name, rawPrice, index);
+
+      return {
+        id,
+        name,
+        price: parseFloat(rawPrice),
+        category: (columns[3]?.toLowerCase() || "frocks") as Category,
+        description: columns[4] || "",
+        icon: columns[5] || "",
+        rating: parseFloat(columns[6] || "5"),
+        isPair: columns[7]?.toUpperCase() === "TRUE",
+        stockStatus: (columns[8]?.toLowerCase() || "in-stock") as 'in-stock' | 'low-stock' | 'out-of-stock',
+      };
+    } catch (e) {
+      console.error("Error parsing product row:", e);
+      return null;
+    }
+  }).filter((p): p is Product => p !== null && !!p.id);
 }
