@@ -51,9 +51,9 @@ function parseCSV(csvText: string): string[][] {
 /**
  * Generate a stable ID based on product properties if ID is missing
  */
-function generateStableId(name: string, price: string, index: number): string {
+function generateStableId(name: string, index: number): string {
   const cleanName = name.toLowerCase().replace(/[^a-z0-9]/g, '');
-  return `${cleanName}-${price}-${index}`;
+  return `${cleanName}-${index}`;
 }
 
 const fetcher = async (url: string) => {
@@ -86,19 +86,19 @@ function parseProductsFromCSV(csvData: string): Product[] {
   const allRows = parseCSV(csvData);
   if (allRows.length < 2) return [];
   
-  const dataRows = allRows.slice(1);
+  const dataRows = allRows.slice(1); // Skip Header
   return dataRows.map((columns, index) => {
     try {
       const name = columns[1] || "Unnamed Product";
-      const category = columns[2]?.toLowerCase() || "frocks";
-      const id = columns[0] || generateStableId(name, "0", index);
+      const category = (columns[2]?.toLowerCase() || "frocks") as Category;
+      const id = columns[0] || generateStableId(name, index);
 
       return {
         id,
         name,
-        price: 0, // Price removed as per user request
-        category: category as Category,
-        description: columns[3] || "", // Description from Sheet
+        price: 0, 
+        category,
+        description: columns[3] || "", 
         icon: columns[4] || "",
         rating: parseFloat(columns[5] || "5"),
         isPair: columns[6]?.toUpperCase() === "TRUE",

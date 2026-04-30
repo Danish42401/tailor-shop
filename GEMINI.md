@@ -176,3 +176,13 @@
 - Staged and pushed to origin main.
 **Action:** Git commit and push.
 **Status:** Completed & Synced.
+
+### [2026-04-30 12:30 PM] - Data Alignment & Price "0" Cleanup
+**User Prompt:** Parser misalignment and price "0" showing.
+**Plan:**
+- Strictly overwrote `data-service.ts` to match 8-column schema (id, name, category, description, icon, rating, isPair, stockStatus).
+- Overwrote `ProductDetail` and `CartDrawer` to remove all numeric price references and fix logic.
+- Updated WhatsApp link template to remove price mention.
+**Action:** Updated `data-service.ts`, `ProductDetail/page.tsx`, and `CartDrawer.tsx`.
+**Git:** Committed and pushed.
+**Status:** Completed & Synced.
