@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useProducts } from "@/lib/data-service";
 import { useCart } from "@/hooks/useCart";
+import { siteSettings } from "@/data/products";
 import { 
   Star, 
   ShoppingBag, 
@@ -63,8 +64,7 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    // Basic qty handling for simplicity in this turn
-    addToCart(product);
+    addToCart(product, qty);
   };
 
   return (
@@ -151,15 +151,14 @@ export default function ProductDetail() {
           <div className="mt-auto flex flex-col sm:flex-row gap-4">
             <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-2xl p-2 h-16 sm:w-40 justify-between">
                 <button 
-                  onClick={() => cartItem && updateQuantity(product.id, -1)}
-                  className="w-12 h-12 rounded-xl hover:bg-white dark:hover:bg-slate-900 flex items-center justify-center transition-all disabled:opacity-30"
-                  disabled={!cartItem}
+                  onClick={() => setQty(Math.max(1, qty - 1))}
+                  className="w-12 h-12 rounded-xl hover:bg-white dark:hover:bg-slate-900 flex items-center justify-center transition-all"
                 >
                     <Minus size={18} />
                 </button>
-                <span className="font-black text-xl w-8 text-center">{cartItem?.quantity || 0}</span>
+                <span className="font-black text-xl w-8 text-center">{qty}</span>
                 <button 
-                  onClick={() => addToCart(product)}
+                  onClick={() => setQty(qty + 1)}
                   className="w-12 h-12 rounded-xl hover:bg-white dark:hover:bg-slate-900 flex items-center justify-center transition-all"
                 >
                     <Plus size={18} />
@@ -167,14 +166,14 @@ export default function ProductDetail() {
             </div>
             
             <button 
-              onClick={() => addToCart(product)}
+              onClick={handleAddToCart}
               className="flex-1 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl"
             >
                 Add to Cart <ShoppingBag size={18} />
             </button>
 
             <a 
-              href={`https://wa.me/971562392496?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}* (AED ${product.price}). Can we discuss the customization?`)}`}
+              href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}* (AED ${product.price}). Can we discuss the customization?`)}`}
               target="_blank"
               className="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xl shadow-green-900/20"
             >

@@ -20,8 +20,9 @@ export default function Catalog() {
 
   const filteredProducts = products.filter((p) => {
     const matchesCategory = activeCategory === "all" || p.category === activeCategory;
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                         p.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const searchLower = searchQuery.toLowerCase();
+    const matchesSearch = p.name.toLowerCase().includes(searchLower) || 
+                         (p.description || "").toLowerCase().includes(searchLower);
     return matchesCategory && matchesSearch;
   });
 

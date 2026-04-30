@@ -49,8 +49,15 @@ export const OrderSummaryModal = ({ isOpen, onClose, onConfirm, cart, totalPrice
             <div className="grid gap-4">
                 {cart.map((item) => (
                     <div key={item.id} className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800">
-                        <div className="w-16 h-16 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center text-2xl shadow-sm">
-                            {item.icon && item.icon.startsWith("http") ? "👗" : (item.icon || "👗")}
+                        <div className="w-16 h-16 bg-white dark:bg-slate-900 rounded-xl flex items-center justify-center text-2xl shadow-sm relative overflow-hidden">
+                            {item.icon && item.icon.startsWith("http") ? (
+                                <Image 
+                                    src={item.icon} 
+                                    alt={item.name} 
+                                    fill
+                                    className="object-cover"
+                                />
+                            ) : (item.icon || "👗")}
                         </div>
                         <div className="flex-1">
                             <h4 className="font-bold text-sm">{item.name}</h4>

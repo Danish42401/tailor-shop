@@ -5,7 +5,7 @@ import { Product, CartItem } from "@/types";
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, delta: number) => void;
   clearCart: () => void;
@@ -24,17 +24,30 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Load from localStorage
   useEffect(() => {
-    const saved = localStorage.getItem("kids_choice_cart");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setCart(parsed);
-      } catch (e) {
-        console.error("Cart load error", e);
+    const loadCart = () => {
+      const saved = localStorage.getItem("kids_choice_cart");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          setCart(parsed);
+        } catch (e) {
+          console.error("Cart load error", e);
+        }
       }
-    }
+    };
+
+    loadCart();
     setIsMounted(true);
+
+    // Multi-tab sync
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "kids_choice_cart") {
+        loadCart();
+      }
+    };
+
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
   }, []);
 
   // Save to localStorage
@@ -44,15 +57,15 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [cart, isMounted]);
 
-  const addToCart = useCallback((product: Product) => {
+  const addToCart = useCallback((product: Product, quantity: number = 1) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity }];
     });
   }, []);
 

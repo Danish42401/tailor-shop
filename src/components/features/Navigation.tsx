@@ -14,7 +14,7 @@ export const BottomNav = ({ cartCount }: { cartCount: number }) => {
   const navItems = [
     { name: t("nav.home"), icon: Home, href: "/" },
     { name: t("nav.boutique"), icon: ShoppingBag, href: "/catalog" },
-    { name: "Cart", icon: ShoppingBag, href: "#", onClick: () => setIsCartOpen(true) },
+    { name: "Cart", icon: ShoppingBag, onClick: () => setIsCartOpen(true) },
     { name: t("nav.bespoke"), icon: Ruler, href: "/custom" },
     { name: t("nav.contact"), icon: Phone, href: "/contact" },
   ];
@@ -22,13 +22,13 @@ export const BottomNav = ({ cartCount }: { cartCount: number }) => {
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 z-50 px-4 py-3 flex justify-between items-center md:hidden">
       {navItems.map((item) => {
-        const isActive = pathname === item.href;
+        const isActive = item.href ? pathname === item.href : false;
         const Icon = item.icon;
         
         const content = (
           <div className="relative">
             <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-            {(item.name === "Cart" || item.href === "#") && cartCount > 0 && (
+            {item.name === "Cart" && cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-amber-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                 {cartCount}
               </span>
@@ -54,7 +54,7 @@ export const BottomNav = ({ cartCount }: { cartCount: number }) => {
         return (
           <Link
             key={item.name}
-            href={item.href}
+            href={item.href!}
             className={`flex flex-col items-center gap-1 transition-colors ${
               isActive ? "text-amber-600" : "text-slate-500 dark:text-slate-400"
             }`}

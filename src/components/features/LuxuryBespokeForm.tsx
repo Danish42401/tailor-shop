@@ -90,6 +90,12 @@ export default function LuxuryBespokeForm() {
         alert("Please provide your Name and WhatsApp number.");
         return;
     }
+
+    const hasMeasurements = Object.values(formData.measurements).some(val => val && val.trim() !== "");
+    if (!hasMeasurements) {
+        alert("Please provide at least one measurement to proceed with your bespoke order.");
+        return;
+    }
     
     setIsSubmitting(true);
     const link = generateWhatsAppLink(siteSettings.whatsappNumber, [], 0, {

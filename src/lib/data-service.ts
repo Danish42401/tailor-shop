@@ -91,13 +91,14 @@ function parseProductsFromCSV(csvData: string): Product[] {
     try {
       const name = columns[1] || "Unnamed Product";
       const rawPrice = columns[2]?.replace(/[^0-9.]/g, "") || "0";
-      const id = columns[0] || generateStableId(name, rawPrice, index);
+      const category = columns[3]?.toLowerCase() || "frocks";
+      const id = columns[0] || generateStableId(name, rawPrice, category);
 
       return {
         id,
         name,
         price: parseFloat(rawPrice),
-        category: (columns[3]?.toLowerCase() || "frocks") as Category,
+        category: category as Category,
         description: columns[4] || "",
         icon: columns[5] || "",
         rating: parseFloat(columns[6] || "5"),
