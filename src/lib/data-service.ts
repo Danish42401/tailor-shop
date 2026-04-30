@@ -90,19 +90,20 @@ function parseProductsFromCSV(csvData: string): Product[] {
   return dataRows.map((columns, index) => {
     try {
       const name = columns[1] || "Unnamed Product";
-      const category = columns[2]?.toLowerCase() || "frocks";
-      const id = columns[0] || generateStableId(name, "0", index);
+      const rawPrice = columns[2]?.replace(/[^0-9.]/g, "") || "0";
+      const category = columns[3]?.toLowerCase() || "frocks";
+      const id = columns[0] || generateStableId(name, rawPrice, category);
 
       return {
         id,
         name,
-        price: 0, // Price removed as per user request
+        price: parseFloat(rawPrice),
         category: category as Category,
-        description: columns[3] || "", // Description from Sheet
-        icon: columns[4] || "",
-        rating: parseFloat(columns[5] || "5"),
-        isPair: columns[6]?.toUpperCase() === "TRUE",
-        stockStatus: (columns[7]?.toLowerCase() || "in-stock") as 'in-stock' | 'low-stock' | 'out-of-stock',
+        description: columns[4] || "",
+        icon: columns[5] || "",
+        rating: parseFloat(columns[6] || "5"),
+        isPair: columns[7]?.toUpperCase() === "TRUE",
+        stockStatus: (columns[8]?.toLowerCase() || "in-stock") as 'in-stock' | 'low-stock' | 'out-of-stock',
       };
     } catch (e) {
       console.error("Error parsing product row:", e);
