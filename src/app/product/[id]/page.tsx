@@ -66,7 +66,11 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    addToCart(product, qty);
+    if (!selectedSize) {
+        alert(language === "ar" ? "يرجى اختيار المقاس أولاً" : "Please select a size first");
+        return;
+    }
+    addToCart(product!, qty, selectedSize);
   };
 
   return (
@@ -115,7 +119,9 @@ export default function ProductDetail() {
                 {product.name}
             </h1>
             <div className="flex items-center gap-6">
-                <span className="text-4xl font-black font-playfair text-slate-900 dark:text-white">AED {product.price}</span>
+                <span className="text-2xl font-black text-amber-600 uppercase">
+                    {t("catalog.price_on_request")}
+                </span>
                 <div className="h-6 w-px bg-slate-200 dark:bg-slate-800" />
                 <div className="flex items-center gap-1.5 text-amber-500 font-black">
                     <Star size={20} fill="currentColor" />
@@ -128,6 +134,31 @@ export default function ProductDetail() {
           <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed font-medium mb-12">
             {product.description || t("product.default_desc")}
           </p>
+
+          {/* Size Selector */}
+          <div className="mb-12">
+            <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white">{t("product.size")}</h3>
+                <Link href="/custom" className="text-[10px] font-black uppercase tracking-widest text-amber-600 border-b-2 border-amber-600/20 hover:border-amber-600 transition-all pb-0.5">
+                    {t("product.size_guide")}
+                </Link>
+            </div>
+            <div className="flex flex-wrap gap-3">
+                {sizes.map((s) => (
+                    <button
+                        key={s}
+                        onClick={() => setSelectedSize(s)}
+                        className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center font-black text-sm transition-all border ${
+                            selectedSize === s 
+                            ? "bg-slate-900 text-white border-slate-900 dark:bg-white dark:text-slate-900 dark:border-white shadow-xl scale-110"
+                            : "bg-white dark:bg-slate-900 text-slate-400 border-slate-100 dark:border-slate-800 hover:border-amber-600"
+                        }`}
+                    >
+                        {s}
+                    </button>
+                ))}
+            </div>
+          </div>
 
           <div className="space-y-6 mb-12">
             <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">

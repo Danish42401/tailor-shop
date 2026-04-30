@@ -94,11 +94,20 @@ export const OrderSummaryModal = ({ isOpen, onClose, onConfirm, cart, totalPrice
         <div className="p-8 bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-1">{t("cart.total")}</p>
-            <h3 className="text-4xl font-black font-playfair">AED {totalPrice.toFixed(2)}</h3>
+            <h3 className="text-2xl font-black uppercase text-amber-600">{t("catalog.price_on_request")}</h3>
           </div>
           <button 
             onClick={onConfirm}
             className="w-full md:w-auto bg-amber-600 hover:bg-amber-700 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-amber-900/40"
+          >
+            {t("summary.confirm")} <Send size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+      className="w-full md:w-auto bg-amber-600 hover:bg-amber-700 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-amber-900/40"
           >
             {t("summary.confirm")} <Send size={18} />
           </button>

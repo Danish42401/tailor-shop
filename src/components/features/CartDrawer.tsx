@@ -85,7 +85,7 @@ export const CartDrawer = () => {
         <div className="p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
           <div className="flex justify-between items-center mb-8">
             <span className="font-bold text-slate-400 uppercase tracking-widest text-[10px]">{t("cart.total")}</span>
-            <span className="text-3xl font-black font-playfair text-slate-900 dark:text-white">AED {totalPrice.toFixed(2)}</span>
+            <span className="text-xl font-black uppercase text-amber-600">{t("catalog.price_on_request")}</span>
           </div>
           <button 
             disabled={cart.length === 0}
@@ -99,6 +99,15 @@ export const CartDrawer = () => {
 
       <OrderSummaryModal 
         isOpen={showSummary}
+        onClose={() => setShowSummary(false)}
+        onConfirm={handleWhatsAppOrder}
+        cart={cart}
+        totalPrice={totalPrice}
+      />
+    </>
+  );
+};
+ummary}
         onClose={() => setShowSummary(false)}
         onConfirm={handleWhatsAppOrder}
         cart={cart}

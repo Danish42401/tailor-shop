@@ -19,9 +19,9 @@ export const generateWhatsAppLink = (
   if (cart.length > 0) {
     message += `*Selected Items:*\n`;
     cart.forEach((item) => {
-      message += `• ${item.name} (${item.quantity}x) - AED ${item.price * item.quantity}\n`;
+      message += `• ${item.name} (${item.quantity}x)${item.selectedSize ? ` - Size: ${item.selectedSize}` : ""}\n`;
     });
-    message += `\n*Total Estimate:* AED ${totalPrice.toFixed(2)}\n`;
+    message += `\n*Requesting Price Confirmation*\n`;
     message += `----------------------------\n`;
   }
 
