@@ -128,3 +128,11 @@
 - Replaced it with a functional Google Maps Search link for "Yas Mart Mall".
 **Action:** Updated `src/app/contact/page.tsx`, committed and pushed changes.
 **Status:** Completed & Synced.
+
+### [2026-04-30 10:45 AM] - Update Map to Exact Coordinates
+**User Prompt:** Update map and button to exact coordinates 24°17'03.8"N 54°39'35.0"E.
+**Plan:**
+- Replaced general "Yas Mart Mall" search with exact coordinates.
+- Updated both iframe embed and external link for precision.
+**Action:** Updated `src/app/contact/page.tsx`, committed and pushed.
+**Status:** Completed & Synced.
