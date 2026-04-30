@@ -150,37 +150,39 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          <div className="mt-auto flex flex-col sm:flex-row gap-4">
+          <div className="mt-auto flex flex-col gap-4">
             <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-2xl p-2 h-16 sm:w-40 justify-between">
-                <button 
+                <button
                   onClick={() => setQty(Math.max(1, qty - 1))}
                   className="w-12 h-12 rounded-xl hover:bg-white dark:hover:bg-slate-900 flex items-center justify-center transition-all"
                 >
                     <Minus size={18} />
                 </button>
                 <span className="font-black text-xl w-8 text-center">{qty}</span>
-                <button 
+                <button
                   onClick={() => setQty(qty + 1)}
                   className="w-12 h-12 rounded-xl hover:bg-white dark:hover:bg-slate-900 flex items-center justify-center transition-all"
                 >
                     <Plus size={18} />
                 </button>
             </div>
-            
-            <button 
-              onClick={handleAddToCart}
-              className="flex-1 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl"
-            >
-                {t("product.add_to_cart")} <ShoppingBag size={18} />
-            </button>
 
-            <a 
-              href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}* (AED ${product.price}). Can we discuss the customization?`)}`}
-              target="_blank"
-              className="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xl shadow-green-900/20"
-            >
-                <MessageSquare size={24} fill="currentColor" />
-            </a>
+            <div className="flex gap-4">
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-sm sm:text-xs h-16 flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl"
+              >
+                  {t("product.add_to_cart")} <ShoppingBag size={20} />
+              </button>
+
+              <a
+                href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}* (AED ${product.price}). Can we discuss the customization?`)}`}
+                target="_blank"
+                className="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xl shadow-green-900/20 shrink-0"
+              >
+                  <MessageSquare size={24} fill="currentColor" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
