@@ -50,7 +50,7 @@ export const CartDrawer = () => {
             </div>
           ) : (
             cart.map((item) => (
-              <div key={`${item.id}-${item.selectedSize}`} className="flex gap-4 group">
+              <div key={item.id} className="flex gap-4 group">
                 <div className="w-20 h-24 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center text-3xl overflow-hidden flex-shrink-0 relative">
                   {item.icon && item.icon.startsWith("http") ? (
                     <Image 
@@ -65,19 +65,16 @@ export const CartDrawer = () => {
                 </div>
                 <div className="flex-grow">
                   <h4 className="font-bold text-sm mb-1 text-slate-900 dark:text-white line-clamp-1">{item.name}</h4>
-                  <p className="text-amber-600 font-black text-[10px] uppercase mb-2">{t("catalog.price_on_request")}</p>
-                  {item.selectedSize && (
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Size: {item.selectedSize}</p>
-                  )}
+                  <p className="text-amber-600 font-black text-sm mb-3">AED {item.price}</p>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center bg-slate-50 dark:bg-slate-800 rounded-lg px-2 text-slate-900 dark:text-white">
-                      <button onClick={() => updateQuantity(item.id, -1, item.selectedSize)} className="p-1 hover:text-amber-600"><Minus size={14} /></button>
+                      <button onClick={() => updateQuantity(item.id, -1)} className="p-1 hover:text-amber-600"><Minus size={14} /></button>
                       <span className="w-8 text-center text-xs font-bold">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, 1, item.selectedSize)} className="p-1 hover:text-amber-600"><Plus size={14} /></button>
+                      <button onClick={() => updateQuantity(item.id, 1)} className="p-1 hover:text-amber-600"><Plus size={14} /></button>
                     </div>
                   </div>
                 </div>
-                <button onClick={() => removeFromCart(item.id, item.selectedSize)} className="text-slate-300 hover:text-red-500 transition-colors flex-shrink-0">
+                <button onClick={() => removeFromCart(item.id)} className="text-slate-300 hover:text-red-500 transition-colors flex-shrink-0">
                   <Trash2 size={18} />
                 </button>
               </div>
@@ -88,7 +85,7 @@ export const CartDrawer = () => {
         <div className="p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
           <div className="flex justify-between items-center mb-8">
             <span className="font-bold text-slate-400 uppercase tracking-widest text-[10px]">{t("cart.total")}</span>
-            <span className="text-sm font-black uppercase text-amber-600">{t("catalog.price_on_request")}</span>
+            <span className="text-xl font-black uppercase text-amber-600">{t("catalog.price_on_request")}</span>
           </div>
           <button 
             disabled={cart.length === 0}
@@ -102,6 +99,15 @@ export const CartDrawer = () => {
 
       <OrderSummaryModal 
         isOpen={showSummary}
+        onClose={() => setShowSummary(false)}
+        onConfirm={handleWhatsAppOrder}
+        cart={cart}
+        totalPrice={totalPrice}
+      />
+    </>
+  );
+};
+ummary}
         onClose={() => setShowSummary(false)}
         onConfirm={handleWhatsAppOrder}
         cart={cart}

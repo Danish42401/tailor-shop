@@ -12,6 +12,7 @@ import {
   ShoppingBag, 
   ChevronLeft, 
   ShieldCheck, 
+  Truck, 
   Clock, 
   Plus, 
   Minus,
@@ -19,19 +20,17 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { ProductCardSkeleton } from "@/components/ui/Skeleton";
-import { Size } from "@/types";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const router = useRouter();
   const { products, isLoading } = useProducts();
-  const { addToCart } = useCart();
+  const { addToCart, cart, updateQuantity } = useCart();
   const { t, language } = useLanguage();
   const [qty, setQty] = useState(1);
-  const [selectedSize, setSelectedSize] = useState<Size | undefined>(undefined);
 
   const product = products.find(p => p.id === id);
-  const sizes: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'Custom'];
+  const cartItem = cart.find(item => item.id === id);
 
   if (isLoading) {
     return (
@@ -71,7 +70,7 @@ export default function ProductDetail() {
         alert(language === "ar" ? "يرجى اختيار المقاس أولاً" : "Please select a size first");
         return;
     }
-    addToCart(product, qty, selectedSize);
+    addToCart(product!, qty, selectedSize);
   };
 
   return (
@@ -208,7 +207,7 @@ export default function ProductDetail() {
               </button>
 
               <a
-                href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}*. Can we discuss the customization and price?`)}`}
+                href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}* (AED ${product.price}). Can we discuss the customization?`)}`}
                 target="_blank"
                 className="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xl shadow-green-900/20 shrink-0"
               >
@@ -218,6 +217,8 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+
+      {/* Suggested Products Section could go here */}
     </div>
   );
 }
