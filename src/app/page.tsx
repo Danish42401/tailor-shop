@@ -98,7 +98,7 @@ export default function Home() {
                       <Star size={16} fill="currentColor" /> {p.rating}
                     </div>
                   </div>
-                  <Link href={`/product/${p.id}`} className="mt-6 w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Link href={`/product/${p.id}`} className="mt-6 w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold flex items-center justify-center gap-2 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 hover:bg-amber-600">
                     {t("catalog.view_details")} <ArrowRight size={18} />
                   </Link>
                 </div>
