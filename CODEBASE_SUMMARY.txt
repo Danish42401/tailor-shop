@@ -1,0 +1,35 @@
+# Emirates Deep Collection - Project Summary
+
+## Project Overview
+A premium bespoke tailoring web application for "Emirates Deep Collection" (formerly Kids Choice Boutique) based in Abu Dhabi. The site specializes in children's frocks, ladies' abayas, and mom-and-daughter matching sets.
+
+## Tech Stack
+- **Framework:** Next.js 15.5.2 (App Router)
+- **Runtime:** Edge Runtime (optimized for Cloudflare Pages)
+- **Styling:** Tailwind CSS 4, Lucide React icons
+- **State Management:** React Context (CartContext, LanguageContext)
+- **Data Fetching:** SWR (fetching from Google Sheets CSV)
+- **Deployment:** Cloudflare Pages (@cloudflare/next-on-pages)
+
+## Core Features
+1. **Dynamic Catalog:** Products are fetched live from a Google Sheet CSV. Includes search, category filtering (Mom & Daughter, Frocks, Abaya, Accessories), and stock status indicators.
+2. **Global Cart System:** Multi-tab synchronized cart using localStorage. Supports quantity updates and side-drawer visualization.
+3. **Bespoke Studio:** A detailed custom measurement form (`LuxuryBespokeForm`) for tailored orders, including support for units (Inches/CM) and tailor tips.
+4. **WhatsApp Integration:** All orders (cart or bespoke) generate a structured WhatsApp message to the business owner for final confirmation.
+5. **Localization:** Full English and Arabic support with automatic RTL (Right-to-Left) switching based on the selected language.
+
+## Architecture
+- `src/app/`: Next.js pages and layouts. Forced `edge` runtime.
+- `src/context/`: Global state providers for Cart and Language.
+- `src/lib/`: Core services like `data-service.ts` (CSV parsing & SWR) and `whatsapp.ts` (link generation).
+- `src/components/features/`: Complex UI components (Navigation, CartDrawer, BespokeForm).
+- `GEMINI.md`: Foundational project rules and session history (Crucial for context preservation).
+
+## Key Files & Logic
+- `data-service.ts`: Uses a robust `parseCSV` function to handle quoted strings and commas in product descriptions from Google Sheets.
+- `Navigation.tsx`: Responsive headers (Mobile/Desktop) and a BottomNav for mobile users.
+- `CartContext.tsx`: Manages cart state and handles persistence via `localStorage`.
+
+## Deployment & Build
+- Uses `legacy-peer-deps=true` via `.npmrc` for Cloudflare compatibility.
+- Build command: `npx wrangler pages deploy .vercel/output/static`.
