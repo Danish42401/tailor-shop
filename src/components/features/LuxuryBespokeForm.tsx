@@ -26,11 +26,9 @@ const MEASUREMENT_FIELDS = [
   { id: "neckDepthFront", label: "9. Front Neck Depth", en: "Depth of the neckline (front)", ar: "عمق فتحة الرقبة (أمام)" },
   { id: "neckDepthBack", label: "10. Back Neck Depth", en: "Depth of the neckline (back)", ar: "عمق فتحة الرقبة (خلف)" },
 ];
-
 export default function LuxuryBespokeForm() {
   const [formData, setFormData] = useState<FormData>({
     customerName: "",
-    phoneNumber: "",
     unit: "inch",
     measurements: {
       fullLength: "",
@@ -86,8 +84,8 @@ export default function LuxuryBespokeForm() {
   };
 
   const handleSubmit = () => {
-    if (!formData.customerName || !formData.phoneNumber) {
-        alert("Please provide your Name and WhatsApp number.");
+    if (!formData.customerName) {
+        alert("Please provide your Name.");
         return;
     }
 
@@ -100,7 +98,6 @@ export default function LuxuryBespokeForm() {
     setIsSubmitting(true);
     const link = generateWhatsAppLink(siteSettings.whatsappNumber, [], 0, {
         customerName: formData.customerName,
-        phoneNumber: formData.phoneNumber,
         notes: `${formData.notes} (Units: ${formData.unit})`,
         measurements: formData.measurements
     });
@@ -149,30 +146,15 @@ export default function LuxuryBespokeForm() {
 
         <div className="grid grid-cols-1 gap-8">
           <div className="glass-card rounded-[2.5rem] p-8 border-white/5 shadow-xl">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                      <label className="text-[9px] font-black uppercase tracking-widest text-[#c9a84c] ml-1">Client Name / اسم العميل</label>
-                      <input 
-                          type="text"
-                          placeholder="e.g. Fatima Ahmed"
-                          className="w-full glass-input rounded-2xl py-4 px-6 outline-none font-bold text-lg focus:ring-2 focus:ring-[#c9a84c]/20"
-                          value={formData.customerName}
-                          onChange={e => setFormData({...formData, customerName: e.target.value})}
-                      />
-                  </div>
-                  <div className="space-y-2">
-                      <label className="text-[9px] font-black uppercase tracking-widest text-[#c9a84c] ml-1">WhatsApp / واتساب</label>
-                      <div className="relative">
-                          <input 
-                              type="tel"
-                              placeholder="+971 -- --- ----"
-                              className="w-full glass-input rounded-2xl py-4 px-12 outline-none font-bold text-lg focus:ring-2 focus:ring-[#c9a84c]/20"
-                              value={formData.phoneNumber}
-                              onChange={e => setFormData({...formData, phoneNumber: e.target.value})}
-                          />
-                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
-                      </div>
-                  </div>
+              <div className="max-w-md mx-auto space-y-2">
+                  <label className="text-[9px] font-black uppercase tracking-widest text-[#c9a84c] ml-1">Client Name / اسم العميل</label>
+                  <input 
+                      type="text"
+                      placeholder="e.g. Fatima Ahmed"
+                      className="w-full glass-input rounded-2xl py-4 px-6 outline-none font-bold text-lg focus:ring-2 focus:ring-[#c9a84c]/20"
+                      value={formData.customerName}
+                      onChange={e => setFormData({...formData, customerName: e.target.value})}
+                  />
               </div>
           </div>
 

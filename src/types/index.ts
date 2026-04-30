@@ -34,10 +34,17 @@ export interface Measurements {
 
 export interface FormData {
   customerName: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   unit: "inch" | "cm";
   measurements: Measurements;
   notes: string;
+}
+
+export interface CustomOrderRequest {
+  customerName: string;
+  phoneNumber?: string;
+  notes: string;
+  measurements: Measurements;
 }
 
 export interface SiteSettings {

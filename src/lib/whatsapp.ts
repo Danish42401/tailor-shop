@@ -10,7 +10,9 @@ export const generateWhatsAppLink = (
 
   if (customerData) {
     message += `*Customer:* ${customerData.customerName}\n`;
-    message += `*Contact:* ${customerData.phoneNumber}\n`;
+    if (customerData.phoneNumber) {
+      message += `*Contact:* ${customerData.phoneNumber}\n`;
+    }
     message += `----------------------------\n`;
   }
 
