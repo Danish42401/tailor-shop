@@ -145,16 +145,3 @@
 **Action:** Replaced favicon, deleted old ico file.
 **Git:** Committed and pushed.
 **Status:** Completed & Synced.
-
-### [2026-04-30 11:30 AM] - Price Removal & Standard Sizes Integration
-**User Prompt:** Remove prices globally and add standard size selection (XS to XXL).
-**Plan:**
-- Updated `src/types/index.ts` with `Size` type and updated `CartItem`.
-- Modified `CartContext` to handle size-specific items.
-- Updated `LanguageContext` with "Price on Request" and "Select Size" translations.
-- Added Size Selector UI to `ProductDetail` page and enforced selection.
-- Hidden prices in `Catalog`, `Home`, `CartDrawer`, and `OrderSummaryModal`.
-- Updated WhatsApp link generator to include sizes and exclude prices.
-**Action:** Global UI/Logic update for price-less flow and size selection.
-**Git:** Committed and pushed.
-**Status:** Completed & Synced.

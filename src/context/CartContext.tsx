@@ -1,13 +1,13 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { Product, CartItem, Size } from "@/types";
+import { Product, CartItem } from "@/types";
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product, quantity?: number, size?: Size) => void;
-  removeFromCart: (id: string, size?: Size) => void;
-  updateQuantity: (id: string, delta: number, size?: Size) => void;
+  addToCart: (product: Product, quantity?: number) => void;
+  removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, delta: number) => void;
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
@@ -57,26 +57,26 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [cart, isMounted]);
 
-  const addToCart = useCallback((product: Product, quantity: number = 1, size?: Size) => {
+  const addToCart = useCallback((product: Product, quantity: number = 1) => {
     setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id && item.selectedSize === size);
+      const existing = prev.find((item) => item.id === product.id);
       if (existing) {
         return prev.map((item) =>
-          (item.id === product.id && item.selectedSize === size) ? { ...item, quantity: item.quantity + quantity } : item
+          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
-      return [...prev, { ...product, quantity, selectedSize: size }];
+      return [...prev, { ...product, quantity }];
     });
   }, []);
 
-  const removeFromCart = useCallback((id: string, size?: Size) => {
-    setCart((prev) => prev.filter((item) => !(item.id === id && item.selectedSize === size)));
+  const removeFromCart = useCallback((id: string) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
   }, []);
 
-  const updateQuantity = useCallback((id: string, delta: number, size?: Size) => {
+  const updateQuantity = useCallback((id: string, delta: number) => {
     setCart((prev) =>
       prev.map((item) => {
-        if (item.id === id && item.selectedSize === size) {
+        if (item.id === id) {
           const newQty = Math.max(0, item.quantity + delta);
           return { ...item, quantity: newQty };
         }
