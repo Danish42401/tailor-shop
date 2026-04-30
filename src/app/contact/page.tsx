@@ -33,14 +33,14 @@ export default function Contact() {
           
           <div className="flex-1 min-h-[300px] bg-slate-50 dark:bg-slate-800 rounded-3xl mb-8 relative group">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3637.3828956488344!2d54.6292323!3d24.2633857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5e39626e2e584f%3A0x6b876402479e0000!2sYas%20Mart%20Mall!5e0!3m2!1sen!2sae!4v1714300000000!5m2!1sen!2sae" 
+              src="https://maps.google.com/maps?q=24.2843889,54.6597222&z=17&output=embed" 
               className="absolute inset-0 w-full h-full rounded-3xl grayscale invert dark:invert-0 dark:grayscale-0 opacity-80 group-hover:opacity-100 transition-opacity border-0"
               loading="lazy"
             ></iframe>
           </div>
 
           <a 
-            href="https://www.google.com/maps/search/?api=1&query=Yas+Mart+Mall+Baniyas+East+Abu+Dhabi" 
+            href="https://www.google.com/maps/place/24%C2%B017'03.8%22N+54%C2%B039'35.0%22E/@24.2843889,54.6597222,17z" 
             target="_blank"
             className="flex items-center justify-center gap-3 w-full py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold uppercase tracking-widest text-xs hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
