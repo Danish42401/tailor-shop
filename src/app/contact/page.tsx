@@ -32,15 +32,15 @@ export default function Contact() {
           </div>
           
           <div className="flex-1 min-h-[300px] bg-slate-50 dark:bg-slate-800 rounded-3xl mb-8 relative group">
-            <iframe 
-              src="https://maps.google.com/maps?q=24.2843889,54.6597222&z=17&output=embed" 
-              className="absolute inset-0 w-full h-full rounded-3xl grayscale invert dark:invert-0 dark:grayscale-0 opacity-80 group-hover:opacity-100 transition-opacity border-0"
+            <iframe
+              src="https://maps.google.com/maps?q=24.2843766,54.6597075&z=17&output=embed"
+              className="absolute inset-0 w-full h-full rounded-3xl border-0"
               loading="lazy"
             ></iframe>
           </div>
 
-          <a 
-            href="https://www.google.com/maps/place/24%C2%B017'03.8%22N+54%C2%B039'35.0%22E/@24.2843889,54.6597222,17z" 
+          <a
+            href="https://www.google.com/maps/place/24%C2%B017'03.8%22N+54%C2%B039'35.0%22E/@24.2843766,54.6571326,17z/data=!3m1!4b1!4m4!3m3!8m2!3d24.2843766!4d54.6597075?hl=en&entry=ttu&g_ep=EgoyMDI2MDQyNy4wIKXMDSoASAFQAw%3D%3D"
             target="_blank"
             className="flex items-center justify-center gap-3 w-full py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold uppercase tracking-widest text-xs hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
