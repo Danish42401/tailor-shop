@@ -40,7 +40,7 @@ export default function Contact() {
           </div>
 
           <a 
-            href="https://maps.app.goo.gl/YourActualGoogleMapsLink" 
+            href="https://www.google.com/maps/search/?api=1&query=Yas+Mart+Mall+Baniyas+East+Abu+Dhabi" 
             target="_blank"
             className="flex items-center justify-center gap-3 w-full py-5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold uppercase tracking-widest text-xs hover:scale-[1.02] active:scale-[0.98] transition-all"
           >
