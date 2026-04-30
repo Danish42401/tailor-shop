@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useProducts } from "@/lib/data-service";
 import { useCart } from "@/hooks/useCart";
 import { siteSettings } from "@/data/products";
+import { useLanguage } from "@/context/LanguageContext";
 import { 
   Star, 
   ShoppingBag, 
@@ -25,6 +26,7 @@ export default function ProductDetail() {
   const router = useRouter();
   const { products, isLoading } = useProducts();
   const { addToCart, cart, updateQuantity } = useCart();
+  const { t, language } = useLanguage();
   const [qty, setQty] = useState(1);
 
   const product = products.find(p => p.id === id);
@@ -99,7 +101,7 @@ export default function ProductDetail() {
             
             {product.isPair && (
                 <div className="absolute top-8 left-8 bg-amber-600 text-white text-xs font-black px-5 py-2 rounded-full uppercase tracking-widest shadow-xl">
-                    Exclusive Pair
+                    {t("product.exclusive_pair")}
                 </div>
             )}
           </div>
