@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(xcopy *)",
-      "mcp__github__search_repositories"
+      "mcp__github__search_repositories",
+      "Bash(npx *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push)",
+      "Bash(dir *)",
+      "Bash(findstr *)"
     ]
   },
   "$version": 3
