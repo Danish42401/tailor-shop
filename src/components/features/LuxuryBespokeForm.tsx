@@ -13,6 +13,7 @@ import {
 import { siteSettings } from "@/data/products";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
 import { FormData } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 const MEASUREMENT_FIELDS = [
   { id: "fullLength", label: "1. Length", en: "From shoulder to desired dress length", ar: "من الكتف إلى طول الفستان المطلوب" },
@@ -26,7 +27,9 @@ const MEASUREMENT_FIELDS = [
   { id: "neckDepthFront", label: "9. Front Neck Depth", en: "Depth of the neckline (front)", ar: "عمق فتحة الرقبة (أمام)" },
   { id: "neckDepthBack", label: "10. Back Neck Depth", en: "Depth of the neckline (back)", ar: "عمق فتحة الرقبة (خلف)" },
 ];
+
 export default function LuxuryBespokeForm() {
+  const { language, t } = useLanguage();
   const [formData, setFormData] = useState<FormData>({
     customerName: "",
     unit: "inch",
@@ -53,7 +56,6 @@ export default function LuxuryBespokeForm() {
     const saved = localStorage.getItem("bespoke_studio_draft_v3");
     if (saved) {
         try {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFormData(JSON.parse(saved));
         } catch(e) {
             console.error("Failed to load bespoke draft", e);
@@ -85,13 +87,13 @@ export default function LuxuryBespokeForm() {
 
   const handleSubmit = () => {
     if (!formData.customerName) {
-        alert("Please provide your Name.");
+        alert(language === "ar" ? "يرجى تقديم اسمك." : "Please provide your Name.");
         return;
     }
 
     const hasMeasurements = Object.values(formData.measurements).some(val => val && val.trim() !== "");
     if (!hasMeasurements) {
-        alert("Please provide at least one measurement to proceed with your bespoke order.");
+        alert(language === "ar" ? "يرجى تقديم قياس واحد على الأقل للمتابعة في طلبك الخاص." : "Please provide at least one measurement to proceed with your bespoke order.");
         return;
     }
     
@@ -239,9 +241,9 @@ export default function LuxuryBespokeForm() {
                     disabled={isSubmitting}
                     className="w-full py-6 rounded-3xl luxury-gradient text-[#0a0f1e] font-black uppercase tracking-[0.4em] text-xs flex items-center justify-center gap-4 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_20px_40px_rgba(201,168,76,0.2)] disabled:opacity-50 group"
                 >
-                    {isSubmitting ? "Processing..." : (
+                    {isSubmitting ? (language === "ar" ? "جاري المعالجة..." : "Processing...") : (
                         <>
-                            Submit Order via WhatsApp
+                            {language === "ar" ? "إرسال الطلب عبر واتساب" : "Submit Order via WhatsApp"}
                             <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                         </>
                     )}
@@ -253,9 +255,9 @@ export default function LuxuryBespokeForm() {
         <footer className="mt-16 text-center pb-12 space-y-4">
           <div className="flex items-center justify-center gap-4 opacity-30">
             <CheckCircle2 size={14} />
-            <span className="text-[8px] font-black uppercase tracking-[0.4em]">Abu Dhabi Elite Tailoring</span>
+            <span className="text-[8px] font-black uppercase tracking-[0.4em]">{t("footer.tagline")}</span>
           </div>
-          <p className="text-slate-800 text-[10px] font-black uppercase tracking-[0.5em]">Emirates Deep Collection • 2026</p>
+          <p className="text-slate-800 text-[10px] font-black uppercase tracking-[0.5em]">{t("footer.rights")}</p>
         </footer>
       </div>
       

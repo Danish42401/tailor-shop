@@ -70,7 +70,7 @@ export default function Catalog() {
                   : "bg-white dark:bg-slate-800 text-slate-500 border border-slate-100 dark:border-slate-700 hover:border-amber-600/30"
               }`}
             >
-              {cat.replace("-", " & ")}
+              {t(`cat.${cat}`)}
             </button>
           ))}
         </div>
@@ -101,7 +101,7 @@ export default function Catalog() {
                 )}
                 {p.stockStatus === "low-stock" && (
                   <div className="absolute bottom-4 left-4 bg-red-500/90 backdrop-blur-sm text-white text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-lg">
-                    Only few left
+                    {t("catalog.low_stock")}
                   </div>
                 )}
                 <div className="absolute inset-0 bg-slate-950/0 group-hover:bg-slate-950/20 transition-colors duration-500 flex items-center justify-center">
@@ -137,7 +137,7 @@ export default function Catalog() {
           </div>
           <div className="space-y-1">
             <p className="text-xl font-bold text-slate-900 dark:text-white">{t("catalog.no_results")}</p>
-            <p className="text-sm font-medium">Try adjusting your search or category filters</p>
+            <p className="text-sm font-medium">{t("catalog.no_results_desc")}</p>
           </div>
         </div>
       )}

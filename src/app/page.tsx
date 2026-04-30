@@ -58,11 +58,11 @@ export default function Home() {
       <section className="px-6 max-w-7xl mx-auto w-full">
         <div className="flex justify-between items-end mb-12">
           <div>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">The Signature <span className="text-amber-600">Pairs</span></h2>
-            <p className="text-slate-500 dark:text-slate-400 font-medium max-w-md">Our world-famous Mom & Daughter matching sets, handcrafted with love in Abu Dhabi.</p>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter mb-4">{t("featured.title")} <span className="text-amber-600">{t("featured.title_accent")}</span></h2>
+            <p className="text-slate-500 dark:text-slate-400 font-medium max-w-md">{t("featured.desc")}</p>
           </div>
           <Link href="/catalog" className="hidden md:flex items-center gap-2 text-amber-600 font-bold hover:gap-4 transition-all">
-            View All <ArrowRight size={20} />
+            {t("featured.view_all")} <ArrowRight size={20} />
           </Link>
         </div>
 
@@ -87,7 +87,7 @@ export default function Home() {
                     <span>{p.icon || "👗"}</span>
                   )}
                   <div className="absolute top-6 right-6 bg-amber-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter shadow-lg shadow-amber-900/40">
-                    Exclusive Pair
+                    {t("product.exclusive_pair")}
                   </div>
                 </div>
                 <div className="px-2">
@@ -107,7 +107,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="text-center py-20 bg-slate-50 dark:bg-slate-900/50 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
-            <p className="text-slate-400 font-bold italic">Adding new exclusive designs soon...</p>
+            <p className="text-slate-400 font-bold italic">{t("featured.empty")}</p>
           </div>
         )}
       </section>
@@ -119,22 +119,22 @@ export default function Home() {
             <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center text-amber-600">
               <ShieldCheck size={32} />
             </div>
-            <h4 className="text-xl font-bold">Premium Quality</h4>
-            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Handpicked fabrics and master tailoring to ensure your outfit lasts for generations.</p>
+            <h4 className="text-xl font-bold">{t("trust.quality.title")}</h4>
+            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{t("trust.quality.desc")}</p>
           </div>
           <div className="flex flex-col items-center text-center gap-4">
             <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center text-amber-600">
               <Ruler size={32} />
             </div>
-            <h4 className="text-xl font-bold">Perfect Fit</h4>
-            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Expert measurements taken at our Baniyas East shop or through our online bespoke guide.</p>
+            <h4 className="text-xl font-bold">{t("trust.fit.title")}</h4>
+            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{t("trust.fit.desc")}</p>
           </div>
           <div className="flex flex-col items-center text-center gap-4">
             <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center text-amber-600">
               <Phone size={32} />
             </div>
-            <h4 className="text-xl font-bold">WhatsApp Support</h4>
-            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Direct line to our designers for real-time updates and customization requests.</p>
+            <h4 className="text-xl font-bold">{t("trust.whatsapp.title")}</h4>
+            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{t("trust.whatsapp.desc")}</p>
           </div>
         </div>
       </section>

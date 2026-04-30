@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { X, Send, ShoppingBag, Ruler, CheckCircle2 } from "lucide-react";
 import { CartItem } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
@@ -45,7 +46,7 @@ export const OrderSummaryModal = ({ isOpen, onClose, onConfirm, cart, totalPrice
         <div className="flex-grow overflow-y-auto p-8 space-y-8">
           {/* Items List */}
           <div className="space-y-4">
-            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-amber-600">Selected Designs</h3>
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-amber-600">{t("cart.title")}</h3>
             <div className="grid gap-4">
                 {cart.map((item) => (
                     <div key={item.id} className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800">
@@ -76,15 +77,15 @@ export const OrderSummaryModal = ({ isOpen, onClose, onConfirm, cart, totalPrice
             <div className="p-6 rounded-[2rem] bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/20 flex gap-4">
                 <Ruler className="text-amber-600 shrink-0" size={20} />
                 <div>
-                    <h4 className="font-bold text-xs uppercase tracking-wider mb-1">Tailoring Note</h4>
-                    <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-relaxed">Our designers will confirm your exact measurements on WhatsApp before starting the craft.</p>
+                    <h4 className="font-bold text-xs uppercase tracking-wider mb-1">{t("summary.tailoring.title")}</h4>
+                    <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-relaxed">{t("summary.tailoring.desc")}</p>
                 </div>
             </div>
             <div className="p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 flex gap-4">
                 <ShoppingBag className="text-slate-400 shrink-0" size={20} />
                 <div>
-                    <h4 className="font-bold text-xs uppercase tracking-wider mb-1">Fitting Session</h4>
-                    <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-relaxed">Book a physical fitting at our Abu Dhabi Mall branch during the chat.</p>
+                    <h4 className="font-bold text-xs uppercase tracking-wider mb-1">{t("summary.fitting.title")}</h4>
+                    <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-relaxed">{t("summary.fitting.desc")}</p>
                 </div>
             </div>
           </div>

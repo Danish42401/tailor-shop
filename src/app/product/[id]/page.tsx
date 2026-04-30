@@ -76,7 +76,7 @@ export default function ProductDetail() {
         <div className="w-10 h-10 rounded-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 flex items-center justify-center group-hover:scale-110 transition-transform">
             <ChevronLeft size={20} />
         </div>
-        Back to Collection
+        {t("product.back")}
       </button>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -108,7 +108,7 @@ export default function ProductDetail() {
         {/* Right: Product Info */}
         <div className="flex flex-col">
           <div className="mb-8">
-            <span className="text-xs font-black uppercase tracking-[0.3em] text-amber-600 mb-4 block">{product.category}</span>
+            <span className="text-xs font-black uppercase tracking-[0.3em] text-amber-600 mb-4 block">{t(`cat.${product.category}`)}</span>
             <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-white mb-6 uppercase leading-tight">
                 {product.name}
             </h1>
@@ -118,13 +118,13 @@ export default function ProductDetail() {
                 <div className="flex items-center gap-1.5 text-amber-500 font-black">
                     <Star size={20} fill="currentColor" />
                     <span>{product.rating}</span>
-                    <span className="text-slate-400 font-medium text-sm ml-1">(Bespoke Choice)</span>
+                    <span className="text-slate-400 font-medium text-sm ml-1">({t("product.bespoke_choice")})</span>
                 </div>
             </div>
           </div>
 
           <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed font-medium mb-12">
-            {product.description || "Indulge in the luxury of Emirates Deep Collection. This masterfully crafted piece represents the pinnacle of Abu Dhabi's bespoke tailoring tradition, combining premium fabrics with timeless elegance."}
+            {product.description || t("product.default_desc")}
           </p>
 
           <div className="space-y-6 mb-12">
@@ -133,8 +133,8 @@ export default function ProductDetail() {
                     <ShieldCheck size={24} />
                 </div>
                 <div>
-                    <h4 className="font-bold text-sm">Authentic Bespoke</h4>
-                    <p className="text-xs text-slate-500 font-medium">Handcrafted in our Abu Dhabi Boutique</p>
+                    <h4 className="font-bold text-sm">{t("product.authentic.title")}</h4>
+                    <p className="text-xs text-slate-500 font-medium">{t("product.authentic.desc")}</p>
                 </div>
             </div>
             <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
@@ -142,8 +142,8 @@ export default function ProductDetail() {
                     <Clock size={24} />
                 </div>
                 <div>
-                    <h4 className="font-bold text-sm">Ready in 3-5 Days</h4>
-                    <p className="text-xs text-slate-500 font-medium">Express tailoring available for urgent orders</p>
+                    <h4 className="font-bold text-sm">{t("product.ready.title")}</h4>
+                    <p className="text-xs text-slate-500 font-medium">{t("product.ready.desc")}</p>
                 </div>
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function ProductDetail() {
               onClick={handleAddToCart}
               className="flex-1 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl"
             >
-                Add to Cart <ShoppingBag size={18} />
+                {t("product.add_to_cart")} <ShoppingBag size={18} />
             </button>
 
             <a 
