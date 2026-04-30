@@ -158,3 +158,13 @@
 **Action:** Global UI/Logic update for price-less flow and size selection.
 **Git:** Committed and pushed.
 **Status:** Completed & Synced.
+
+### [2026-04-30 12:00 PM] - Google Sheet Schema Update (Price Removed)
+**User Prompt:** Remove price column from Google Sheet and update columns for custom descriptions.
+**Plan:**
+- Provided new Header formula for Google Sheets: `=SPLIT("id,name,category,description,icon,rating,isPair,stockStatus", ",")`.
+- Updated `src/lib/data-service.ts` parser to match 8-column structure.
+- Shifted column mapping indices to correctly fetch descriptions and other fields.
+**Action:** Updated `data-service.ts`.
+**Git:** Committed and pushed.
+**Status:** Completed & Synced.
