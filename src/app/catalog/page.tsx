@@ -118,7 +118,7 @@ export default function Catalog() {
                 <h3 className="text-xl font-bold mb-2 tracking-tight group-hover:text-amber-600 transition-colors line-clamp-1">{p.name}</h3>
                 <p className="text-slate-400 text-xs mb-6 line-clamp-2 leading-relaxed font-medium">{p.description}</p>
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-black font-playfair tracking-tight text-slate-900 dark:text-white">AED {p.price}</span>
+                  <span className="text-sm font-black font-playfair tracking-tight text-amber-600 uppercase">{t("product.price_on_request")}</span>
                   <button 
                     onClick={() => { addToCart(p); }}
                     className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 p-4 rounded-2xl hover:scale-110 active:scale-95 transition-all shadow-xl shadow-slate-900/10"

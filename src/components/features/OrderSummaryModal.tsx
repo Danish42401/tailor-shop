@@ -64,9 +64,6 @@ export const OrderSummaryModal = ({ isOpen, onClose, onConfirm, cart, totalPrice
                             <h4 className="font-bold text-sm">{item.name}</h4>
                             <p className="text-xs text-slate-500 font-medium">Quantity: {item.quantity}</p>
                         </div>
-                        <div className="text-right">
-                            <p className="font-black text-amber-600">AED {item.price * item.quantity}</p>
-                        </div>
                     </div>
                 ))}
             </div>
@@ -94,7 +91,7 @@ export const OrderSummaryModal = ({ isOpen, onClose, onConfirm, cart, totalPrice
         <div className="p-8 bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-1">{t("cart.total")}</p>
-            <h3 className="text-4xl font-black font-playfair">AED {totalPrice.toFixed(2)}</h3>
+            <h3 className="text-xl font-black font-playfair uppercase text-amber-500">{t("cart.total_request")}</h3>
           </div>
           <button 
             onClick={onConfirm}

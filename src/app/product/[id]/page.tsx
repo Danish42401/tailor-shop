@@ -115,7 +115,7 @@ export default function ProductDetail() {
                 {product.name}
             </h1>
             <div className="flex items-center gap-6">
-                <span className="text-4xl font-black font-playfair text-slate-900 dark:text-white">AED {product.price}</span>
+                <span className="text-3xl font-black font-playfair text-amber-600 uppercase">{t("product.price_on_request")}</span>
                 <div className="h-6 w-px bg-slate-200 dark:bg-slate-800" />
                 <div className="flex items-center gap-1.5 text-amber-500 font-black">
                     <Star size={20} fill="currentColor" />
@@ -176,7 +176,7 @@ export default function ProductDetail() {
               </button>
 
               <a
-                href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}* (AED ${product.price}). Can we discuss the customization?`)}`}
+                href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}*. Can we discuss the customization and price?`)}`}
                 target="_blank"
                 className="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xl shadow-green-900/20 shrink-0"
               >

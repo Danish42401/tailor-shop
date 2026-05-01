@@ -93,7 +93,7 @@ export default function Home() {
                 <div className="px-2">
                   <h3 className="text-2xl font-bold mb-3 tracking-tight">{p.name}</h3>
                   <div className="flex justify-between items-center">
-                    <span className="text-3xl font-black text-slate-900 dark:text-white font-playfair">AED {p.price}</span>
+                    <span className="text-xl font-black text-amber-600 font-playfair uppercase">{t("product.price_on_request")}</span>
                     <div className="flex items-center gap-1 text-amber-500 font-bold">
                       <Star size={16} fill="currentColor" /> {p.rating}
                     </div>

@@ -19,10 +19,10 @@ export const generateWhatsAppLink = (
   if (cart.length > 0) {
     message += `*Selected Items:*\n`;
     cart.forEach((item) => {
-      message += `• ${item.name} (${item.quantity}x) - AED ${item.price * item.quantity}\n`;
+      message += `• ${item.name} (${item.quantity}x)\n`;
     });
-    message += `\n*Total Estimate:* AED ${totalPrice.toFixed(2)}\n`;
     message += `----------------------------\n`;
+    message += `\n_I would like to enquire about the prices for the items listed above._\n`;
   }
 
   if (customerData?.notes) {

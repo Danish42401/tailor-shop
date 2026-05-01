@@ -65,8 +65,7 @@ export const CartDrawer = () => {
                 </div>
                 <div className="flex-grow">
                   <h4 className="font-bold text-sm mb-1 text-slate-900 dark:text-white line-clamp-1">{item.name}</h4>
-                  <p className="text-amber-600 font-black text-sm mb-3">AED {item.price}</p>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4 mt-2">
                     <div className="flex items-center bg-slate-50 dark:bg-slate-800 rounded-lg px-2 text-slate-900 dark:text-white">
                       <button onClick={() => updateQuantity(item.id, -1)} className="p-1 hover:text-amber-600"><Minus size={14} /></button>
                       <span className="w-8 text-center text-xs font-bold">{item.quantity}</span>
@@ -85,7 +84,7 @@ export const CartDrawer = () => {
         <div className="p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
           <div className="flex justify-between items-center mb-8">
             <span className="font-bold text-slate-400 uppercase tracking-widest text-[10px]">{t("cart.total")}</span>
-            <span className="text-3xl font-black font-playfair text-slate-900 dark:text-white">AED {totalPrice.toFixed(2)}</span>
+            <span className="text-sm font-black text-amber-600 uppercase text-right">{t("cart.total_request")}</span>
           </div>
           <button 
             disabled={cart.length === 0}

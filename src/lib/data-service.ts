@@ -90,14 +90,15 @@ function parseProductsFromCSV(csvData: string): Product[] {
   return dataRows.map((columns, index) => {
     try {
       const name = columns[1] || "Unnamed Product";
-      const rawPrice = columns[2]?.replace(/[^0-9.]/g, "") || "0";
+      const rawPrice = columns[2]?.replace(/[^0-9.]/g, "");
+      const price = rawPrice ? parseFloat(rawPrice) : 0;
       const category = columns[3]?.toLowerCase() || "frocks";
-      const id = columns[0] || generateStableId(name, rawPrice, category);
+      const id = columns[0] || generateStableId(name, rawPrice || "0", category);
 
       return {
         id,
         name,
-        price: parseFloat(rawPrice),
+        price,
         category: category as Category,
         description: columns[4] || "",
         icon: columns[5] || "",
