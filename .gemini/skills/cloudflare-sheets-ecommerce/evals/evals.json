@@ -1,0 +1,23 @@
+{
+  "skill_name": "cloudflare-sheets-ecommerce",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up a new Next.js project optimized for Cloudflare Pages that fetches product data from a Google Sheet CSV. Ensure all Cloudflare best practices are followed.",
+      "expected_output": "A basic Next.js project structure with export const runtime = 'edge', .npmrc configured, and a robust CSV parser implemented.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I'm having caching issues with my Google Sheets data. Update my data-service.ts to use the gviz API and ensure fresh data is fetched every time.",
+      "expected_output": "Updated fetch URL to use gviz/tq?tqx=out:csv and added no-cache headers with next: { revalidate: 0 }.",
+      "files": ["src/lib/data-service.ts"]
+    },
+    {
+      "id": 3,
+      "prompt": "Implement a WhatsApp checkout function that takes a cart of items and generates a professional summary message for the business owner.",
+      "expected_output": "A TypeScript function that formats cart items, quantities, and total prices into a clean WhatsApp-compatible string.",
+      "files": []
+    }
+  ]
+}

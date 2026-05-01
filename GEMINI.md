@@ -145,3 +145,14 @@
 **Action:** Replaced favicon, deleted old ico file.
 **Git:** Committed and pushed.
 **Status:** Completed & Synced.
+
+### [2026-05-01 10:55 AM] - Created 'cloudflare-sheets-ecommerce' Skill
+**User Prompt:** Create a skill based on the website's architecture for future projects.
+**Plan:**
+- Researched Cloudflare Pages and Google Sheets integration best practices.
+- Created `cloudflare-sheets-ecommerce` skill at `.gemini/skills/cloudflare-sheets-ecommerce/SKILL.md`.
+- Included patterns for Zero-Cache fetching (gviz API), Cloudflare Edge runtime optimization, and WhatsApp checkout logic.
+- Mandated 'Plan Mode' for all future implementations using this skill.
+- Created test cases in `evals/evals.json`.
+**Action:** Created skill directory, SKILL.md, and evals.json. Committed and pushed to GitHub.
+**Status:** Completed & Synced.
