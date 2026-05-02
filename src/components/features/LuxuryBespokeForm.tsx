@@ -9,6 +9,7 @@ import {
   HelpCircle,
   CheckCircle2,
   Phone,
+  ShoppingBag,
 } from "lucide-react";
 import { siteSettings } from "@/data/products";
 import { generateWhatsAppLink } from "@/lib/whatsapp";
