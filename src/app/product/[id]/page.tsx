@@ -16,7 +16,8 @@ import {
   Clock, 
   Plus, 
   Minus,
-  MessageSquare
+  MessageSquare,
+  Ruler
 } from "lucide-react";
 import { useState } from "react";
 import { ProductCardSkeleton } from "@/components/ui/Skeleton";
