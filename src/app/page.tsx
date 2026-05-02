@@ -18,11 +18,11 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative px-6 py-20 md:py-32 bg-slate-950 text-white overflow-hidden">
         <Image 
-          src="https://images.unsplash.com/photo-1590736704728-f4730bb30770?q=80&w=1974&auto=format&fit=crop"
-          alt="Luxury Boutique"
+          src="https://res.cloudinary.com/dyxnglxdj/image/upload/v1777715451/ChatGPT_Image_May_2_2026_02_49_16_PM_x6ma8m.png"
+          alt="Emirates Deep Collection Hero"
           fill
           priority
-          className="object-cover opacity-20"
+          className="object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
         
