@@ -78,7 +78,7 @@ export const MobileHeader = () => {
     <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-50 md:hidden px-6 py-4">
       <div className="flex justify-between items-center">
         <Link href="/" className="text-xl font-black tracking-tighter text-slate-900 dark:text-white flex items-center gap-2">
-          <span className="text-amber-600">EMIRATES</span> DEEP
+          <span className="text-amber-600">EMIRATES</span> DEEP COLLECTION
         </Link>
         
         <div className="flex items-center gap-2">
