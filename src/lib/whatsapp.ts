@@ -13,13 +13,16 @@ export const generateWhatsAppLink = (
     if (customerData.phoneNumber) {
       message += `*Contact:* ${customerData.phoneNumber}\n`;
     }
+    if (customerData.productReference) {
+      message += `*Product Reference:* ${customerData.productReference}\n`;
+    }
     message += `----------------------------\n`;
   }
 
   if (cart.length > 0) {
     message += `*Selected Items:*\n`;
     cart.forEach((item) => {
-      message += `• ${item.name} (${item.quantity}x)\n`;
+      message += `• ${item.name}${item.selectedSize ? ` (Size: ${item.selectedSize})` : ""} (${item.quantity}x)\n`;
     });
     message += `----------------------------\n`;
     message += `\n_I would like to enquire about the prices for the items listed above._\n`;

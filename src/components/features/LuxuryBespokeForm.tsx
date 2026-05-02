@@ -28,7 +28,7 @@ const MEASUREMENT_FIELDS = [
   { id: "neckDepthBack", label: "10. Back Neck Depth", en: "Depth of the neckline (back)", ar: "عمق فتحة الرقبة (خلف)" },
 ];
 
-export default function LuxuryBespokeForm() {
+export default function LuxuryBespokeForm({ productId, productName }: { productId?: string, productName?: string }) {
   const { language, t } = useLanguage();
   const [formData, setFormData] = useState<FormData>({
     customerName: "",
@@ -101,7 +101,8 @@ export default function LuxuryBespokeForm() {
     const link = generateWhatsAppLink(siteSettings.whatsappNumber, [], 0, {
         customerName: formData.customerName,
         notes: `${formData.notes} (Units: ${formData.unit})`,
-        measurements: formData.measurements
+        measurements: formData.measurements,
+        productReference: productName ? `${productName} (ID: ${productId})` : undefined
     });
     
     setTimeout(() => {
@@ -123,6 +124,23 @@ export default function LuxuryBespokeForm() {
     <div className="min-h-screen bg-[#0a0f1e] text-slate-100 p-4 md:p-8 font-['Inter'] selection:bg-[#c9a84c]/30">
       <div className="max-w-4xl mx-auto">
         
+        {productName && (
+          <div className="mb-8 p-6 rounded-[2rem] bg-[#c9a84c]/10 border border-[#c9a84c]/20 flex flex-col md:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+             <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-[#c9a84c] flex items-center justify-center text-[#0a0f1e]">
+                  <ShoppingBag size={24} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#c9a84c]">{t("summary.custom_for")}</p>
+                  <h3 className="text-xl font-black text-white">{productName}</h3>
+                </div>
+             </div>
+             <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold text-slate-400">
+               REF: {productId}
+             </div>
+          </div>
+        )}
+
         <header className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-3">

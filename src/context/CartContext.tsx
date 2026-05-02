@@ -5,9 +5,9 @@ import { Product, CartItem } from "@/types";
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
-  removeFromCart: (id: string) => void;
-  updateQuantity: (id: string, delta: number) => void;
+  addToCart: (product: Product, quantity?: number, selectedSize?: string) => void;
+  removeFromCart: (id: string, selectedSize?: string) => void;
+  updateQuantity: (id: string, delta: number, selectedSize?: string) => void;
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
@@ -57,26 +57,26 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [cart, isMounted]);
 
-  const addToCart = useCallback((product: Product, quantity: number = 1) => {
+  const addToCart = useCallback((product: Product, quantity: number = 1, selectedSize?: string) => {
     setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      const existing = prev.find((item) => item.id === product.id && item.selectedSize === selectedSize);
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+          (item.id === product.id && item.selectedSize === selectedSize) ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
-      return [...prev, { ...product, quantity }];
+      return [...prev, { ...product, quantity, selectedSize }];
     });
   }, []);
 
-  const removeFromCart = useCallback((id: string) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+  const removeFromCart = useCallback((id: string, selectedSize?: string) => {
+    setCart((prev) => prev.filter((item) => !(item.id === id && item.selectedSize === selectedSize)));
   }, []);
 
-  const updateQuantity = useCallback((id: string, delta: number) => {
+  const updateQuantity = useCallback((id: string, delta: number, selectedSize?: string) => {
     setCart((prev) =>
       prev.map((item) => {
-        if (item.id === id) {
+        if (item.id === id && item.selectedSize === selectedSize) {
           const newQty = Math.max(0, item.quantity + delta);
           return { ...item, quantity: newQty };
         }

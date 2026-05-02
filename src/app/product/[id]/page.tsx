@@ -28,9 +28,21 @@ export default function ProductDetail() {
   const { addToCart, cart, updateQuantity } = useCart();
   const { t, language } = useLanguage();
   const [qty, setQty] = useState(1);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [sizeError, setSizeError] = useState(false);
 
   const product = products.find(p => p.id === id);
   const cartItem = cart.find(item => item.id === id);
+
+  const SIZE_MAPPING: Record<string, string> = {
+    "XS": "18-20",
+    "S": "22-24",
+    "M": "26-28",
+    "L": "30-32",
+    "XL": "34-36",
+    "XXL": "38-40",
+    "XXXL": "42-44"
+  };
 
   if (isLoading) {
     return (
@@ -66,7 +78,22 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    addToCart(product, qty);
+    if (!selectedSize) {
+      setSizeError(true);
+      return;
+    }
+    addToCart(product, qty, SIZE_MAPPING[selectedSize]);
+    setSizeError(false);
+  };
+
+  const handleWhatsAppInquiry = () => {
+    if (!selectedSize) {
+      setSizeError(true);
+      return;
+    }
+    const message = `Hi, I'm interested in the *${product.name}* (Size: ${SIZE_MAPPING[selectedSize]}). Can we discuss the customization and price?`;
+    window.open(`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    setSizeError(false);
   };
 
   return (
@@ -125,27 +152,59 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed font-medium mb-12">
+          <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed font-medium mb-10">
             {product.description || t("product.default_desc")}
           </p>
 
-          <div className="space-y-6 mb-12">
-            <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                <div className="w-12 h-12 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center text-amber-600 shadow-sm">
-                    <ShieldCheck size={24} />
+          {/* Size Selector */}
+          <div className="mb-10 space-y-4">
+            <div className="flex justify-between items-center">
+              <h3 className="text-xs font-black uppercase tracking-widest text-slate-400">{t("product.select_size")}</h3>
+              {sizeError && <span className="text-[10px] font-bold text-red-500 uppercase">{t("product.size_error")}</span>}
+            </div>
+            <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+              {Object.keys(SIZE_MAPPING).map((size) => (
+                <button
+                  key={size}
+                  onClick={() => {
+                    setSelectedSize(size);
+                    setSizeError(false);
+                  }}
+                  className={`h-12 rounded-xl text-xs font-black transition-all border ${
+                    selectedSize === size
+                      ? "bg-amber-600 border-amber-600 text-white shadow-lg shadow-amber-900/20"
+                      : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-amber-600/50"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => router.push(`/custom?productId=${product.id}&productName=${encodeURIComponent(product.name)}`)}
+              className="w-full py-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:border-amber-600/50 hover:text-amber-600 transition-all flex items-center justify-center gap-2"
+            >
+              <Ruler size={16} /> {t("product.custom_size")}
+            </button>
+          </div>
+
+          <div className="space-y-4 mb-10">
+            <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center text-amber-600 shadow-sm">
+                    <ShieldCheck size={20} />
                 </div>
                 <div>
-                    <h4 className="font-bold text-sm">{t("product.authentic.title")}</h4>
-                    <p className="text-xs text-slate-500 font-medium">{t("product.authentic.desc")}</p>
+                    <h4 className="font-bold text-xs">{t("product.authentic.title")}</h4>
+                    <p className="text-[10px] text-slate-500 font-medium">{t("product.authentic.desc")}</p>
                 </div>
             </div>
-            <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                <div className="w-12 h-12 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center text-amber-600 shadow-sm">
-                    <Clock size={24} />
+            <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center text-amber-600 shadow-sm">
+                    <Clock size={20} />
                 </div>
                 <div>
-                    <h4 className="font-bold text-sm">{t("product.ready.title")}</h4>
-                    <p className="text-xs text-slate-500 font-medium">{t("product.ready.desc")}</p>
+                    <h4 className="font-bold text-xs">{t("product.ready.title")}</h4>
+                    <p className="text-[10px] text-slate-500 font-medium">{t("product.ready.desc")}</p>
                 </div>
             </div>
           </div>
@@ -170,18 +229,19 @@ export default function ProductDetail() {
             <div className="flex gap-4">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-sm sm:text-xs h-16 flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl"
+                className={`flex-1 rounded-2xl font-black uppercase tracking-widest text-sm sm:text-xs h-16 flex items-center justify-center gap-3 transition-all shadow-xl ${
+                  sizeError ? "bg-red-50 dark:bg-red-900/10 border-2 border-red-500/20 text-red-500" : "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:scale-[1.02] active:scale-[0.98]"
+                }`}
               >
                   {t("product.add_to_cart")} <ShoppingBag size={20} />
               </button>
 
-              <a
-                href={`https://wa.me/${siteSettings.whatsappNumber}?text=${encodeURIComponent(`Hi, I'm interested in the *${product.name}*. Can we discuss the customization and price?`)}`}
-                target="_blank"
+              <button
+                onClick={handleWhatsAppInquiry}
                 className="w-16 h-16 bg-green-500 text-white rounded-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xl shadow-green-900/20 shrink-0"
               >
                   <MessageSquare size={24} fill="currentColor" />
-              </a>
+              </button>
             </div>
           </div>
         </div>

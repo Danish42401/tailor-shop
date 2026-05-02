@@ -65,15 +65,18 @@ export const CartDrawer = () => {
                 </div>
                 <div className="flex-grow">
                   <h4 className="font-bold text-sm mb-1 text-slate-900 dark:text-white line-clamp-1">{item.name}</h4>
+                  {item.selectedSize && (
+                    <p className="text-[10px] font-black text-amber-600 uppercase tracking-widest mb-2">{t("product.size_label")}: {item.selectedSize}</p>
+                  )}
                   <div className="flex items-center gap-4 mt-2">
                     <div className="flex items-center bg-slate-50 dark:bg-slate-800 rounded-lg px-2 text-slate-900 dark:text-white">
-                      <button onClick={() => updateQuantity(item.id, -1)} className="p-1 hover:text-amber-600"><Minus size={14} /></button>
+                      <button onClick={() => updateQuantity(item.id, -1, item.selectedSize)} className="p-1 hover:text-amber-600"><Minus size={14} /></button>
                       <span className="w-8 text-center text-xs font-bold">{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.id, 1)} className="p-1 hover:text-amber-600"><Plus size={14} /></button>
+                      <button onClick={() => updateQuantity(item.id, 1, item.selectedSize)} className="p-1 hover:text-amber-600"><Plus size={14} /></button>
                     </div>
                   </div>
                 </div>
-                <button onClick={() => removeFromCart(item.id)} className="text-slate-300 hover:text-red-500 transition-colors flex-shrink-0">
+                <button onClick={() => removeFromCart(item.id, item.selectedSize)} className="text-slate-300 hover:text-red-500 transition-colors flex-shrink-0">
                   <Trash2 size={18} />
                 </button>
               </div>

@@ -15,6 +15,7 @@ export interface Product {
 
 export interface CartItem extends Product {
   quantity: number;
+  selectedSize?: string;
 }
 
 export interface Measurements {
@@ -45,6 +46,7 @@ export interface CustomOrderRequest {
   phoneNumber?: string;
   notes: string;
   measurements: Measurements;
+  productReference?: string;
 }
 
 export interface SiteSettings {

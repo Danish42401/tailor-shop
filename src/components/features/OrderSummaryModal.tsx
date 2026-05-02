@@ -62,7 +62,15 @@ export const OrderSummaryModal = ({ isOpen, onClose, onConfirm, cart, totalPrice
                         </div>
                         <div className="flex-1">
                             <h4 className="font-bold text-sm">{item.name}</h4>
-                            <p className="text-xs text-slate-500 font-medium">Quantity: {item.quantity}</p>
+                            <div className="flex items-center gap-3 mt-1">
+                              <p className="text-xs text-slate-500 font-medium">Qty: {item.quantity}</p>
+                              {item.selectedSize && (
+                                <>
+                                  <div className="w-1 h-1 rounded-full bg-slate-300" />
+                                  <p className="text-xs text-amber-600 font-bold uppercase tracking-wider">{t("product.size_label")}: {item.selectedSize}</p>
+                                </>
+                              )}
+                            </div>
                         </div>
                     </div>
                 ))}
