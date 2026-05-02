@@ -158,3 +158,18 @@
 **Git:** Committed and pushed to `origin main`.
 **Status:** Completed & Synced.
 
+### [2026-05-02 02:45 PM] - Implemented Size Selection Feature
+**User Prompt:** Add size selection (XS-XXXL) with numeric mapping and custom size redirection.
+**Plan:**
+- Updated `CartItem` and `CustomOrderRequest` types.
+- Refactored `CartContext` to handle unique product-size combinations.
+- Implemented `SizeSelector` UI on product detail page with validation.
+- Mapped display labels (XS, S...) to numeric values (18-20, 22-24...) for cart/WhatsApp.
+- Added redirection to `/custom` with product reference query params.
+- Updated `LuxuryBespokeForm` to display and submit product references.
+- Updated Cart Drawer and Order Summary UI to show selected sizes.
+- Added bilingual translations for all new UI elements.
+**Action:** Updated `src/types/index.ts`, `src/context/CartContext.tsx`, `src/context/LanguageContext.tsx`, `src/lib/whatsapp.ts`, `src/app/product/[id]/page.tsx`, `src/app/custom/page.tsx`, `src/components/features/LuxuryBespokeForm.tsx`, `src/components/features/CartDrawer.tsx`, and `src/components/features/OrderSummaryModal.tsx`.
+**Git:** Committed and pushed to `origin main`.
+**Status:** Completed & Synced.
+
