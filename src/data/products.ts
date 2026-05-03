@@ -92,7 +92,7 @@ export const initialProducts: Product[] = [
 ];
 
 export const siteSettings = {
-  whatsappNumber: "971562392496",
+  whatsappNumber: "923442066523",
   shopAddress: "Abu Dhabi, Baniyas East, Yasmart Mall",
   heroTitle: "Emirates Deep Collection",
   heroSubtitle: "Premium Tailoring & Bespoke Designs in Abu Dhabi",

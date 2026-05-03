@@ -169,7 +169,15 @@
 - Updated `LuxuryBespokeForm` to display and submit product references.
 - Updated Cart Drawer and Order Summary UI to show selected sizes.
 - Added bilingual translations for all new UI elements.
-**Action:** Updated `src/types/index.ts`, `src/context/CartContext.tsx`, `src/context/LanguageContext.tsx`, `src/lib/whatsapp.ts`, `src/app/product/[id]/page.tsx`, `src/app/custom/page.tsx`, `src/components/features/LuxuryBespokeForm.tsx`, `src/components/features/CartDrawer.tsx`, and `src/components/features/OrderSummaryModal.tsx`.
+**Git:** Committed and pushed to `origin main`.
+**Status:** Completed & Synced.
+
+### [2026-05-02 02:55 PM] - Updated Hero Image
+**User Prompt:** Use specific Cloudinary URL for the website's hero image and push code.
+**Plan:**
+- Replaced existing Unsplash hero image in `src/app/page.tsx` with provided Cloudinary URL.
+- Increased image opacity to 40% for better brand visibility while maintaining readability.
+**Action:** Updated `src/app/page.tsx`.
 **Git:** Committed and pushed to `origin main`.
 **Status:** Completed & Synced.
 

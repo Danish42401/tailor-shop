@@ -61,7 +61,7 @@ export default function Contact() {
               href={`tel:+${siteSettings.whatsappNumber}`}
               className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white hover:text-amber-600 transition-colors block mb-2"
             >
-              +{siteSettings.whatsappNumber.slice(0,3)} {siteSettings.whatsappNumber.slice(3,5)} {siteSettings.whatsappNumber.slice(5,8)} {siteSettings.whatsappNumber.slice(8)}
+              +{siteSettings.whatsappNumber.slice(0,2)} {siteSettings.whatsappNumber.slice(2,5)} {siteSettings.whatsappNumber.slice(5,8)} {siteSettings.whatsappNumber.slice(8)}
             </a>
             <p className="text-slate-500 font-medium uppercase tracking-widest text-xs">Direct Line / واتساب</p>
           </div>
